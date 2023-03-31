@@ -47,7 +47,7 @@ cd $git_folder
 # If $3 is equal to --help, -h or help, show help
 if [ "$2" = "--help" ] || [ "$2" = "-h" ] || [ "$2" = "help" ]; then
     cd $CALLER_DIR
-    source $DT_DIR/cmd/$1.sh $3 --help 
+    dt $3 --help
     exit 0
 fi
 source $DT_DIR/cmd/$1.sh
