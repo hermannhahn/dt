@@ -50,7 +50,7 @@ echo "Current version: $pkg_version"
 echo "Patch version: $version"
 echo ""
 read -p "Press ENTER to continue or CTRL+C to cancel"
-tput cuu5 && echo "" && echo "" && echo "" && echo "" && echo ""
+tput cuu 5 && echo "" && echo "" && echo "" && echo "" && echo ""
 # Pull branch
 # If has no changes, pull branch
 if [ -z "$(git status --porcelain)" ]; then
@@ -75,13 +75,15 @@ step "Updating README.md" 'sed -i "s/## \[Unreleased\]/## \[Unreleased\] \r\n\r\
 sleep 2
 
 # Save branch
-step "Saving new patch" "dt save"
+step "Saving new patch"
+./bin/save.sh
 
 
 # Delete old branchs
-step "Deleting old branchs..."
+step "Deleting old branchs" 
 read -p "Do you want to delete all branchs except this one and main? (Y/n)"
 if [ "$REPLY" = "y" || "$REPLY" = "Y" || "$REPLY" = "" ]; then
+  # Delete all branchs except main and $version branchs
   step "Deleting all branchs except main and $version..." "git branch | grep -v 'main' | grep -v '$version' | xargs git branch -D"
 fi
 
