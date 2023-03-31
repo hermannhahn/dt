@@ -50,8 +50,7 @@ echo "Current version: $pkg_version"
 echo "Patch version: $version"
 echo ""
 echo "Press ENTER to continue or CTRL+C to cancel"
-read -t 15
-echo ""
+read -p REPLY
 
 # Pull branch
 # If has no changes, pull branch
@@ -83,7 +82,7 @@ step "Saving new patch" "dt save"
 # Delete old branchs
 step "Deleting old branchs..."
 eccho "Do you want to delete all branchs except this one and main? (Y/n)"
-read -t REPLY
+read -p REPLY
 if [ "$REPLY" = "y" || "$REPLY" = "Y" || "$REPLY" = "" ]; then
   step "Deleting all branchs except main and $version..." "git branch | grep -v 'main' | grep -v '$version' | xargs git branch -D"
 fi
