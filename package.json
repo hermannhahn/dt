@@ -1,5 +1,5 @@
 {
-  "name": "dtools",
+  "name": "dt",
   "version": "1.0.0",
   "description": "Easily code, update and publish your applications!",
   "bin": {
@@ -22,7 +22,7 @@
     "publish"
   ],
   "author": "Hermann Hahn",
-  "license": "GPL-3.0-or-later",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/hermannhahn/dev-tools/issues"
   },
