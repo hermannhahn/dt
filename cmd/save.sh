@@ -23,17 +23,17 @@ fi
 # If it has no upstream branch, create one.
 function push {
     if [ -z "$(git rev-parse --abbrev-ref --symbolic-full-name @{u})" ]; then
-        step "Pushing..." "git push --set-upstream origin $git_branch"
+        step "Pushing" "git push --set-upstream origin $git_branch"
     else
-        step "Pushing..." "git push"
+        step "Pushing" "git push"
     fi
 }
 
 # Save branch name
 step "Saving branch $git_branch" "git add ."
-step "Waiting for sign..." "git commit -S -m 'v$pkg_version'"
-step "Commit changes..."
+step "Waiting for signature password" "git commit -S -m 'v$pkg_version'"
+step "Commit changes"
 push
-step "Pushing tags..." "git push --tags"
+step "Saving branch $git_branch..." "git push --tags"
 step "Branch $git_branch saved"
 step "Done!"

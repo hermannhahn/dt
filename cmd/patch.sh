@@ -60,24 +60,24 @@ if [ -z "$(git status --porcelain)" ]; then
 fi
 
 # Create branch to new version
-step "Creating new branch..." "git checkout -b v$version"
+step "Creating new branch" "git checkout -b v$version"
 sleep 2
-step "Configuring new branch..." "git push --set-upstream origin v$version"
+step "Configuring new branch" "git push --set-upstream origin v$version"
 
 # Update package.json
-step "Updating package.json..." "sed -i "s/\"version\": \"$pkg_version\"/\"version\": \"$version\"/g" package.json"
+step "Updating package.json" 'sed -i "s/\"version\": \"$pkg_version\"/\"version\": \"$version\"/g" package.json'
 sleep 2
 
 # Update CHANGELOG.md
-step "Updating CHANGELOG.md..." "sed -i "s/## \[Unreleased\]/## \[Unreleased\] \r\n\r\n## \[$version\] - $(date +%Y-%m-%d)/g" CHANGELOG.md"
+step "Updating CHANGELOG.md" 'sed -i "s/## \[Unreleased\]/## \[Unreleased\] \r\n\r\n## \[$version\] - $(date +%Y-%m-%d)/g" CHANGELOG.md'
 sleep 2
 
 # Update README.md
-step "Updating README.md..." "sed -i "s/## \[Unreleased\]/## \[Unreleased\] \r\n\r\n## \[$version\] - $(date +%Y-%m-%d)/g" README.md"
+step "Updating README.md" 'sed -i "s/## \[Unreleased\]/## \[Unreleased\] \r\n\r\n## \[$version\] - $(date +%Y-%m-%d)/g" README.md'
 sleep 2
 
 # Save branch
-step "Saving new patch..." "dt save"
+step "Saving new patch" "dt save"
 
 
 # Delete old branchs

@@ -19,7 +19,7 @@ function progress_bar {
       printf " "
     fi
   done
-  printf "] $progress_bar%%"
+  printf "] $progress_bar"
 }
 
 # Update progress bar
@@ -44,4 +44,3 @@ function update_progress {
   progress_bar
   sleep 0.01
 }
-
