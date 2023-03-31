@@ -19,7 +19,7 @@ function progress_bar {
       printf " "
     fi
   done
-  printf "] $progress_bar%"
+  printf "] $progress_bar%%"
 }
 
 # Update progress bar
