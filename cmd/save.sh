@@ -32,8 +32,7 @@ function push {
 # Save branch name
 step "Saving branch $git_branch" "git add ."
 step "Waiting for signature password" "git commit -S -m 'v$pkg_version'"
-step "Commit changes"
-push
+step "Commit changes" "push"
 step "Saving branch $git_branch..." "git push --tags"
 step "Branch $git_branch saved"
 step "Done!"
