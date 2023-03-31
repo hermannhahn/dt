@@ -6,7 +6,7 @@
 argument=$2
 
 # Help
-if [ "$argument" = "--help" ] || [ "$argument" = "-h" ] || [ "$argument" = "/?" ]; then
+if [[ "$argument" = "--help" ] || [ "$argument" = "-h" ] || [ "$argument" = "/?" ]]; then
   echo "Usage: dt patch [OPTION]"
   echo ""
   echo "Options:"
@@ -50,17 +50,20 @@ echo "Current version: $pkg_version"
 echo "Patch version: $version"
 echo ""
 read -p "Press ENTER to continue or CTRL+C to cancel"
-tput up && echo " " && tput up && echo " " && tput up && echo " " tput up && echo " " tput up && echo " " 
+tput cuu 5 && echo "\n" && echo "\n" && echo "\n" && echo "\n" && echo "\n" 
 # Pull branch
 # If has no changes, pull branch
-if [ -z "$(git status --porcelain)" ]; then
+if [[ -z "$(git status --porcelain)" ]]; then
   step "Pulling branch..." "git pull"
 fi
 
 # Create branch to new version
 step "Creating new branch" "git checkout -b v$version"
 sleep 2
+
+# Push branch
 step "Configuring new branch" "git push --set-upstream origin v$version"
+sleep 3
 
 # Update package.json
 step "Updating package.json" 'sed -i "s/\"version\": \"$pkg_version\"/\"version\": \"$version\"/g" package.json'
@@ -82,7 +85,7 @@ step "Saving new patch"
 # Delete old branchs
 step "Deleting old branchs" 
 read -p "Do you want to delete all branchs except this one and main? (y/N)"
-if [ "$REPLY" = "y" || "$REPLY" = "Y" ]; then
+if [[ "$REPLY" = "y" ] || [ "$REPLY" = "Y" ]]; then
   # Delete all branchs except main and $version branchs
   branches=$(git branch --list | grep -v -e "main" -e "master" -e v$version)
   if [ -z "$branches" ]; then

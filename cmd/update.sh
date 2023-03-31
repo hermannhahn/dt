@@ -12,16 +12,8 @@ source $DT_DIR/libs/progress_bar.sh
 source $DT_DIR/libs/step.sh
 cd $CALLER_DIR
 step "Checking for updates..." "sleep 2"
-# Check for updates
-# Get version from github
-# Compare version with local version
-# If version is newer, download and install
-# If version is older, exit
-# If version is the same, exit
 RELEASE_VERSION=$(curl -s https://api.github.com/repos/hermannhahn/dt/releases/latest | grep -oP '"tag_name": "\K(.*)(?=")')
-# Get local version from package.json
 LOCAL_VERSION=$(cat $DT_DIR/package.json | grep -oP '"version": "\K(.*)(?=")')
-# Compare versions
 if [ "$RELEASE_VERSION" != "$LOCAL_VERSION" ]; then
     step "Update available!" "sleep 2"
     step "Updating..." "sleep 2"
