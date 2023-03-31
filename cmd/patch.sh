@@ -49,9 +49,8 @@ echo "Package name: $pkg_name"
 echo "Current version: $pkg_version"
 echo "Patch version: $version"
 echo ""
-echo "Press ENTER to continue or CTRL+C to cancel"
-read -p REPLY
-
+read -p "Press ENTER to continue or CTRL+C to cancel"
+tput cuu5 && echo "" && echo "" && echo "" && echo "" && echo ""
 # Pull branch
 # If has no changes, pull branch
 if [ -z "$(git status --porcelain)" ]; then
@@ -81,8 +80,7 @@ step "Saving new patch" "dt save"
 
 # Delete old branchs
 step "Deleting old branchs..."
-eccho "Do you want to delete all branchs except this one and main? (Y/n)"
-read -p REPLY
+read -p "Do you want to delete all branchs except this one and main? (Y/n)"
 if [ "$REPLY" = "y" || "$REPLY" = "Y" || "$REPLY" = "" ]; then
   step "Deleting all branchs except main and $version..." "git branch | grep -v 'main' | grep -v '$version' | xargs git branch -D"
 fi
