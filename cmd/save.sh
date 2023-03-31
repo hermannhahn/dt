@@ -36,3 +36,4 @@ step "Commit changes" "push"
 step "Saving branch $git_branch..." "git push --tags"
 step "Branch $git_branch saved"
 step "Done!"
+exit 0
