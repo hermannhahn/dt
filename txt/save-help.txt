@@ -1,0 +1,8 @@
+Usage: ./save.sh [OPTION]
+Saves the changes to the repository.
+
+Options:
+  --help, -h, /?        Show this help
+
+Example:
+  ./save.sh

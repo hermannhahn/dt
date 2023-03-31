@@ -1,0 +1,12 @@
+BIN_DIR=$(dirname "$0")
+DT_DIR=$(dirname "$BIN_DIR")
+CALLER_DIR=$PWD
+source $DT_DIR/libs/help.sh
+source $DT_DIR/libs/intro.sh
+source $DT_DIR/libs/git_rules.sh
+source $DT_DIR/libs/git.sh
+source $DT_DIR/libs/pkg_rules.sh
+source $DT_DIR/libs/package.sh
+source $DT_DIR/libs/progress_bar.sh
+cd $CALLER_DIR
+source $DT_DIR/cmd/$1.sh

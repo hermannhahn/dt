@@ -1,0 +1,34 @@
+{
+  "name": "dtools",
+  "version": "1.0.0",
+  "description": "Easily code, update and publish your applications!",
+  "bin": {
+    "dt": "./bin/dt.sh"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hermannhahn/dev-tools.git"
+  },
+  "keywords": [
+    "dt",
+    "dev",
+    "tools",
+    "git",
+    "marketplace",
+    "versioning",
+    "publish"
+  ],
+  "author": "Hermann Hahn",
+  "license": "GPL-3.0-or-later",
+  "bugs": {
+    "url": "https://github.com/hermannhahn/dev-tools/issues"
+  },
+  "homepage": "https://github.com/hermannhahn/dev-tools#readme",
+  "devDependencies": {
+  },
+  "dependencies": {
+  }
+}
