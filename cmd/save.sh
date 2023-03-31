@@ -6,8 +6,18 @@
 # Save changes to branch #
 ##########################
 
-# Go to package folder
-cd $pkg_folder
+# Help
+if [ "$2" = "--help" ] || [ "$2" = "-h" ] || [ "$2" = "/?" ]; then
+    echo "Description: Save changes to branch"
+    echo "Usage: dt save"
+    echo ""
+    echo "Example:"
+    echo "  dt save"
+    echo "  dt save --help"
+    echo ""
+    exit 0
+fi
+
 
 # Check if the current branch has no upstream branch.
 # If it has no upstream branch, create one.
@@ -27,5 +37,3 @@ push
 step "Pushing tags..." "git push --tags"
 step "Branch $git_branch saved"
 step "Done!"
-# Exit
-exit 0

@@ -2,8 +2,6 @@
 #      Package     #
 ####################
 
-cd $git_folder
-
 # Don't run if package.json is not found
 if [ ! -f "package.json" ]; then
   echo "package.json not found, aborting..."
