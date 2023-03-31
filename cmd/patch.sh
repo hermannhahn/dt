@@ -6,7 +6,7 @@
 argument=$2
 
 # Help
-if [[ "$argument" = "--help" ] || [ "$argument" = "-h" ] || [ "$argument" = "/?" ]]; then
+if [ "$argument" = "--help" ] || [ "$argument" = "-h" ] || [ "$argument" = "/?" ]; then
   echo "Usage: dt patch [OPTION]"
   echo ""
   echo "Options:"
