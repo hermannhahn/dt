@@ -59,7 +59,7 @@ fi
 
 # Create branch to new version
 step "Creating new branch" "git checkout -b v$version"
-sleep 2
+sleep 5
 
 # Push branch
 step "Configuring new branch" "git push --set-upstream origin v$version"
