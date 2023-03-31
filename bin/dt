@@ -16,11 +16,9 @@ if [ "$1" = "--help" ] || [ "$1" = "-h" ] || [ "$1" = "/?" ]; then
     echo "  dt save"
     echo "  dt -v"
     echo "  dt path --help"
-    
     echo ""
     exit 0
 fi
-
 
 BIN_DIR=$(dirname "$0")
 DT_DIR=$(dirname "$BIN_DIR")
