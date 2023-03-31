@@ -1,6 +1,6 @@
 function update_check {
   # Check for updates
-  MAIN_VERSION=$(curl -s https://raw.githubusercontent.com/hermannhahn/dt/main/package.json | grep -oP '"version": "\K(.*)(?=")')
+  MAIN_VERSION=1
   # Get local version from package.json
   LOCAL_VERSION=$(cat $DT_DIR/package.json | grep -oP '"version": "\K(.*)(?=")')
   # Compare versions
