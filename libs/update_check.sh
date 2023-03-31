@@ -8,5 +8,6 @@ function update_check {
   # Add green tip
     echo -e "\e[32mUpdate available!\e[0m Run \e[32mdt update\e[0m to update."
   fi
-fi
+}
+# Run update_check
 update_check
