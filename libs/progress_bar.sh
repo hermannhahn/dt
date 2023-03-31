@@ -7,7 +7,6 @@ progress_bar=0
 progress_bar_size=75
 progress_bar_steps=$(cat $DT_DIR/cmd/$1.sh | grep -o "step" | wc -l)
 progress_bar_increment=$((100 / progress_bar_steps))
-terminal_command_line=10
 
 # Progress bar
 function progress_bar {
@@ -46,20 +45,3 @@ function update_progress {
   sleep 0.01
 }
 
-# Step
-function step {
-  # Update progress bar
-  update_progress
-  # If $1 is "Done!", set progress bar to 100
-  if [ "$1" = "Done!" ]; then
-    update_progress 100
-  fi
-  # Print echo message
-  tput cup $terminal_command_line 0
-  tput el
-  printf "$1\r"
-  # Clear line
-  # Run command
-  eval "$2" > /dev/null 2>&1
-  sleep 2
-}

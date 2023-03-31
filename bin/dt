@@ -8,5 +8,6 @@ source $DT_DIR/libs/git.sh
 source $DT_DIR/libs/pkg_rules.sh
 source $DT_DIR/libs/package.sh
 source $DT_DIR/libs/progress_bar.sh
+source $DT_DIR/libs/step.sh
 cd $CALLER_DIR
 source $DT_DIR/cmd/$1.sh
