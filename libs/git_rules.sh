@@ -8,7 +8,7 @@ if [[ -z "$(git status)" ]]; then
   exit 1
 fi
 # Don't run if branch is main
-if [[ "$(git rev-parse --abbrev-ref HEAD)" = "main" ] && [ $1 != "new" ] && [ $1 != "edit" ] && [ $1 != "patch" ]]; then
+if [[ "$(git rev-parse --abbrev-ref HEAD)" = "main" ]] && [ $1 != "new" ] && [ $1 != "edit" ] && [ $1 != "patch" ]; then
   echo "You are on main branch, aborting..."
   echo "Please checkout to a version branch and run this script again"
   echo "To create a new patch run: dt patch"
