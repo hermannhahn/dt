@@ -15,7 +15,7 @@ export class CommandRunner {
 			spawn(cmd, args, { stdio: this.promise }).stdout.on(
 				"data",
 				(data: any) => {
-					console.log(data)
+					return data
 				}
 			)
 		} catch (error: any) {
