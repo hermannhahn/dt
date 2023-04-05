@@ -2,15 +2,17 @@ import { spawn } from "child_process"
 
 export class CommandRunner {
 	private command: string
+	private promise: any
 
-	constructor(command: string) {
+	constructor(command: string, promise?: string) {
 		this.command = command
+		this.promise = promise
 	}
 
-	run(): Promise<string> {
+	run(): Promise<any> {
 		return new Promise((resolve, reject) => {
 			const [cmd, ...args] = this.command.split(" ")
-			const childProcess = spawn(cmd, args, { stdio: "inherit" })
+			const childProcess = spawn(cmd, args, { stdio: this.promise })
 
 			childProcess.on("error", (err) => {
 				console.error(`Erro ao executar comando: ${err}`)
