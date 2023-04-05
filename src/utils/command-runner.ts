@@ -21,6 +21,7 @@ export class CommandRunner {
 
 			childProcess.on("exit", (code, stdio: any) => {
 				if (code === 0) {
+					childProcess.kill()
 					resolve(stdio)
 				} else {
 					const err = new Error(`Erro ao executar comando: ${this.command}`)
