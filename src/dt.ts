@@ -39,11 +39,9 @@ program
 			if (!status) {
 				await Promise.all(commands)
 				terminal.success()
-			} else {
-				terminal.error("teste")
 			}
 		} catch (error: any) {
-			terminal.error("error")
+			terminal.error()
 		}
 	})
 
