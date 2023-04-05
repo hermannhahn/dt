@@ -28,10 +28,10 @@ program
 		const version = packageJson.get("version")
 		const message = opts.message || `v${version}`
 		const commands = [
-			git.add(),
-			git.commit(message),
-			git.push(),
-			git.pushTags(),
+			await git.add(),
+			await git.commit(message),
+			await git.push(),
+			await git.pushTags(),
 		]
 
 		try {

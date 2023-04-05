@@ -4,6 +4,7 @@ export class git {
 	static async status(): Promise<boolean> {
 		const status = new CommandRunner(`git status`)
 		const result = await status.run()
+		if (!result) return false
 		return !result.includes("nothing to commit")
 	}
 	static async add(): Promise<void> {
