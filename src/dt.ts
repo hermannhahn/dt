@@ -43,7 +43,7 @@ program
 				terminal.error("teste")
 			}
 		} catch (error: any) {
-			terminal.error(error)
+			terminal.error("error")
 		}
 	})
 
