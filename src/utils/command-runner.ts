@@ -15,7 +15,7 @@ export class CommandRunner {
 			const childProcess = spawn(cmd, args, { stdio: this.promise })
 
 			childProcess.on("error", (err) => {
-				reject(err)
+				reject(err.message)
 			})
 
 			childProcess.on("exit", (code, stdio: any) => {
