@@ -38,10 +38,10 @@ program
 			const status: any = await git.status()
 			if (!status) {
 				await Promise.all(commands)
-				terminal.success()
 			}
 		} catch (error: any) {
 			terminal.error()
+			terminal.error("Error: " + error)
 		}
 	})
 
