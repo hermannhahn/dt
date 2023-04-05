@@ -1,9 +1,0 @@
-Usage: ./publish.sh [OPTION]
-Publishes the extension to GitHub and Visual Studio Marketplace.
-
-Options:
-  --help, -h, /?        Show this help
-  -m, --marketplace     Publish to Visual Studio Marketplace
-
-Example:
-  ./publish.sh -m <VSCE_TOKEN>

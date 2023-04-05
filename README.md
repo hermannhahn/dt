@@ -1,2 +1,3 @@
 # dt
-Tools for development.
+
+Tools for fast and powerful development.

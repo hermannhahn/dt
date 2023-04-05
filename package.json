@@ -1,34 +1,75 @@
 {
-  "name": "dt",
-  "version": "1.0.0",
-  "description": "Easily code, update and publish your applications!",
-  "bin": {
-    "dt": "./bin/dt.sh"
-  },
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/hermannhahn/dev-tools.git"
-  },
-  "keywords": [
-    "dt",
-    "dev",
-    "tools",
-    "git",
-    "marketplace",
-    "versioning",
-    "publish"
-  ],
-  "author": "Hermann Hahn",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/hermannhahn/dev-tools/issues"
-  },
-  "homepage": "https://github.com/hermannhahn/dev-tools#readme",
-  "devDependencies": {
-  },
-  "dependencies": {
-  }
+	"name": "dt",
+	"version": "0.0.0",
+	"description": "Tools for fast and powerful development.",
+	"main": "build/dt.js",
+	"bin": {
+		"dt": "build/dt.js"
+	},
+	"scripts": {
+		"eslint": "eslint src/**/*.ts",
+		"prettier": "prettier --write \"src/**/*.ts\"",
+		"prettier-check": "prettier --check \"src/**/*.ts\"",
+		"lint-staged": "lint-staged",
+		"dev": "webpack --mode development --watch",
+		"cfg": "chokidar \"src/app.config.js\" -c \"sleep 3 && cp src/app.config.js build/\"",
+		"pre": "chokidar \"build/dt.js\" -c \"sleep 3 && npm run start\"",
+		"build": "lint-staged && webpack --mode production",
+		"start-ts": "ts-node src/bin/dt.ts",
+		"start": "cp src/app.config.js build/ && node build/dt.js"
+	},
+	"nodemonConfig": {
+		"ignore": [
+			"**/test/**",
+			"**/docs/**",
+			"**/node_modules/**",
+			"**/bin/**",
+			"**/dist/**",
+			"**/pre-build/**",
+			"**/src/**"
+		],
+		"delay": 2500
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/hermannhahn/dt.git"
+	},
+	"keywords": [
+		"openai",
+		"chatgpt",
+		"dev",
+		"cli",
+		"tools"
+	],
+	"author": "Hermann Hahn",
+	"license": "MIT",
+	"bugs": {
+		"url": "https://github.com/hermannhahn/dt/issues"
+	},
+	"homepage": "https://github.com/hermannhahn/dt#readme",
+	"devDependencies": {
+		"@babel/core": "^7.21.3",
+		"@babel/eslint-parser": "^7.21.3",
+		"@babel/preset-env": "^7.20.2",
+		"@babel/preset-typescript": "^7.21.0",
+		"@types/node": "^18.15.10",
+		"babel-loader": "^9.1.2",
+		"eslint": "^8.36.0",
+		"eslint-plugin-import": "^2.27.5",
+		"jest": "^29.5.0",
+		"jest-extended": "^3.2.4",
+		"lint-staged": "^13.2.0",
+		"prettier": "^2.8.7",
+		"ts-loader": "^9.4.2",
+		"ts-node": "^10.9.1",
+		"typescript": "^5.0.2",
+		"webpack": "^5.76.3",
+		"webpack-cli": "^5.0.1",
+		"webpack-node-externals": "^3.0.0"
+	},
+	"dependencies": {
+		"@commander-js/extra-typings": "^10.0.3",
+		"commander": "^10.0.0",
+		"dotenv": "^16.0.3"
+	}
 }

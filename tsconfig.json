@@ -1,0 +1,28 @@
+{
+	"compilerOptions": {
+		"target": "es2018",
+		"module": "commonjs",
+		"baseUrl": ".",
+		"outDir": "pre-build",
+		"rootDir": "src",
+		"strict": true,
+		"forceConsistentCasingInFileNames": true,
+		"esModuleInterop": true,
+		"sourceMap": true,
+		"typeRoots": ["node_modules/@types"],
+		"types": ["node", "jest", "jest-extended"],
+		"paths": {
+			"*": ["*", "src/*"]
+		}
+	},
+	"include": ["src/**/*"],
+	"exclude": [
+		"node_modules",
+		"**/*.spec.ts",
+		"**/*.test.ts",
+		"**/*.spec.tsx",
+		"**/*.test.tsx",
+		"pre-build",
+		"build"
+	]
+}
