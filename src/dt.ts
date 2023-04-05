@@ -25,16 +25,15 @@ program
 	.option("-m, --message <message>", "commit message")
 	.description("save project")
 	.action(async (opts, cmd) => {
-		const version = packageJson.get("version")
-		const message = opts.message || `v${version}`
-		const commands = [
-			await git.add(),
-			await git.commit(message),
-			await git.push(),
-			await git.pushTags(),
-		]
-
 		try {
+			const version = packageJson.get("version")
+			const message = opts.message || `v${version}`
+			const commands = [
+				await git.add(),
+				await git.commit(message),
+				await git.push(),
+				await git.pushTags(),
+			]
 			const status = await git.status()
 			terminal.logInline("save", "Saving project...")
 			if (!status) {
