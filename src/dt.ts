@@ -27,14 +27,16 @@ program
 	.action(async (opts, cmd) => {
 		const version = packageJson.get("version")
 		const message = opts.message || `v${version}`
+		const commands = [
+			git.add(),
+			git.commit(message),
+			git.push(),
+			git.pushTags(),
+		]
+
 		try {
 			terminal.log("save", "Saving project...")
-			await Promise.all([
-				git.add(),
-				git.commit(message),
-				git.push(),
-				git.pushTags(),
-			])
+			await Promise.all(commands)
 			terminal.success("Done!")
 		} catch (error: any) {
 			terminal.error(error)
