@@ -32,7 +32,6 @@ program
 			await git.add()
 			await git.commit(message)
 			await git.push()
-			await git.tag(version)
 			await git.pushTags()
 			terminal.success("Done!")
 		} catch (error: any) {
