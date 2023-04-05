@@ -15,15 +15,14 @@ export class CommandRunner {
 			const childProcess = spawn(cmd, args, { stdio: this.promise })
 
 			childProcess.on("error", (err) => {
-				reject(err.message)
+				resolve(err.message)
 			})
 
 			childProcess.on("exit", (code, stdio: any) => {
 				if (code === 0) {
-					childProcess.kill()
 					resolve(stdio)
 				}
-				reject(stdio)
+				childProcess.kill()
 			})
 		})
 	}

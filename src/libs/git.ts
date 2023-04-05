@@ -2,10 +2,14 @@ import { CommandRunner } from "utils/command-runner"
 
 export class git {
 	static async status(): Promise<boolean> {
-		const status = new CommandRunner(`git status`)
-		const result = await status.run()
-		if (!result) return false
-		return !result.includes("nothing to commit")
+		try {
+			const status = new CommandRunner(`git status`)
+			const result = await status.run()
+			if (!result) return false
+			return !result.includes("nothing to commit")
+		} catch (error: any) {
+			return false
+		}
 	}
 	static async add(): Promise<void> {
 		const add = new CommandRunner(`git add .`)
