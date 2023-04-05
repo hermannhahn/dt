@@ -4,13 +4,13 @@ export class terminal {
 	public static log(icon: string, text: any) {
 		const msgIcon = new Icons(icon)
 		const msg = text !== undefined ? " " + text : ""
-		process.stdout.write("  " + msgIcon.print() + msg + "\n")
+		console.log(msgIcon.print() + msg)
 	}
 
 	public static logInline(icon: string, text?: string) {
 		const msgIcon = new Icons(icon)
 		const msg = text ? " " + text : ""
-		process.stdout.write("  " + msgIcon.print() + msg)
+		process.stdout.write(msgIcon.print() + msg)
 	}
 
 	public static success(text?: string) {
