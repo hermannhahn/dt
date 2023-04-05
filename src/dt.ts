@@ -36,12 +36,12 @@ program
 
 		try {
 			const status = await git.status()
+			terminal.logInline("save", "Saving project...")
 			if (!status) {
-				terminal.logInline("save", "Saving project...")
 				await Promise.all(commands)
 				terminal.success()
 			} else {
-				terminal.success("No changes to save")
+				terminal.error()
 			}
 		} catch (error: any) {
 			terminal.error(error)
