@@ -34,8 +34,8 @@ program
 				await git.push(),
 				await git.pushTags(),
 			]
-			const status = await git.status()
 			terminal.logInline("save", "Saving project...")
+			const status = await git.status()
 			if (!status) {
 				await Promise.all(commands)
 				terminal.success()
