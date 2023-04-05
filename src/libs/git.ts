@@ -6,11 +6,10 @@ export class git {
 		try {
 			const status = new CommandRunner(`git status`)
 			const result = await status.run()
-			if (result.includes("nothing to commit")) {
+			if (!result) {
 				terminal.success("No changes to commit")
 				return false
 			}
-			if (!result) return false
 			return true
 		} catch (error: any) {
 			return false
