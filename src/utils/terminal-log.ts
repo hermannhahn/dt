@@ -12,16 +12,16 @@ export class terminal {
 	public static debug(text: string) {
 		this.log("debug", text)
 	}
-	public static error(text?: string) {
+	public static error(text?: string | "") {
 		this.log("error", text)
 	}
-	public static success(text?: string) {
+	public static success(text?: string | "") {
 		this.log("success", text)
 	}
-	public static warn(text?: string) {
+	public static warn(text?: string | "") {
 		this.log("warn", text)
 	}
-	public static info(text?: string) {
+	public static info(text?: string | "") {
 		this.log("info", text)
 	}
 }
