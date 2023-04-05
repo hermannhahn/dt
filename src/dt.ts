@@ -28,11 +28,13 @@ program
 		const version = packageJson.get("version")
 		const message = opts.message || `v${version}`
 		try {
-			terminal.logInline("save", "Saving project...")
-			await git.add()
-			await git.commit(message)
-			await git.push()
-			await git.pushTags()
+			terminal.log("save", "Saving project...")
+			await Promise.all([
+				git.add(),
+				git.commit(message),
+				git.push(),
+				git.pushTags(),
+			])
 			terminal.success("Done!")
 		} catch (error: any) {
 			terminal.error(error)
