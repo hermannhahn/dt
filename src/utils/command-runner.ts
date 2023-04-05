@@ -9,16 +9,14 @@ export class CommandRunner {
 		this.promise = promise
 	}
 
-	run(): Promise<any> {
-		return new Promise((resolve, reject) => {
-			try {
-				const [cmd, ...args] = this.command.split(" ")
-				spawn(cmd, args, { stdio: this.promise }).on("close", (result: any) => {
-					resolve(result)
-				})
-			} catch (error: any) {
-				reject(error)
-			}
-		})
+	async run(): Promise<any> {
+		try {
+			const [cmd, ...args] = this.command.split(" ")
+			spawn(cmd, args, { stdio: this.promise }).on("close", (result: any) => {
+				return result
+			})
+		} catch (error: any) {
+			return error
+		}
 	}
 }
