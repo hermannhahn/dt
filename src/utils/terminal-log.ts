@@ -20,4 +20,16 @@ export class terminal {
 	public static error(text?: string) {
 		this.log("error", text)
 	}
+
+	public static warn(text?: string) {
+		this.log("warn", text)
+	}
+
+	public static info(text?: string) {
+		this.log("info", text)
+	}
+
+	public static debug(text?: string) {
+		this.log("debug", text)
+	}
 }
