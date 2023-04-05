@@ -11,19 +11,14 @@ export class CommandRunner {
 
 	run(): Promise<any> {
 		return new Promise((resolve, reject) => {
-			const [cmd, ...args] = this.command.split(" ")
-			const childProcess = spawn(cmd, args, { stdio: this.promise })
-
-			childProcess.on("error", (err) => {
-				resolve(err.message)
-			})
-
-			childProcess.on("exit", (code, stdio: any) => {
-				if (code === 0) {
-					resolve(stdio)
-				}
-				childProcess.kill()
-			})
+			try {
+				const [cmd, ...args] = this.command.split(" ")
+				spawn(cmd, args, { stdio: this.promise }).on("close", (result: any) => {
+					resolve(result)
+				})
+			} catch (error: any) {
+				reject(error)
+			}
 		})
 	}
 }

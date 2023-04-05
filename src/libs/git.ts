@@ -4,8 +4,9 @@ import { terminal } from "utils/terminal-log"
 export class git {
 	static async status(): Promise<boolean> {
 		try {
-			const status = new CommandRunner(`git status`)
+			const status = new CommandRunner(`git status`, "inherit")
 			const result = await status.run()
+			console.log(result)
 			if (!result) {
 				terminal.success()
 				terminal.info("No changes to commit")
