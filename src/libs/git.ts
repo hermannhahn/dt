@@ -7,6 +7,7 @@ export class git {
 			const status = new CommandRunner(`git status`)
 			const result = await status.run()
 			if (!result) {
+				terminal.success()
 				terminal.success("No changes to commit")
 				return false
 			}
