@@ -16,7 +16,7 @@ export class terminal {
 		this.log("error", text)
 	}
 	public static success(text: string) {
-		this.logInline("success", text)
+		this.log("success", text)
 	}
 	public static warn(text: string) {
 		this.log("warn", text)

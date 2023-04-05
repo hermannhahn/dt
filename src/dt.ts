@@ -35,7 +35,7 @@ program
 		]
 
 		try {
-			terminal.log("save", "Saving project...")
+			terminal.logInline("save", "Saving project...")
 			await Promise.all(commands).then(() => {
 				terminal.success("Done!")
 			})
