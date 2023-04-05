@@ -3,8 +3,9 @@ import { CommandRunner } from "utils/command-runner"
 export class git {
 	static async status(): Promise<boolean> {
 		try {
-			const status = new CommandRunner(`git status`, "inherit")
+			const status = new CommandRunner(`git status`)
 			const result = await status.run()
+			console.log(result)
 			return false
 		} catch (error: any) {
 			return false
