@@ -36,8 +36,9 @@ program
 
 		try {
 			terminal.log("save", "Saving project...")
-			await Promise.all(commands)
-			terminal.success("Done!")
+			await Promise.all(commands).then(() => {
+				terminal.success("Done!")
+			})
 		} catch (error: any) {
 			terminal.error(error)
 		}
