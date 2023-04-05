@@ -1,12 +1,16 @@
 import { CommandRunner } from "utils/command-runner"
+import { terminal } from "utils/terminal-log"
 
 export class git {
 	static async status(): Promise<boolean> {
 		try {
 			const status = new CommandRunner(`git status`)
 			const result = await status.run()
-			if (!result) return false
-			return !result.includes("nothing to commit")
+			if (result.includes("nothing to commit")) {
+				terminal.success("No changes to commit")
+				return false
+			}
+			return true
 		} catch (error: any) {
 			return false
 		}
