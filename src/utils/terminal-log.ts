@@ -3,8 +3,8 @@ import { Icons } from "utils/icon-text"
 export class terminal {
 	public static log(icon: string, text?: string) {
 		const msgIcon = new Icons(icon)
-		const msg = text !== undefined ? ` ${text}` : ""
-		console.log("  " + msgIcon.print() + msg)
+		const msg = text !== undefined ? text : ""
+		console.log("  " + msgIcon.print() + " " + msg)
 	}
 	public static logInline(icon: string, text?: string) {
 		const msgIcon = new Icons(icon)
