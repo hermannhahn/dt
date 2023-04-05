@@ -12,8 +12,12 @@ export class CommandRunner {
 	async run(): Promise<any> {
 		try {
 			const [cmd, ...args] = this.command.split(" ")
-			const childProcess = spawn(cmd, args, { stdio: this.promise })
-			return childProcess.stdio
+			spawn(cmd, args, { stdio: this.promise }).stdout.on(
+				"data",
+				(data: any) => {
+					console.log(data)
+				}
+			)
 		} catch (error: any) {
 			return error
 		}
