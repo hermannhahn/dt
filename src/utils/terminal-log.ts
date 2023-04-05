@@ -3,7 +3,7 @@ import { Icons } from "utils/icon-text"
 export class terminal {
 	public static log(icon: string, text?: string) {
 		const msgIcon = new Icons(icon)
-		console.log("  " + msgIcon.print(), text || " ")
+		console.log("  " + msgIcon.print(), text)
 	}
 	public static logInline(icon: string, text?: string) {
 		const msgIcon = new Icons(icon)
