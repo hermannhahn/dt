@@ -26,6 +26,7 @@ program
 	.description("save project")
 	.action(async (opts, cmd) => {
 		try {
+			terminal.logInline("save", "Saving project...")
 			const version = packageJson.get("version")
 			const message = opts.message || `v${version}`
 			const commands = [
@@ -34,7 +35,6 @@ program
 				await git.push(),
 				await git.pushTags(),
 			]
-			terminal.logInline("save", "Saving project...")
 			const status = await git.status()
 			if (!status) {
 				await Promise.all(commands)
