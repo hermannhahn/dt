@@ -13,7 +13,7 @@ export class CommandRunner {
 		try {
 			const [cmd, ...args] = this.command.split(" ")
 			const childProcess = spawn(cmd, args, { stdio: this.promise })
-			return childProcess.stdout
+			return childProcess.stdio
 		} catch (error: any) {
 			return error
 		}
