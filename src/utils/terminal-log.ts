@@ -1,7 +1,7 @@
 import { Icons } from "utils/icon-text"
 
 export class terminal {
-	public static log(icon: string, text: string = " ") {
+	public static log(icon: string, text?: string | " ") {
 		const msgIcon = new Icons(icon)
 		console.log("  " + msgIcon.print(), text)
 	}
@@ -13,7 +13,7 @@ export class terminal {
 		this.log("debug", text)
 	}
 	public static error(text?: string) {
-		this.log("error", "test")
+		this.log("error", text)
 	}
 	public static success(text?: string) {
 		this.log("success", text)

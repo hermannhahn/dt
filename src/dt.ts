@@ -40,7 +40,7 @@ program
 				await Promise.all(commands)
 				terminal.success()
 			} else {
-				terminal.success("status")
+				terminal.error(status)
 			}
 		} catch (error: any) {
 			terminal.error(error)
