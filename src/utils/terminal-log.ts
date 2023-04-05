@@ -13,7 +13,7 @@ export class terminal {
 		this.log("debug", text)
 	}
 	public static error(text?: string) {
-		this.log("error", text)
+		this.log("error", "test")
 	}
 	public static success(text?: string) {
 		this.log("success", text)
