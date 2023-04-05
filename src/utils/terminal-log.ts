@@ -3,13 +3,13 @@ import { Icons } from "utils/icon-text"
 export class terminal {
 	public static log(icon: string, text?: string) {
 		const msgIcon = new Icons(icon)
-		console.log("  " + msgIcon.print(), text || " ")
+		const msg = text || " "
+		console.log("  " + msgIcon.print(), msg)
 	}
 	public static logInline(icon: string, text?: string) {
 		const msgIcon = new Icons(icon)
-		process.stdout.write(
-			"  " + msgIcon.print() + " " + text || " " + msgIcon.print()
-		)
+		const msg = text || " "
+		process.stdout.write("  " + msgIcon.print() + " " + msg)
 	}
 	public static debug(text: string) {
 		this.log("debug", text)
