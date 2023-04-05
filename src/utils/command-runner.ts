@@ -12,9 +12,8 @@ export class CommandRunner {
 	async run(): Promise<any> {
 		try {
 			const [cmd, ...args] = this.command.split(" ")
-			spawn(cmd, args, { stdio: this.promise }).on("close", (result: any) => {
-				return result
-			})
+			const childProcess = spawn(cmd, args, { stdio: this.promise })
+			return childProcess
 		} catch (error: any) {
 			return error
 		}

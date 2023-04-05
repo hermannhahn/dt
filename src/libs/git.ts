@@ -3,9 +3,13 @@ import { CommandRunner } from "utils/command-runner"
 export class git {
 	static async status(): Promise<boolean> {
 		try {
-			const status = new CommandRunner(`git status`, "inherit")
+			const status = new CommandRunner(`git status`)
 			const result = await status.run()
-			return false
+			console.log(result.includes("nothing to commit"))
+			if (result.includes("nothing to commit")) {
+				return false
+			}
+			return true
 		} catch (error: any) {
 			return false
 		}
