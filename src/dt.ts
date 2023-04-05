@@ -28,7 +28,7 @@ program
 		const version = packageJson.get("version")
 		const message = opts.message || `v${version}`
 		try {
-			terminal.log("save", "Saving project...")
+			terminal.logInline("save", "Saving project...")
 			await git.add()
 			await git.commit(message)
 			await git.push()
