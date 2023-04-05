@@ -5,7 +5,7 @@ export class git {
 		try {
 			const status = new CommandRunner(`git status`)
 			const result = await status.run()
-			//console.log(result)
+			console.log(result)
 			if (result.includes("nothing to commit")) {
 				return false
 			}
