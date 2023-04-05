@@ -35,12 +35,12 @@ program
 				await git.push(),
 				await git.pushTags(),
 			]
-			const status = await git.status()
+			const status: any = await git.status()
 			if (!status) {
 				await Promise.all(commands)
 				terminal.success()
 			} else {
-				terminal.error()
+				terminal.error(status)
 			}
 		} catch (error: any) {
 			terminal.error(error)
