@@ -4,7 +4,7 @@ export class terminal {
 	public static log(icon: string, text: any) {
 		const msgIcon = new Icons(icon)
 		const msg = text !== undefined ? " " + text : ""
-		console.log(" " + msgIcon.print() + msg)
+		process.stdout.write("  " + msgIcon.print() + msg + "\n")
 	}
 
 	public static logInline(icon: string, text?: string) {
