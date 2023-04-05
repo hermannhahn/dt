@@ -8,7 +8,7 @@ export class git {
 			const result = await status.run()
 			if (!result) {
 				terminal.success()
-				terminal.success("No changes to commit")
+				terminal.log("save", "No changes to commit")
 				return false
 			}
 			return true
