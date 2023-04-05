@@ -1,7 +1,7 @@
 import { Icons } from "utils/icon-text"
 
 export class terminal {
-	public static log(icon: string, text?: string) {
+	public static log(icon: string, text: any) {
 		const msgIcon = new Icons(icon)
 		const msg = text !== undefined ? " " + text : ""
 		console.log(" " + msgIcon.print() + msg)
