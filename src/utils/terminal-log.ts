@@ -7,7 +7,7 @@ export class terminal {
 	}
 	public static logInline(icon: string, text: string) {
 		const iconInline = new Icons(icon)
-		process.stdout.write(iconInline.print() + " " + text + "\n")
+		process.stdout.write(iconInline.print() + " " + text)
 	}
 	public static debug(text: string) {
 		this.log("debug", text)
