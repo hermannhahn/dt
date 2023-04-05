@@ -28,14 +28,15 @@ program
 		const version = packageJson.get("version")
 		const message = opts.message || `v${version}`
 		try {
+			terminal.log("save", "Saving project...")
 			await git.add()
 			await git.commit(message)
 			await git.push()
 			await git.tag(version)
 			await git.pushTags()
-			terminal.log("success", "Project saved")
+			terminal.success("Done!")
 		} catch (error: any) {
-			terminal.log("error", error)
+			terminal.error(error)
 		}
 	})
 

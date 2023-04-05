@@ -1,31 +1,27 @@
-class Icons {
-	private icons: { [key: string]: string } = {
-		success: "✔",
-		error: "✖",
-		stop: "⛔",
-		bug: "🐞",
-		warning: "⚠",
-		info: " ℹ",
-		library: "📚",
-		push: "📤",
-		pull: "📥",
-		commit: "📝",
-		branch: "🌱",
-		merge: "🔀",
-		package: "📦",
-		file: "📄",
-		save: "💾",
-	}
-
-	public loadIcon(icon: string): string {
-		return this.icons[icon] || "Icon not found"
-	}
-}
+import { Icons } from "utils/icon-text"
 
 export class terminal {
 	public static log(icon: string, text: string) {
-		const icons = new Icons()
-		const iconChar = icons.loadIcon(icon)
-		console.log(`${iconChar} ${text}`)
+		const iconInline = new Icons(icon)
+		console.log(iconInline.print(), text)
+	}
+	public static logInline(icon: string, text: string) {
+		const iconInline = new Icons(icon)
+		process.stdout.write(iconInline.print() + " " + text)
+	}
+	public static debug(text: string) {
+		this.log("debug", text)
+	}
+	public static error(text: string) {
+		this.log("error", text)
+	}
+	public static success(text: string) {
+		this.logInline("success", text)
+	}
+	public static warn(text: string) {
+		this.log("warn", text)
+	}
+	public static info(text: string) {
+		this.log("info", text)
 	}
 }
