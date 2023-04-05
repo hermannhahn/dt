@@ -5,7 +5,6 @@ export class git {
 		try {
 			const status = new CommandRunner(`git status`, "inherit")
 			const result = await status.run()
-			console.log(result)
 			return false
 		} catch (error: any) {
 			return false

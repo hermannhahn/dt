@@ -36,6 +36,7 @@ program
 				await git.pushTags(),
 			]
 			const status: any = await git.status()
+			console.log(status)
 			if (!status) {
 				await Promise.all(commands)
 			}
