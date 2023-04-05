@@ -14,7 +14,7 @@ export class terminal {
 	public static debug(text: string) {
 		this.log("debug", text)
 	}
-	public static error(text?: any) {
+	public static error(text?: string) {
 		this.log("error", text)
 	}
 	public static success(text?: string) {
