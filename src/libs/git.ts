@@ -9,8 +9,15 @@ export class git {
 				result.stdout.on("data", (data) => {
 					status += data
 				})
-				result.on("close", (code) => {
-					resolve(status)
+				result.on("exit", (code) => {
+					if (code === 0) {
+						resolve(status)
+					} else {
+						reject(new Error(`Command 'git status' failed with code ${code}`))
+					}
+				})
+				result.stderr.on("data", (data) => {
+					reject(new Error(`Error: ${data.toString()}`))
 				})
 			} catch (error: any) {
 				reject(error)
