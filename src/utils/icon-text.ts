@@ -15,6 +15,8 @@ const icons: any = {
 	file: "📄",
 	save: "💾",
 	search: "🔍",
+	sign: "✍",
+	password: "🔑",
 }
 
 export class Icons {
