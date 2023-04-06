@@ -39,7 +39,7 @@ export class git {
 				})
 				result.on("exit", (code) => {
 					if (code === 0) {
-						resolve(status)
+						resolve(status.trim())
 					} else {
 						reject(new Error(`Command 'git status' failed with code ${code}`))
 					}
