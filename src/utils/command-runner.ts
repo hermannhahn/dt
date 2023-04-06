@@ -23,10 +23,7 @@ export class CommandRunner {
 			return new Promise((resolve, reject) => {
 				result.on("close", (code) => {
 					if (code !== 0) {
-						reject(
-							new Error(`Command ${this.command} exited with code ${code}`)
-						)
-						return
+						return reject(output.trim())
 					}
 					resolve(output.trim())
 				})

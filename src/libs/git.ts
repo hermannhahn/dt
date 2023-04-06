@@ -3,9 +3,9 @@ import { CommandRunner } from "utils/command-runner"
 export class git {
 	static async status(): Promise<any> {
 		try {
-			const status = new CommandRunner(`git status`)
-			await status.run().then((result: any) => {
-				return result
+			const getStatus = new CommandRunner(`git status`)
+			await getStatus.run().then(() => {
+				return true
 			})
 		} catch (error: any) {
 			return error.message.includes("nothing to commit")
