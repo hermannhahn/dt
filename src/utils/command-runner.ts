@@ -21,12 +21,7 @@ export class CommandRunner {
 			})
 
 			return new Promise((resolve, reject) => {
-				result.on("close", (code) => {
-					if (code !== 0) {
-						return reject(output.trim())
-					}
-					resolve(output.trim())
-				})
+				resolve(output)
 			})
 		} catch (error: any) {
 			return error
