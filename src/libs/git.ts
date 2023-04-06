@@ -4,7 +4,10 @@ export class git {
 	static async status(): Promise<boolean> {
 		try {
 			const status = new CommandRunner(`git status`)
-			return await status.run()
+			await status.run().then((result: any) => {
+				console.log(result)
+			})
+			return true
 		} catch (error: any) {
 			return false
 		}
