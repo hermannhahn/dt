@@ -31,9 +31,7 @@ export class CommandRunner {
 				if (code === 0) {
 					resolve(output)
 				} else {
-					reject(
-						new Error(`Command '${this.command}' failed with code ${code}`)
-					)
+					reject(output)
 				}
 			})
 		})
