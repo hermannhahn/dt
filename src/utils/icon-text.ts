@@ -1,5 +1,5 @@
 const icons: any = {
-	success: "✔",
+	success: "\x1b[32m✔\x1b[0m",
 	error: "✖",
 	stop: "⛔",
 	bug: "🐞",
