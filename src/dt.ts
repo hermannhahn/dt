@@ -1,9 +1,10 @@
 import { program } from "@commander-js/extra-typings"
-import { save } from "modules/save"
+import { Cli } from "modules/cli"
 import { PackageJson } from "utils/package-manager"
 import { terminal } from "utils/terminal-log"
 
 const packageJson = new PackageJson("package.json")
+const cli = new Cli()
 
 program
 	.version(
@@ -20,6 +21,6 @@ program
 		terminal.log("success", "pong")
 	})
 
-save()
+cli.save()
 
 program.parse(process.argv)
