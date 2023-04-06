@@ -26,8 +26,8 @@ export class CommandRunner {
 						reject(output.trim())
 						return
 					}
+					resolve(output.trim())
 				})
-				resolve(output.trim())
 			})
 		} catch (error: any) {
 			return error
