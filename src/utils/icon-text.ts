@@ -23,6 +23,13 @@ const icons: any = {
 	star: "⭐",
 	item: "📌",
 	gear: "⚙",
+	clock: "⏰",
+	arrow: "➡",
+	arrowLeft: "⬅",
+	arrowUp: "⬆",
+	arrowDown: "⬇",
+	arrowRight: "➡",
+	time: "⏱",
 }
 
 export class Icons {
