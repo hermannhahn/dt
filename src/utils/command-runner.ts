@@ -9,35 +9,34 @@ export class CommandRunner {
 		this.promise = promise
 	}
 
-	async run(): Promise<any> {
-		try {
+	run(): Promise<string> {
+		return new Promise((resolve, reject) => {
 			const [cmd, ...args] = this.command.split(" ")
-			const result = spawn(cmd, args, { stdio: this.promise })
+			const process = spawn(cmd, args, { stdio: this.promise })
 
 			let output = ""
 
-			result.stdout.on("data", (data) => {
+			process.stdout.on("data", (data) => {
 				output += data.toString()
 			})
 
-			return new Promise((resolve, reject) => {
-				result.on("close", (code) => {
-					if (code !== 0) {
-						reject(output.trim())
-						return
-					}
-					resolve(output.trim())
-				})
-				result.on("exit", (code) => {
-					if (code !== 0) {
-						reject(output.trim())
-						return
-					}
-					resolve(output.trim())
-				})
+			process.stderr.on("data", (data) => {
+				output += data.toString()
 			})
-		} catch (error: any) {
-			return error
-		}
+
+			process.on("close", (code) => {
+				if (code === 0) {
+					resolve(output.trim())
+				} else {
+					reject(
+						new Error(`Command '${this.command}' exited with code ${code}`)
+					)
+				}
+			})
+
+			process.on("error", (err) => {
+				reject(new Error(`Failed to start command '${this.command}': ${err}`))
+			})
+		})
 	}
 }
