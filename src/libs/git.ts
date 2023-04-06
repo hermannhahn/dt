@@ -75,9 +75,11 @@ export class git {
 		})
 	}
 	static async push(): Promise<void> {
+		terminal.logInline("push", "Pushing files...")
 		const result = spawn("git", ["push"])
 		return new Promise((resolve, reject) => {
 			result.on("close", (code) => {
+				console.log(" [\x1b[32mdone\x1b[0m]")
 				resolve()
 			})
 		})
@@ -105,9 +107,11 @@ export class git {
 		})
 	}
 	static async pushTags(): Promise<void> {
+		terminal.logInline("push", "Pushing tags...")
 		const result = spawn("git", ["push", "--tags"])
 		return new Promise((resolve, reject) => {
 			result.on("close", (code) => {
+				console.log(" [\x1b[32mdone\x1b[0m]")
 				resolve()
 			})
 		})
