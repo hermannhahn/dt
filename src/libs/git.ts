@@ -9,6 +9,7 @@ export class git {
 				data += chunk
 			})
 			result.on("close", (code) => {
+				console.log(data)
 				if (data.includes("nothing to commit")) {
 					reject(false)
 				}

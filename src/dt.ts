@@ -30,7 +30,7 @@ program
 			const version = packageJson.get("version")
 			const message = opts.message || `v${version}`
 			const status: any = await git.status()
-			console.log(status)
+			//console.log(status)
 			const commands = [
 				await git.add(),
 				await git.commit(message),
