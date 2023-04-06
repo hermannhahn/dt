@@ -11,6 +11,7 @@ export class git {
 			})
 			return true
 		} catch (error: any) {
+			console.log("error")
 			return false
 		}
 	}
