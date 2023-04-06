@@ -37,7 +37,7 @@ program
 				await git.push(),
 				await git.pushTags(),
 			]
-			if (!status) {
+			if (status) {
 				await Promise.all(commands)
 			}
 		} catch (error: any) {
