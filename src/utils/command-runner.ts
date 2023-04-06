@@ -16,18 +16,15 @@ export class CommandRunner {
 			stdio: ["inherit", "pipe", "inherit"],
 		})
 
-		let output = ""
-
-		child.stdout?.on("data", (data) => {
-			output += data
-		})
-
-		child.on("error", (error) => {
-			return error
-		})
-
-		child.on("close", (code) => {
-			return output
+		// Return command result
+		return new Promise((resolve, reject) => {
+			let result = ""
+			child.stdout.on("data", (data) => {
+				result += data.toString()
+			})
+			child.on("close", () => {
+				resolve(result)
+			})
 		})
 	}
 }
