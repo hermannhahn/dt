@@ -5,11 +5,14 @@ export class git {
 		const result = spawn("git", ["status", "--porcelain"])
 		return new Promise((resolve, reject) => {
 			let status: string = ""
-			result.stdio[1].on("data", (data) => {
+			result.stdout.on("data", (data) => {
 				status += data
 			})
 			result.on("close", (code) => {
 				resolve(status)
+			})
+			result.on("error", (error) => {
+				reject(error)
 			})
 		})
 	}
