@@ -29,14 +29,14 @@ program
 			terminal.logInline("save", "Saving project...")
 			const version = packageJson.get("version")
 			const message = opts.message || `v${version}`
+			const status: any = await git.status()
+			console.log(status)
 			const commands = [
 				await git.add(),
 				await git.commit(message),
 				await git.push(),
 				await git.pushTags(),
 			]
-			const status: any = await git.status()
-			console.log(status)
 			if (!status) {
 				await Promise.all(commands)
 			}

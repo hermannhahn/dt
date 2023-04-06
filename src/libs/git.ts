@@ -1,79 +1,248 @@
-import { CommandRunner } from "utils/command-runner"
-
-const cmd = new CommandRunner()
+import { spawn } from "child_process"
 
 export class git {
 	static async status(): Promise<any> {
-		return await cmd.run(`git status --porcelain`)
+		const result = spawn("git", ["status", "--porcelain"])
+		return new Promise((resolve, reject) => {
+			let data = ""
+			result.stdout.on("data", (chunk) => {
+				data += chunk
+			})
+			result.on("close", (code) => {
+				if (data.includes("nothing to commit")) {
+					reject(false)
+				}
+				resolve(true)
+			})
+		})
 	}
 	static async add(): Promise<void> {
-		await cmd.run(`git add .`)
+		const result = spawn("git", ["add", "."])
+		return new Promise((resolve, reject) => {
+			result.on("close", (code) => {
+				resolve()
+			})
+		})
 	}
 	static async commit(message: string): Promise<void> {
-		await cmd.run(`git commit -S -m "${message}"`)
+		const result = spawn("git", ["commit", "-S", "-m", message])
+		return new Promise((resolve, reject) => {
+			result.on("close", (code) => {
+				resolve()
+			})
+		})
 	}
 	static async push(): Promise<void> {
-		await cmd.run(`git push`)
+		const result = spawn("git", ["push"])
+		return new Promise((resolve, reject) => {
+			result.on("close", (code) => {
+				resolve()
+			})
+		})
 	}
 	static async pull(): Promise<void> {
-		await cmd.run(`git pull`)
+		const result = spawn("git", ["pull"])
+		return new Promise((resolve, reject) => {
+			result.on("close", (code) => {
+				resolve()
+			})
+		})
 	}
 	static async tag(version: string): Promise<void> {
-		await cmd.run(`git tag -a v${version} -m "v${version}"`)
+		const result = spawn("git", [
+			"tag",
+			"-a",
+			"v" + version,
+			"-m",
+			"v" + version,
+		])
+		return new Promise((resolve, reject) => {
+			result.on("close", (code) => {
+				resolve()
+			})
+		})
 	}
 	static async pushTags(): Promise<void> {
-		await cmd.run(`git push --tags`)
+		const result = spawn("git", ["push", "--tags"])
+		return new Promise((resolve, reject) => {
+			result.on("close", (code) => {
+				resolve()
+			})
+		})
 	}
 	static async checkout(branch: string): Promise<void> {
-		await cmd.run(`git checkout ${branch}`)
+		const result = spawn("git", ["checkout", branch])
+		return new Promise((resolve, reject) => {
+			result.on("close", (code) => {
+				resolve()
+			})
+		})
 	}
 	static async merge(branch: string): Promise<void> {
-		await cmd.run(`git merge ${branch}`)
+		const result = spawn("git", ["merge", branch])
+		return new Promise((resolve, reject) => {
+			result.on("close", (code) => {
+				resolve()
+			})
+		})
 	}
 	static async createBranch(branch: string): Promise<void> {
-		await cmd.run(`git checkout -b ${branch}`)
+		const result = spawn("git", ["branch", branch])
+		return new Promise((resolve, reject) => {
+			result.on("close", (code) => {
+				resolve()
+			})
+		})
 	}
 	static async deleteBranch(branch: string): Promise<void> {
-		await cmd.run(`git branch -D ${branch}`)
+		const result = spawn("git", ["branch", "-d", branch])
+		return new Promise((resolve, reject) => {
+			result.on("close", (code) => {
+				resolve()
+			})
+		})
 	}
 	static async deleteRemoteBranch(branch: string): Promise<void> {
-		await cmd.run(`git push origin --delete ${branch}`)
+		const result = spawn("git", ["push", "origin", "--delete", branch])
+		return new Promise((resolve, reject) => {
+			result.on("close", (code) => {
+				resolve()
+			})
+		})
 	}
 	static async createTag(version: string): Promise<void> {
-		await cmd.run(`git tag -a v${version} -m "v${version}"`)
+		const result = spawn("git", [
+			"tag",
+			"-a",
+			"v" + version,
+			"-m",
+			"v" + version,
+		])
+		return new Promise((resolve, reject) => {
+			result.on("close", (code) => {
+				resolve()
+			})
+		})
 	}
 	static async pushTag(version: string): Promise<void> {
-		await cmd.run(`git push origin v${version}`)
+		const result = spawn("git", ["push", "--tags"])
+		return new Promise((resolve, reject) => {
+			result.on("close", (code) => {
+				resolve()
+			})
+		})
 	}
 	static async deleteTag(version: string): Promise<void> {
-		await cmd.run(`git tag -d v${version}`)
+		const result = spawn("git", ["tag", "-d", "v" + version])
+		return new Promise((resolve, reject) => {
+			result.on("close", (code) => {
+				resolve()
+			})
+		})
 	}
 	static async deleteRemoteTag(version: string): Promise<void> {
-		await cmd.run(`git push origin --delete v${version}`)
+		const result = spawn("git", ["push", "origin", "--delete", "v" + version])
+		return new Promise((resolve, reject) => {
+			result.on("close", (code) => {
+				resolve()
+			})
+		})
 	}
 	static async getCurrentBranch(): Promise<any> {
-		return await cmd.run(`git rev-parse --abbrev-ref HEAD`)
+		const result = spawn("git", ["rev-parse", "--abbrev-ref", "HEAD"])
+		return new Promise((resolve, reject) => {
+			let data = ""
+			result.stdout.on("data", (chunk) => {
+				data += chunk
+			})
+			result.on("close", (code) => {
+				resolve(data)
+			})
+		})
 	}
 	static async getTags(): Promise<string[]> {
-		return await cmd.run(`git tag`)
+		const result = spawn("git", ["tag"])
+		return new Promise((resolve, reject) => {
+			let data: any = ""
+			result.stdout.on("data", (chunk) => {
+				data += chunk
+			})
+			result.on("close", (code) => {
+				resolve(data)
+			})
+		})
 	}
 	static async getLatestTag(): Promise<string> {
-		return await cmd.run(`git describe --abbrev=0 --tags`)
+		const result = spawn("git", ["describe", "--abbrev=0", "--tags"])
+		return new Promise((resolve, reject) => {
+			let data: any = ""
+			result.stdout.on("data", (chunk) => {
+				data += chunk
+			})
+			result.on("close", (code) => {
+				resolve(data)
+			})
+		})
 	}
 	static async getLatestCommit(): Promise<string> {
-		return await cmd.run(`git rev-parse HEAD`)
+		const result = spawn("git", ["rev-parse", "HEAD"])
+		return new Promise((resolve, reject) => {
+			let data: any = ""
+			result.stdout.on("data", (chunk) => {
+				data += chunk
+			})
+			result.on("close", (code) => {
+				resolve(data)
+			})
+		})
 	}
 	static async getLatestCommitMessage(): Promise<string> {
-		return await cmd.run(`git log -1 --pretty=%B`)
+		const result = spawn("git", ["log", "-1", "--pretty=%B"])
+		return new Promise((resolve, reject) => {
+			let data: any = ""
+			result.stdout.on("data", (chunk) => {
+				data += chunk
+			})
+			result.on("close", (code) => {
+				resolve(data)
+			})
+		})
 	}
 	static async getLatestCommitDate(): Promise<string> {
-		return await cmd.run(`git log -1 --pretty=%cd`)
+		const result = spawn("git", ["log", "-1", "--pretty=%cd"])
+		return new Promise((resolve, reject) => {
+			let data: any = ""
+			result.stdout.on("data", (chunk) => {
+				data += chunk
+			})
+			result.on("close", (code) => {
+				resolve(data)
+			})
+		})
 	}
 	static async getLatestCommitAuthor(): Promise<string> {
-		return await cmd.run(`git log -1 --pretty=%an`)
+		const result = spawn("git", ["log", "-1", "--pretty=%an"])
+		return new Promise((resolve, reject) => {
+			let data: any = ""
+			result.stdout.on("data", (chunk) => {
+				data += chunk
+			})
+			result.on("close", (code) => {
+				resolve(data)
+			})
+		})
 	}
 	static async getLatestCommitAuthorEmail(): Promise<string> {
-		return await cmd.run(`git log -1 --pretty=%ae`)
+		const result = spawn("git", ["log", "-1", "--pretty=%ae"])
+		return new Promise((resolve, reject) => {
+			let data: any = ""
+			result.stdout.on("data", (chunk) => {
+				data += chunk
+			})
+			result.on("close", (code) => {
+				resolve(data)
+			})
+		})
 	}
 }
 
