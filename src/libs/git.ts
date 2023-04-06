@@ -58,9 +58,13 @@ export class git {
 		})
 	}
 	static async commit(message: string): Promise<void> {
+		terminal.logInline("search", "Waiting for signature...")
 		const result = spawn("git", ["commit", "-S", "-m", message])
 		return new Promise((resolve, reject) => {
+			terminal.log("success", " [Signed]")
+			terminal.logInline("success", "Committing...")
 			result.on("close", (code) => {
+				terminal.success()
 				resolve()
 			})
 		})
