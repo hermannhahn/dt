@@ -10,25 +10,21 @@ export class CommandRunner {
 	}
 
 	async run(): Promise<any> {
-		try {
-			const [cmd, ...args] = this.command.split(" ")
+		const [cmd, ...args] = this.command.split(" ")
 
-			const child = spawn(cmd, args, {
-				stdio: ["inherit", "pipe", "inherit"],
-			})
+		const child = spawn(cmd, args, {
+			stdio: ["inherit", "pipe", "inherit"],
+		})
 
-			// Return command result
-			return new Promise((resolve, reject) => {
-				let result = ""
-				child.stdout.on("data", (data) => {
-					result += data.toString()
-				})
-				child.on("close", () => {
-					resolve(result)
-				})
+		// Return command result
+		return new Promise((resolve, reject) => {
+			let result = ""
+			child.stdout.on("data", (data) => {
+				result += data.toString()
 			})
-		} catch (error: any) {
-			console.log(error)
-		}
+			child.on("close", () => {
+				resolve(result)
+			})
+		})
 	}
 }
