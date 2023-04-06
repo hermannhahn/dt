@@ -68,7 +68,7 @@ export class git {
 				// green text: \x1b[32m
 				// reset: \x1b[0m
 				// green background and white text: \x1b[42m\x1b[37m
-				console.log(" [\x1b[42m\x1b[37mSigned\x1b[0m]")
+				console.log(" [\x1b[32mSigned\x1b[0m]")
 				terminal.logInline("commit", "Committing...")
 				resolve()
 			})
