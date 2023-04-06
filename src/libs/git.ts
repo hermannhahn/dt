@@ -4,14 +4,9 @@ export class git {
 	static async status(): Promise<boolean> {
 		try {
 			const status = new CommandRunner(`git status`)
-			await status.run().then((result: any) => {
-				if (result.includes("nothing to commit, working tree clean")) {
-					return false
-				}
-			})
+			await status.run()
 			return true
 		} catch (error: any) {
-			console.log("error")
 			return false
 		}
 	}
