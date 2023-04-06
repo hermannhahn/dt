@@ -18,13 +18,20 @@ export class CommandRunner {
 
 		// Return command result
 		return new Promise((resolve, reject) => {
-			let result = ""
-			child.stdout.on("data", (data) => {
-				result += data.toString()
-			})
-			child.on("close", () => {
-				resolve(result)
-			})
+			try {
+				let result = ""
+				child.stdout.on("data", (data) => {
+					result += data.toString()
+				})
+				child.on("close", () => {
+					resolve(result)
+				})
+				child.on("error", (error) => {
+					reject(error)
+				})
+			} catch (error: any) {
+				reject(error)
+			}
 		})
 	}
 }
