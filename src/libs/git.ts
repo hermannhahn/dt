@@ -8,7 +8,7 @@ export class git {
 				return true
 			})
 		} catch (error: any) {
-			return error.message.includes("nothing to commit")
+			return error.includes("nothing to commit")
 		}
 	}
 	static async add(): Promise<void> {
