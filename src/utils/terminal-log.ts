@@ -1,7 +1,7 @@
 import { Icons } from "utils/icon-text"
 
 export class terminal {
-	public static log(icon: string, text: any) {
+	public static log(icon: string, ...text: any) {
 		const msgIcon = new Icons(icon)
 		const msg = text !== undefined ? " " + text : ""
 		console.log(msgIcon.print() + msg)
@@ -36,7 +36,7 @@ export class terminal {
 	public static bug(text?: string) {
 		this.log("bug", text)
 	}
-	// green color: \x1b[32m
+
 	public static green(text: string) {
 		process.stdout.write("\x1b[32m" + text + "\x1b[0m")
 	}
