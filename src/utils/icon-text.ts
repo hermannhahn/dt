@@ -18,6 +18,9 @@ const icons: any = {
 	sign: "✍",
 	password: "🔑",
 	question: "❓",
+	work: "🔨",
+	list: "📋",
+	star: "⭐",
 }
 
 export class Icons {
