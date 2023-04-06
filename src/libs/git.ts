@@ -10,7 +10,7 @@ export class git {
 					status += data
 				})
 				result.on("close", (code) => {
-					resolve(code)
+					resolve(status)
 				})
 			} catch (error: any) {
 				reject(error)
