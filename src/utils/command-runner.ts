@@ -26,7 +26,6 @@ export class CommandRunner {
 						reject(output.trim())
 						return
 					}
-					result.kill()
 				})
 				resolve(output.trim())
 			})
