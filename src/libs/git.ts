@@ -4,10 +4,12 @@ export class git {
 	static async status(): Promise<boolean> {
 		try {
 			const status = new CommandRunner(`git status`)
-			const result = await status.run()
-			return result.includes("nothing to commit, working tree clean")
-		} catch (error: any) {
+			await status.run().then((result: any) => {
+				return result
+			})
 			return false
+		} catch (error: any) {
+			return error.message.includes("nothing to commit")
 		}
 	}
 	static async add(): Promise<void> {
