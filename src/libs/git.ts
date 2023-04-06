@@ -66,7 +66,7 @@ export class git {
 		const result = spawn("git", ["commit", "-S", "-m", message])
 		return new Promise((resolve, reject) => {
 			result.on("close", (code) => {
-				console.log(" [", "\x1b[32m", "signed", "\x1b[0m", "]")
+				console.log(" [\x1b[32msigned\x1b[0m]")
 				terminal.logInline("commit", "Committing...")
 				resolve()
 			})
