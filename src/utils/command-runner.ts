@@ -12,13 +12,10 @@ export class CommandRunner {
 	async run(): Promise<any> {
 		try {
 			const [cmd, ...args] = this.command.split(" ")
-			spawn(cmd, args, { stdio: this.promise }).stdout.on(
-				"data",
-				(data: any) => {
-					const result = data.toString()
-					return result
-				}
-			)
+			const result = spawn(cmd, args, { stdio: this.promise })
+			result.stdout.on("data", (data: any) => {
+				console.log(data)
+			}
 		} catch (error: any) {
 			return error
 		}
