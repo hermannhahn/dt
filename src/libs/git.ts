@@ -52,7 +52,10 @@ export class git {
 		const files: any = await status()
 		files.forEach((file: string) => {
 			// orange text: \x1b[33m
-			terminal.log("file", file.trim() + " [\x1b[33mmodified\x1b[0m]")
+			terminal.log(
+				"file",
+				file.trim() + " [" + terminal.orange("modified") + "]"
+			)
 		})
 		const result = spawn("git", ["add", "."])
 		return new Promise((resolve, reject) => {
@@ -66,7 +69,7 @@ export class git {
 		const result = spawn("git", ["commit", "-S", "-m", message])
 		return new Promise((resolve, reject) => {
 			result.on("close", (code) => {
-				console.log(" [\x1b[32msigned\x1b[0m]")
+				console.log(" [", terminal.green("signed"), "]")
 				terminal.logInline("commit", "Committing...")
 				resolve()
 			})
