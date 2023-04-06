@@ -19,10 +19,7 @@ export class CommandRunner {
 			result.stdout.on("data", (data) => {
 				output += data.toString()
 			})
-
-			return new Promise((resolve, reject) => {
-				resolve(output)
-			})
+			return output.trim()
 		} catch (error: any) {
 			return error
 		}
