@@ -33,6 +33,7 @@ program
 			const commands = [
 				await git.add(),
 				await git.commit(message),
+				console.log(" [\x1b[32mdone\x1b[0m]"),
 				await git.push(),
 				await git.pushTags(),
 			]

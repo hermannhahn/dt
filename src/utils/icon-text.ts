@@ -14,13 +14,14 @@ const icons: any = {
 	package: "📦",
 	file: "📄",
 	save: "💾",
-	search: "🔍",
+	search: "🔎",
 	sign: "✍",
 	password: "🔑",
 	question: "❓",
 	work: "🔨",
 	list: "📋",
 	star: "⭐",
+	item: "📌",
 }
 
 export class Icons {
