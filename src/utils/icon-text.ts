@@ -22,6 +22,7 @@ const icons: any = {
 	list: "📋",
 	star: "⭐",
 	item: "📌",
+	gear: "⚙",
 }
 
 export class Icons {
