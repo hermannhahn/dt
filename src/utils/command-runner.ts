@@ -9,7 +9,7 @@ export class CommandRunner {
 		this.promise = promise
 	}
 
-	async run(): Promise<any> {
+	run(): Promise<any> {
 		const [cmd, ...args] = this.command.split(" ")
 
 		const child = spawn(cmd, args, {
