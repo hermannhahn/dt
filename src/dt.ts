@@ -41,7 +41,6 @@ program
 			}
 			terminal.log("success", "Project saved")
 		} catch (error: any) {
-			terminal.error()
 			terminal.error("Error: " + error)
 		}
 	})
