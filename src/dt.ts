@@ -26,11 +26,10 @@ program
 	.description("save project")
 	.action(async (opts, cmd) => {
 		try {
-			terminal.logInline("save", "Saving project...")
+			terminal.log("save", "Saving project...")
 			const version = packageJson.get("version")
 			const message = opts.message || `v${version}`
 			const status: any = await git.status()
-			console.log(status)
 			const commands = [
 				await git.add(),
 				await git.commit(message),
@@ -38,9 +37,9 @@ program
 				await git.pushTags(),
 			]
 			if (status) {
-				console.log("status")
 				await Promise.all(commands)
 			}
+			terminal.log("success", "Project saved")
 		} catch (error: any) {
 			terminal.error()
 			terminal.error("Error: " + error)

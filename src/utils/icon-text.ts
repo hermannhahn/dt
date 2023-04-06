@@ -14,6 +14,7 @@ const icons: any = {
 	package: "📦",
 	file: "📄",
 	save: "💾",
+	search: "🔍",
 }
 
 export class Icons {

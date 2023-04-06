@@ -1,4 +1,5 @@
 import { spawn } from "child_process"
+import { terminal } from "utils/terminal-log"
 
 export class git {
 	static async status(): Promise<any> {
@@ -28,6 +29,27 @@ export class git {
 		})
 	}
 	static async add(): Promise<void> {
+		terminal.log("search", "Adding files...")
+		const status = () => {
+			return new Promise((resolve, reject) => {
+				const result = spawn("git", ["status", "--porcelain"])
+				let status: string = ""
+				result.stdout.on("data", (data) => {
+					status += data
+				})
+				result.on("exit", (code) => {
+					if (code === 0) {
+						resolve(status)
+					} else {
+						reject(new Error(`Command 'git status' failed with code ${code}`))
+					}
+				})
+				result.stderr.on("data", (data) => {
+					reject(new Error(`Error: ${data.toString()}`))
+				})
+			})
+		}
+		terminal.log("file", status)
 		const result = spawn("git", ["add", "."])
 		return new Promise((resolve, reject) => {
 			result.on("close", (code) => {
