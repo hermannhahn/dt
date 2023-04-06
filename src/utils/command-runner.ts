@@ -30,7 +30,7 @@ export class CommandRunner {
 				})
 			})
 		} catch (error: any) {
-			return error
+			return
 		}
 	}
 }
