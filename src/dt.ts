@@ -38,6 +38,7 @@ program
 				await git.pushTags(),
 			]
 			if (status) {
+				console.log("status")
 				await Promise.all(commands)
 			}
 		} catch (error: any) {
