@@ -39,7 +39,7 @@ export class git {
 				})
 				result.on("exit", (code) => {
 					if (code === 0) {
-						resolve(status.trim())
+						resolve(status.trim().split("\n"))
 					} else {
 						reject(new Error(`Command 'git status' failed with code ${code}`))
 					}
@@ -49,7 +49,10 @@ export class git {
 				})
 			})
 		}
-		terminal.log("file", await status())
+		const files: any = await status()
+		files.forEach((file: string) => {
+			terminal.log("file", file)
+		})
 		const result = spawn("git", ["add", "."])
 		return new Promise((resolve, reject) => {
 			result.on("close", (code) => {
@@ -64,7 +67,6 @@ export class git {
 			result.on("close", (code) => {
 				terminal.log("success", "[Signed]")
 				terminal.logInline("commit", "Committing...")
-				terminal.success()
 				resolve()
 			})
 		})

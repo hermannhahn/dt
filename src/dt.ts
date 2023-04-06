@@ -33,6 +33,7 @@ program
 			const commands = [
 				await git.add(),
 				await git.commit(message),
+				terminal.success(),
 				await git.push(),
 				await git.pushTags(),
 			]
