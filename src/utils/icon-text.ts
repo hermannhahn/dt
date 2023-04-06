@@ -17,6 +17,7 @@ const icons: any = {
 	search: "🔍",
 	sign: "✍",
 	password: "🔑",
+	question: "❓",
 }
 
 export class Icons {

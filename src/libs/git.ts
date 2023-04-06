@@ -51,7 +51,7 @@ export class git {
 		}
 		const files: any = await status()
 		files.forEach((file: string) => {
-			terminal.log("file", file)
+			terminal.log("file", file.trim())
 		})
 		const result = spawn("git", ["add", "."])
 		return new Promise((resolve, reject) => {
