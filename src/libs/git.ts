@@ -2,7 +2,7 @@ import { spawn } from "child_process"
 
 export class git {
 	static async status(): Promise<any> {
-		const result = spawn("git", ["status", "--porcelain"])
+		const result = spawn("git", ["status", "--porcelain", "-s"])
 		return new Promise((resolve, reject) => {
 			try {
 				let status: string = ""
