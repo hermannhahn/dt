@@ -13,9 +13,24 @@ export class CommandRunner {
 		try {
 			const [cmd, ...args] = this.command.split(" ")
 			const result = spawn(cmd, args, { stdio: this.promise })
-			result.stdout.on("data", (data: any) => {
-				console.log(data)
-			}
+
+			let output = ""
+
+			result.stdout.on("data", (data) => {
+				output += data.toString()
+			})
+
+			return new Promise((resolve, reject) => {
+				result.on("close", (code) => {
+					if (code !== 0) {
+						reject(
+							new Error(`Command ${this.command} exited with code ${code}`)
+						)
+						return
+					}
+					resolve(output.trim())
+				})
+			})
 		} catch (error: any) {
 			return error
 		}
