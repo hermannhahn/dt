@@ -6,7 +6,7 @@ export class git {
 		return new Promise((resolve, reject) => {
 			try {
 				let status: string = ""
-				result.stdout.on("data", (data) => {
+				result.on("data", (data) => {
 					status += data
 				})
 				result.on("close", (code) => {
