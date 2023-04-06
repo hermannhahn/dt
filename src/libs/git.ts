@@ -30,7 +30,7 @@ export class git {
 	}
 	static async add(): Promise<void> {
 		terminal.log("search", "Adding files...")
-		const status = () => {
+		const status = async () => {
 			return new Promise((resolve, reject) => {
 				const result = spawn("git", ["status", "--porcelain"])
 				let status: string = ""
@@ -49,7 +49,7 @@ export class git {
 				})
 			})
 		}
-		terminal.log("file", status)
+		terminal.log("file", await status())
 		const result = spawn("git", ["add", "."])
 		return new Promise((resolve, reject) => {
 			result.on("close", (code) => {
