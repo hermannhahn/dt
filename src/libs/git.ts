@@ -4,16 +4,12 @@ export class git {
 	static async status(): Promise<any> {
 		const result = spawn("git", ["status", "--porcelain"])
 		return new Promise((resolve, reject) => {
-			let data = ""
-			result.stdout.on("data", (chunk) => {
-				data += chunk
+			let status: string = ""
+			result.stdout.on("data", (data) => {
+				status += data
 			})
 			result.on("close", (code) => {
-				console.log(data)
-				if (data.includes("nothing to commit")) {
-					reject(false)
-				}
-				resolve(true)
+				resolve(status)
 			})
 		})
 	}
