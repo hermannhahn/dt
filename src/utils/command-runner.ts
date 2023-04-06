@@ -9,21 +9,20 @@ export class CommandRunner {
 		this.promise = promise
 	}
 
-	run(): Promise<any> {
-		const [cmd, ...args] = this.command.split(" ")
-
-		const child = spawn(cmd, args, {
-			stdio: ["inherit", "pipe", "inherit"],
-		})
-
-		// Return command result
+	async run(): Promise<any> {
+		const command = this.command
+		const promise = this.promise
 		return new Promise((resolve, reject) => {
-			let result = ""
-			child.stdout.on("data", (data) => {
-				result += data.toString()
+			const child = spawn(command, {
+				shell: true,
+				stdio: "inherit",
 			})
-			child.on("close", () => {
-				resolve(result)
+			child.on("exit", (code: any) => {
+				if (code === 0) {
+					resolve(promise)
+				} else {
+					reject(code)
+				}
 			})
 		})
 	}
