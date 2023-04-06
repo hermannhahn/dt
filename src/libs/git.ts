@@ -55,7 +55,7 @@ export class git {
 			terminal.log("file", file.trim(), "[\x1b[33mfound\x1b[0m]")
 		})
 		const result = spawn("git", ["add", "."])
-		terminal.logInline("time", "Preparing files for commit...")
+		terminal.logInline("item", "Preparing files for commit...")
 		return new Promise((resolve, reject) => {
 			result.on("close", (code) => {
 				console.log(" [\x1b[32mdone\x1b[0m]")
