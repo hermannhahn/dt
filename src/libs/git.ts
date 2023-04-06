@@ -1,121 +1,79 @@
 import { CommandRunner } from "utils/command-runner"
 
+const cmd = new CommandRunner()
+
 export class git {
 	static async status(): Promise<any> {
-		try {
-			const getStatus = new CommandRunner(`git status`)
-			await getStatus.run()
-		} catch (error: any) {
-			return error
-		}
+		return await cmd.run(`git status --porcelain`)
 	}
 	static async add(): Promise<void> {
-		const add = new CommandRunner(`git add .`)
-		await add.run()
+		await cmd.run(`git add .`)
 	}
 	static async commit(message: string): Promise<void> {
-		const commit = new CommandRunner(`git commit -S -m "${message}"`)
-		await commit.run()
+		await cmd.run(`git commit -S -m "${message}"`)
 	}
 	static async push(): Promise<void> {
-		const push = new CommandRunner(`git push`)
-		await push.run()
+		await cmd.run(`git push`)
 	}
 	static async pull(): Promise<void> {
-		const pull = new CommandRunner(`git pull`)
-		await pull.run()
+		await cmd.run(`git pull`)
 	}
 	static async tag(version: string): Promise<void> {
-		const tag = new CommandRunner(`git tag -a v${version} -m "v${version}"`)
-		await tag.run()
+		await cmd.run(`git tag -a v${version} -m "v${version}"`)
 	}
 	static async pushTags(): Promise<void> {
-		const pushTags = new CommandRunner(`git push --tags`)
-		await pushTags.run()
+		await cmd.run(`git push --tags`)
 	}
 	static async checkout(branch: string): Promise<void> {
-		const checkout = new CommandRunner(`git checkout ${branch}`)
-		await checkout.run()
+		await cmd.run(`git checkout ${branch}`)
 	}
 	static async merge(branch: string): Promise<void> {
-		const merge = new CommandRunner(`git merge ${branch}`)
-		await merge.run()
+		await cmd.run(`git merge ${branch}`)
 	}
 	static async createBranch(branch: string): Promise<void> {
-		const createBranch = new CommandRunner(`git checkout -b ${branch}`)
-		await createBranch.run()
+		await cmd.run(`git checkout -b ${branch}`)
 	}
 	static async deleteBranch(branch: string): Promise<void> {
-		const deleteBranch = new CommandRunner(`git branch -d ${branch}`)
-		await deleteBranch.run()
+		await cmd.run(`git branch -D ${branch}`)
 	}
 	static async deleteRemoteBranch(branch: string): Promise<void> {
-		const deleteRemoteBranch = new CommandRunner(
-			`git push origin --delete ${branch}`
-		)
-		await deleteRemoteBranch.run()
+		await cmd.run(`git push origin --delete ${branch}`)
 	}
 	static async createTag(version: string): Promise<void> {
-		const createTag = new CommandRunner(
-			`git tag -a v${version} -m "v${version}"`
-		)
-		await createTag.run()
+		await cmd.run(`git tag -a v${version} -m "v${version}"`)
 	}
 	static async pushTag(version: string): Promise<void> {
-		const pushTag = new CommandRunner(`git push origin v${version}`)
-		await pushTag.run()
+		await cmd.run(`git push origin v${version}`)
 	}
 	static async deleteTag(version: string): Promise<void> {
-		const deleteTag = new CommandRunner(`git tag -d v${version}`)
-		await deleteTag.run()
+		await cmd.run(`git tag -d v${version}`)
 	}
 	static async deleteRemoteTag(version: string): Promise<void> {
-		const deleteRemoteTag = new CommandRunner(
-			`git push origin --delete v${version}`
-		)
-		await deleteRemoteTag.run()
+		await cmd.run(`git push origin --delete v${version}`)
 	}
-	static async getBranch(): Promise<string> {
-		const getBranch = new CommandRunner(`git rev-parse --abbrev-ref HEAD`)
-		const branch = await getBranch.run()
-		return branch.trim()
+	static async getCurrentBranch(): Promise<any> {
+		return await cmd.run(`git rev-parse --abbrev-ref HEAD`)
 	}
 	static async getTags(): Promise<string[]> {
-		const getTags = new CommandRunner(`git tag`)
-		const tags = await getTags.run()
-		return tags.trim().split("\n")
+		return await cmd.run(`git tag`)
 	}
 	static async getLatestTag(): Promise<string> {
-		const getLatestTag = new CommandRunner(`git describe --abbrev=0 --tags`)
-		const latestTag = await getLatestTag.run()
-		return latestTag.trim()
+		return await cmd.run(`git describe --abbrev=0 --tags`)
 	}
 	static async getLatestCommit(): Promise<string> {
-		const getLatestCommit = new CommandRunner(`git rev-parse HEAD`)
-		const latestCommit = await getLatestCommit.run()
-		return latestCommit.trim()
+		return await cmd.run(`git rev-parse HEAD`)
 	}
 	static async getLatestCommitMessage(): Promise<string> {
-		const getLatestCommitMessage = new CommandRunner(`git log -1 --pretty=%B`)
-		const latestCommitMessage = await getLatestCommitMessage.run()
-		return latestCommitMessage.trim()
+		return await cmd.run(`git log -1 --pretty=%B`)
 	}
 	static async getLatestCommitDate(): Promise<string> {
-		const getLatestCommitDate = new CommandRunner(`git log -1 --pretty=%cd`)
-		const latestCommitDate = await getLatestCommitDate.run()
-		return latestCommitDate.trim()
+		return await cmd.run(`git log -1 --pretty=%cd`)
 	}
 	static async getLatestCommitAuthor(): Promise<string> {
-		const getLatestCommitAuthor = new CommandRunner(`git log -1 --pretty=%an`)
-		const latestCommitAuthor = await getLatestCommitAuthor.run()
-		return latestCommitAuthor.trim()
+		return await cmd.run(`git log -1 --pretty=%an`)
 	}
 	static async getLatestCommitAuthorEmail(): Promise<string> {
-		const getLatestCommitAuthorEmail = new CommandRunner(
-			`git log -1 --pretty=%ae`
-		)
-		const latestCommitAuthorEmail = await getLatestCommitAuthorEmail.run()
-		return latestCommitAuthorEmail.trim()
+		return await cmd.run(`git log -1 --pretty=%ae`)
 	}
 }
 
