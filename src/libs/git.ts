@@ -4,11 +4,10 @@ export class git {
 	static async status(): Promise<any> {
 		try {
 			const getStatus = new CommandRunner(`git status`)
-			await getStatus.run().then(() => {
-				return true
-			})
+			const result = await getStatus.run()
+			return result
 		} catch (error: any) {
-			return error.includes("Everything up-to-date")
+			return error
 		}
 	}
 	static async add(): Promise<void> {
