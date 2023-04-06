@@ -28,8 +28,12 @@ export class CommandRunner {
 					}
 					resolve(output.trim())
 				})
-				result.on("error", (error) => {
-					reject(error)
+				result.on("exit", (code) => {
+					if (code !== 0) {
+						reject(output.trim())
+						return
+					}
+					resolve(output.trim())
 				})
 			})
 		} catch (error: any) {
