@@ -5,7 +5,7 @@ export class git {
 		try {
 			const status = new CommandRunner(`git status`)
 			const result = await status.run()
-			console.log(result)
+			return result.includes("nothing to commit, working tree clean")
 		} catch (error: any) {
 			return false
 		}
