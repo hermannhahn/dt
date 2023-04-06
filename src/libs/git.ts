@@ -6,14 +6,11 @@ export class git {
 		return new Promise((resolve, reject) => {
 			try {
 				let status: string = ""
-				result.stderr.on("data", (data) => {
+				result.stdout.on("data", (data) => {
 					status += data
 				})
 				result.on("close", (code) => {
-					resolve(status)
-				})
-				result.on("error", (error) => {
-					reject(error)
+					resolve(code)
 				})
 			} catch (error: any) {
 				reject(error)
