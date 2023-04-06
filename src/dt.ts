@@ -26,8 +26,9 @@ program
 	.description("save project")
 	.action(async (opts, cmd) => {
 		try {
-			terminal.log("save", "Saving project...")
 			const version = packageJson.get("version")
+			const name = packageJson.get("name")
+			terminal.log("save", `Saving ${name} v${version}`)
 			const message = opts.message || `v${version}`
 			const status: any = await git.status()
 			const commands = [
