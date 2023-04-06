@@ -23,7 +23,8 @@ export class CommandRunner {
 			return new Promise((resolve, reject) => {
 				result.on("close", (code) => {
 					if (code !== 0) {
-						return output.trim()
+						reject(output.trim())
+						return
 					}
 					resolve(output.trim())
 				})
