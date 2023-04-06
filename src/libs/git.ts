@@ -4,16 +4,20 @@ export class git {
 	static async status(): Promise<any> {
 		const result = spawn("git", ["status", "--porcelain"])
 		return new Promise((resolve, reject) => {
-			let status: string = ""
-			result.stdout.on("data", (data) => {
-				status += data
-			})
-			result.on("close", (code) => {
-				resolve(status)
-			})
-			result.on("error", (error) => {
+			try {
+				let status: string = ""
+				result.stdout.on("data", (data) => {
+					status += data
+				})
+				result.on("close", (code) => {
+					resolve(status)
+				})
+				result.on("error", (error) => {
+					reject(error)
+				})
+			} catch (error: any) {
 				reject(error)
-			})
+			}
 		})
 	}
 	static async add(): Promise<void> {
