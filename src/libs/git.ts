@@ -11,7 +11,10 @@ export class git {
 				})
 				result.on("exit", (code) => {
 					if (code === 0) {
-						resolve(status)
+						if (status.includes("nothing to commit")) {
+							resolve(false)
+						}
+						resolve(true)
 					} else {
 						reject(new Error(`Command 'git status' failed with code ${code}`))
 					}
