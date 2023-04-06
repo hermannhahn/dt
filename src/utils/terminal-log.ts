@@ -36,77 +36,77 @@ export class terminal {
 	public static bug(text?: string) {
 		this.log("bug", text)
 	}
-
+	// green color: \x1b[32m
 	public static green(text: string) {
-		console.log("\x1b[32m%s\x1b[0m", text)
+		process.stdout.write("\x1b[32m" + text + "\x1b[0m")
 	}
 
 	public static red(text: string) {
-		console.log("\x1b[31m%s\x1b[0m", text)
+		process.stdout.write("\x1b[31m" + text + "\x1b[0m")
 	}
 
 	public static yellow(text: string) {
-		console.log("\x1b[33m%s\x1b[0m", text)
+		process.stdout.write("\x1b[33m" + text + "\x1b[0m")
 	}
 
 	public static black(text: string) {
-		console.log("\x1b[30m%s\x1b[0m", text)
+		process.stdout.write("\x1b[30m" + text + "\x1b[0m")
 	}
 
 	public static orange(text: string) {
-		console.log("\x1b[91m%s\x1b[0m", text)
+		process.stdout.write("\x1b[33m" + text + "\x1b[0m")
 	}
 
 	public static blue(text: string) {
-		console.log("\x1b[34m%s\x1b[0m", text)
+		process.stdout.write("\x1b[34m" + text + "\x1b[0m")
 	}
 
 	public static magenta(text: string) {
-		console.log("\x1b[35m%s\x1b[0m", text)
+		process.stdout.write("\x1b[35m" + text + "\x1b[0m")
 	}
 
 	public static cyan(text: string) {
-		console.log("\x1b[36m%s\x1b[0m", text)
+		process.stdout.write("\x1b[36m" + text + "\x1b[0m")
 	}
 
 	public static white(text: string) {
-		console.log("\x1b[37m%s\x1b[0m", text)
+		process.stdout.write("\x1b[37m" + text + "\x1b[0m")
 	}
 
 	public static gray(text: string) {
-		console.log("\x1b[90m%s\x1b[0m", text)
+		process.stdout.write("\x1b[90m" + text + "\x1b[0m")
 	}
 
 	public static grey(text: string) {
-		console.log("\x1b[90m%s\x1b[0m", text)
+		process.stdout.write("\x1b[90m" + text + "\x1b[0m")
 	}
 
 	public static bold(text: string) {
-		console.log("\x1b[1m%s\x1b[0m", text)
+		process.stdout.write("\x1b[1m" + text + "\x1b[0m")
 	}
 
 	public static italic(text: string) {
-		console.log("\x1b[3m%s\x1b[0m", text)
+		process.stdout.write("\x1b[3m" + text + "\x1b[0m")
 	}
 
 	public static underline(text: string) {
-		console.log("\x1b[4m%s\x1b[0m", text)
+		process.stdout.write("\x1b[4m" + text + "\x1b[0m")
 	}
 
 	public static inverse(text: string) {
-		console.log("\x1b[7m%s\x1b[0m", text)
+		process.stdout.write("\x1b[7m" + text + "\x1b[0m")
 	}
 
 	public static strikethrough(text: string) {
-		console.log("\x1b[9m%s\x1b[0m", text)
+		process.stdout.write("\x1b[9m" + text + "\x1b[0m")
 	}
 
 	public static hidden(text: string) {
-		console.log("\x1b[8m%s\x1b[0m", text)
+		process.stdout.write("\x1b[8m" + text + "\x1b[0m")
 	}
 
 	public static reset() {
-		console.log("\x1b[0m")
+		process.stdout.write("\x1b[0m")
 	}
 
 	public static clear() {
