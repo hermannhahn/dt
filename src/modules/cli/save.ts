@@ -20,7 +20,7 @@ export const Save = async () => {
 				const status: any = git.branch.status()
 				const add = async () => {
 					const AddFiles: any = await git.add(".")
-					terminal.debug(AddFiles.result)
+					terminal.debug(AddFiles.error)
 					if (AddFiles.error) {
 						terminal.log("[\x1b[31mfail\x1b[0m]")
 						throw new Error(`${AddFiles.error}`)
