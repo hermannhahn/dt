@@ -15,6 +15,7 @@ export const Add = async (args: string): Promise<GitResponse> => {
 						error: `Error while adding files, exit code: ${code}`,
 						result: "No changes to commit",
 					}
+					resolve(response)
 				} else {
 					if (code === 0) {
 						let fileList: any = []
