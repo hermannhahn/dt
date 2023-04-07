@@ -20,10 +20,10 @@ export const Save = async () => {
 				const status: any = git.branch.status()
 				const add = async () => {
 					const AddFiles: any = await git.add(".")
-					terminal.debug(AddFiles.error)
 					if (AddFiles.error !== false) {
 						terminal.notFoundCheck()
-						throw new Error(AddFiles.result)
+						terminal.done(AddFiles.result)
+						throw new Error(AddFiles.error)
 					} else {
 						const files = AddFiles.result
 						for (const file of files) {
@@ -52,7 +52,7 @@ export const Save = async () => {
 
 				terminal.log("done", "Project successfully saved!")
 			} catch (error: any) {
-				terminal.error(error)
+				terminal.debug(error)
 			}
 		})
 }

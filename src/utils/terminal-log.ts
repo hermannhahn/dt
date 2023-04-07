@@ -41,6 +41,10 @@ export class terminal {
 		this.log("success", text)
 	}
 
+	public static done(text: string) {
+		this.log("done", text)
+	}
+
 	public static error(text: string) {
 		this.log("error", text)
 	}
