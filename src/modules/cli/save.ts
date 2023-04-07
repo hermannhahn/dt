@@ -21,8 +21,8 @@ export const Save = async () => {
 				const commands = [
 					await git.add("."),
 					await git.commit(message),
-					terminal.debug("Searching for Bugs..."),
 					await git.push(),
+					terminal.debug("Searching for Bugs..."),
 					await git.push("--tags"),
 				]
 				if (status) {
