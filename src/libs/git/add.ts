@@ -13,6 +13,7 @@ export const Add = async (args: string): Promise<GitResponseInterface> => {
 			})
 			porcelain.on("exit", (code) => {
 				if (code === 0) {
+					terminal.debug("test")
 					let fileList: any = []
 					resultPorcelain
 						.trim()
@@ -49,7 +50,6 @@ export const Add = async (args: string): Promise<GitResponseInterface> => {
 				}
 			})
 		} catch (error: any) {
-			terminal.debug("test")
 			throw new Error(`Error while adding files: ${error}`)
 		}
 	})
