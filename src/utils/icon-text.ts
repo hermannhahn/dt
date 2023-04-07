@@ -20,6 +20,7 @@ const icons: any = {
 	breakheart: "💔",
 	lamp: "💡",
 	zzz: "💤",
+	fail: "❌",
 	folder: "📁",
 	pin: "📌",
 	clip: "📎",

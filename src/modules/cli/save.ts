@@ -22,7 +22,7 @@ export const Save = async () => {
 					const AddFiles: any = await git.add(".")
 					if (AddFiles.error) {
 						terminal.debug(AddFiles.error)
-						terminal.log("[\x1b[31mfail\x1b[0m]")
+						terminal.failCheck()
 						throw new Error(`${AddFiles.error}`)
 					} else {
 						const files = AddFiles.result

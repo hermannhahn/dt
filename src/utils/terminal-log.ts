@@ -13,6 +13,26 @@ export class terminal {
 		process.stdout.write(msgIcon.print() + msg)
 	}
 
+	public static failCheck() {
+		console.log("[\x1b[31mfail\x1b[0m]")
+	}
+
+	public static successCheck() {
+		console.log("[\x1b[32msuccess\x1b[0m]")
+	}
+
+	public static doneCheck() {
+		console.log("[\x1b[32mdone\x1b[0m]")
+	}
+
+	public static foundCheck() {
+		console.log("[\x1b[33mfound\x1b[0m]")
+	}
+
+	public static fail(text: string) {
+		this.log("fail", text)
+	}
+
 	public static success(text: string) {
 		this.log("success", text)
 	}
