@@ -23,14 +23,12 @@ export const Save = async () => {
 					if (!AddFiles.error) {
 						const files = AddFiles.result
 						for (const file of files) {
-							terminal.log("file", `${file} \x1b[32madded\x1b[0m`)
+							terminal.log("file", `${file} [\x1b[32madded\x1b[0m]`)
 						}
-
-						terminal.log("file", "Adding files... ")
 					}
 				}
 				const commands = [
-					terminal.log("search", "Adding files... "),
+					terminal.log("search", "Searching for changes... "),
 					await add(),
 					terminal.logInline("password", "Waiting for signature password... "),
 					await git.commit(message),
