@@ -20,7 +20,7 @@ export const Add = async (args: string): Promise<GitResponseInterface> => {
 						.forEach((file: string) => {
 							fileList.push(file.trim())
 						})
-					terminal.debug(resultPorcelain)
+					terminal.debug(porcelain.spawnargs.join(" "))
 					const add = spawn("git", ["add", args])
 					let resultAdd: string = ""
 					add.stdout.on("data", (data) => {
