@@ -46,7 +46,7 @@ export const Save = async () => {
 
 				terminal.log("done", "Project successfully saved!")
 			} catch (error: any) {
-				terminal.debug(error)
+				terminal.debug(error.message)
 			}
 		})
 }
