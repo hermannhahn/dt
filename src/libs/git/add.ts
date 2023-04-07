@@ -1,7 +1,6 @@
 import { spawn } from "child_process"
 import { Error } from "types/error"
 import { GitResponse } from "types/git"
-import { terminal } from "utils/terminal-log"
 
 export const Add = async (args: string): Promise<GitResponse> => {
 	return new Promise((resolve) => {
@@ -32,15 +31,16 @@ export const Add = async (args: string): Promise<GitResponse> => {
 					add.on("exit", (code) => {
 						if (code === 0) {
 							response.result = fileList
+							resolve(response)
 						} else {
 							response.error = `Error while adding files, exit code: ${code}`
+							resolve(response)
 						}
 					})
 				} else {
 					response.error = `Error while adding files, exit code: ${code}`
+					resolve(response)
 				}
-				terminal.debug(response.result)
-				resolve(response)
 			})
 		} catch (error: any) {
 			throw new Error(`Error while adding files: ${error}`)
