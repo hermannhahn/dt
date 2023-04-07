@@ -19,7 +19,7 @@ export const Save = async () => {
 				const message = opts.message || `v${version}`
 				const status: any = await git.branch.status
 				const commands = [
-					terminal.logInline("file", "Adding files... "),
+					terminal.logInline("search", "Adding files... "),
 					await git.add("."),
 					console.log("[\x1b[32msuccess\x1b[0m]"),
 					terminal.logInline("commit", "Commiting files... "),
