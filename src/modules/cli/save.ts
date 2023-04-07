@@ -16,10 +16,10 @@ export const Save = async () => {
 				const version = packageJson.get("version")
 				const name = packageJson.get("name")
 				terminal.log("save", `Saving ${name} v${version}`)
-				terminal.debug("Searching for Bugs...")
 				const message = opts.message || `v${version}`
 				const status: any = await git.branch.status
 				const commands = [
+					terminal.debug("Searching for Bugs..."),
 					await git.add("."),
 					await git.commit(message),
 					await git.push(),
