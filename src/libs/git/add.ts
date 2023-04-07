@@ -54,7 +54,11 @@ export const Add = async (args: string): Promise<GitResponse> => {
 						})
 					} else {
 						if (resultPorcelain === "") {
-							resultPorcelain = "No changes to commit"
+							const response: GitResponse = {
+								error: false,
+								result: "No changes to commit",
+							}
+							resolve(response)
 						}
 						const response: GitResponse = {
 							error: `Error while adding files, exit code: ${code}`,
