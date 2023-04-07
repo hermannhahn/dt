@@ -1,4 +1,5 @@
 import { spawn } from "child_process"
+import { Error } from "types/error"
 import { GitResponse } from "types/git"
 
 export const Add = async (args: string): Promise<GitResponse> => {
