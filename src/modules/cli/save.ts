@@ -20,8 +20,7 @@ export const Save = async () => {
 				const status: any = await git.branch.status
 				const commands = [
 					terminal.logInline("search", "Adding files... "),
-					await git.add("."),
-					console.log("[\x1b[32msuccess\x1b[0m]"),
+					(await git.add(".")).result,
 					terminal.logInline("password", "Waiting for signature password... "),
 					await git.commit(message),
 					console.log("[\x1b[32msuccess\x1b[0m]"),
@@ -37,13 +36,10 @@ export const Save = async () => {
 				if (status) {
 					await Promise.all(commands)
 				}
-				if (commands[1]) {
-					console.log(commands[1].result)
-				}
 
 				terminal.log("done", "Project successfully saved!")
 			} catch (error: any) {
-				terminal.error("[\x1b[31mfail\x1b[0m]")
+				terminal.log("[\x1b[31mfail\x1b[0m]")
 			}
 		})
 }
