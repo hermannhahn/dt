@@ -1,6 +1,5 @@
 import { spawn } from "child_process"
 import { GitResponse, GitResponseInterface } from "types/git"
-import { terminal } from "utils/terminal-log"
 
 export const Add = async (args: string): Promise<GitResponseInterface> => {
 	return new Promise((resolve, reject) => {
@@ -21,11 +20,10 @@ export const Add = async (args: string): Promise<GitResponseInterface> => {
 							fileList.push(file.trim())
 						})
 					if (fileList[0] === "" || fileList.length === 0) {
-						terminal.debug("test")
 						const error = new Error(`No files to add, exit code: ${code}`)
 						response.error = error
 						response.result = resultPorcelain.toString()
-						reject(response)
+						resolve(response)
 					}
 					const add = spawn("git", ["add", args])
 					let resultAdd: string = ""
