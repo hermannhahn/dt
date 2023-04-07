@@ -20,6 +20,7 @@ export const Add = async (args: string): Promise<GitResponseInterface> => {
 							fileList.push(file.trim())
 						})
 					if (fileList.length === 0) {
+						console.log("here")
 						const error = new Error(`No modified files found`)
 						response.error = error
 						response.result = ""
