@@ -52,7 +52,7 @@ export const Save = async () => {
 
 				terminal.log("done", "Project successfully saved!")
 			} catch (error: any) {
-				terminal.log("[\x1b[31mfail\x1b[0m]")
+				console.log(error)
 			}
 		})
 }
