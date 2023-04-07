@@ -20,9 +20,8 @@ export const Save = async () => {
 				const status: any = await git.branch.status
 				const add = async () => {
 					const AddFiles: any = await git.add(".")
-					console.log(AddFiles.error)
-					if (!AddFiles) {
-						terminal.error(AddFiles.error)
+					if (AddFiles.error) {
+						terminal.error(AddFiles.result)
 					}
 					const files = AddFiles.result
 					for (const file of files) {
