@@ -23,7 +23,7 @@ export const Save = async () => {
 					if (!AddFiles.error) {
 						const files = AddFiles.result
 						for (const file of files) {
-							terminal.log("file", `${file} [\x1b[32madded\x1b[0m]`)
+							terminal.log("file", `${file} [\x1b[33mfound\x1b[0m]`)
 						}
 					}
 				}
