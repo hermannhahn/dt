@@ -22,7 +22,7 @@ export const Add = async (args: string): Promise<GitResponseInterface> => {
 					if (fileList[0] === "" || fileList.length === 0) {
 						const error = new Error(`No files to add, exit code: ${code}`)
 						response.error = error
-						response.result = resultPorcelain.toString()
+						response.result = "No changes found"
 						resolve(response)
 					}
 					const add = spawn("git", ["add", args])
