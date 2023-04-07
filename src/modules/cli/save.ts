@@ -18,9 +18,20 @@ export const Save = async () => {
 				terminal.log("save", `Saving ${name} v${version} `)
 				const message = opts.message || `v${version}`
 				const status: any = await git.branch.status
+				const add = async () => {
+					const AddFiles = await git.add(".")
+					if (!AddFiles.error) {
+						const files = AddFiles.result
+						for (const file of files) {
+							terminal.log("file", `${file} \x1b[32madded\x1b[0m`)
+						}
+
+						terminal.log("file", "Adding files... ")
+					}
+				}
 				const commands = [
-					terminal.logInline("search", "Adding files... "),
-					(await git.add(".")).result,
+					terminal.log("search", "Adding files... "),
+					await add(),
 					terminal.logInline("password", "Waiting for signature password... "),
 					await git.commit(message),
 					console.log("[\x1b[32msuccess\x1b[0m]"),

@@ -27,7 +27,7 @@ export const Add = async (args: string): Promise<GitResponseInterface> => {
 					add.on("exit", (code) => {
 						if (code === 0) {
 							response.error = false
-							response.result = resultPorcelain.toString()
+							response.result = fileList
 							resolve(response)
 						} else {
 							const error = new Error(
