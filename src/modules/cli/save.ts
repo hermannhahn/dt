@@ -20,7 +20,7 @@ export const Save = async () => {
 				const status: any = git.branch.status()
 				const add = async () => {
 					const AddFiles: any = await git.add(".")
-					if (AddFiles.error) {
+					if (AddFiles.error === true) {
 						terminal.notFoundCheck()
 						throw new Error(AddFiles.result)
 					} else {
