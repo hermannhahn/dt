@@ -20,8 +20,8 @@ export const Save = async () => {
 				const status: any = await git.branch.status
 				const commands = [
 					await git.add("."),
-					await git.commit(message),
 					terminal.debug("Searching for Bugs..."),
+					await git.commit(message),
 					await git.push(),
 					await git.push("--tags"),
 				]
