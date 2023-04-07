@@ -3,7 +3,6 @@ import { GitResponse, GitResponseInterface } from "types/git"
 
 export const Pull = async (args?: string): Promise<GitResponseInterface> => {
 	return new Promise((resolve, reject) => {
-		let response = new GitResponse(false, "Error while pulling")
 		try {
 			const pull = spawn("git", ["pull", args ?? ""])
 			let result: string = ""
@@ -12,10 +11,17 @@ export const Pull = async (args?: string): Promise<GitResponseInterface> => {
 			})
 			pull.on("exit", (code) => {
 				if (code === 0) {
-					response.result = result.toString()
+					const response: GitResponse = {
+						error: false,
+						result: result.toString(),
+					}
+					resolve(response)
 				} else {
-					response.error = `Error while pulling, exit code: ${code}`
-					response.result = result.toString()
+					const response: GitResponse = {
+						error: `Error while pulling, exit code: ${code}`,
+						result: result.toString(),
+					}
+					resolve(response)
 				}
 			})
 		} catch (error: any) {

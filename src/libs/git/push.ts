@@ -3,7 +3,6 @@ import { GitResponse, GitResponseInterface } from "types/git"
 
 export const Push = async (args?: string): Promise<GitResponseInterface> => {
 	return new Promise((resolve, reject) => {
-		let response = new GitResponse(false, "")
 		try {
 			let push = spawn("git", ["push"])
 			if (args !== undefined) {
@@ -15,10 +14,17 @@ export const Push = async (args?: string): Promise<GitResponseInterface> => {
 			})
 			push.on("exit", (code) => {
 				if (code === 0) {
-					response.result = result.toString()
+					const response: GitResponse = {
+						error: false,
+						result: result.toString(),
+					}
+					resolve(response)
 				} else {
-					response.error = `Error while pushing, exit code: ${code}`
-					response.result = result.toString()
+					const response: GitResponse = {
+						error: `Error while pushing, exit code: ${code}`,
+						result: result.toString(),
+					}
+					resolve(response)
 				}
 			})
 		} catch (error: any) {

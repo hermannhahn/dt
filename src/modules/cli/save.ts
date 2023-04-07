@@ -20,9 +20,7 @@ export const Save = async () => {
 				const status: any = git.branch.status()
 				const add = async () => {
 					const { error, result } = await git.add(".")
-					if (error) {
-						terminal.notFoundCheck()
-					} else {
+					if (!error) {
 						for (const file of result) {
 							terminal.log("file", `${file} [\x1b[33mfound\x1b[0m]`)
 						}
@@ -49,7 +47,7 @@ export const Save = async () => {
 
 				terminal.log("done", "Project successfully saved!")
 			} catch (error: any) {
-				terminal.debug(error.message)
+				throw new Error(`Error while saving project: ${error}`)
 			}
 		})
 }

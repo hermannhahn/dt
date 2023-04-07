@@ -3,7 +3,6 @@ import { GitResponse, GitResponseInterface } from "types/git"
 
 export const merge = async (branch: string): Promise<GitResponseInterface> => {
 	return new Promise((resolve, reject) => {
-		let response = new GitResponse(true, "")
 		try {
 			const merge = spawn("git", ["merge", branch])
 			let result: string = ""
@@ -12,12 +11,17 @@ export const merge = async (branch: string): Promise<GitResponseInterface> => {
 			})
 			merge.on("exit", (code) => {
 				if (code === 0) {
-					response.error = false
-					response.result = result.toString()
+					const response: GitResponse = {
+						error: false,
+						result: result.toString(),
+					}
 					resolve(response)
 				} else {
-					response.result = result.toString()
-					reject(response)
+					const response: GitResponse = {
+						error: `Error while merging branch, exit code: ${code}`,
+						result: result.toString(),
+					}
+					resolve(response)
 				}
 			})
 		} catch (error: any) {

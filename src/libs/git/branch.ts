@@ -2,7 +2,6 @@ import { spawn } from "child_process"
 import { GitResponse, GitResponseInterface } from "types/git"
 
 export class Branch {
-	private response = new GitResponse(false, "No changes found")
 	public status = this.Status
 	public list = this.List
 	public name = this.Name
@@ -20,128 +19,164 @@ export class Branch {
 				})
 				status.on("exit", (code) => {
 					if (code === 0) {
-						this.response.result = result.toString()
+						const response: GitResponse = {
+							error: false,
+							result: result.toString(),
+						}
+						resolve(response)
 					} else {
-						this.response.error = `Error while getting status, exit code: ${code}`
-						this.response.result = result.toString()
+						const response: GitResponse = {
+							error: `Error while getting status, exit code: ${code}`,
+							result: result.toString(),
+						}
+						resolve(response)
 					}
 				})
-				resolve(this.response)
 			} catch (error: any) {
 				throw new Error(`Error while getting status: ${error}`)
 			}
 		})
 	}
 
-	private async List(args?: string): Promise<GitResponseInterface> {
-		const branch = spawn("git", ["branch", args ?? ""])
+	private async List(): Promise<GitResponseInterface> {
+		const list = spawn("git", ["branch", "-a"])
 		return new Promise((resolve, reject) => {
 			try {
 				let result: string = ""
-				branch.stdout.on("data", (data) => {
+				list.stdout.on("data", (data) => {
 					result += data
 				})
-				branch.on("exit", (code) => {
+				list.on("exit", (code) => {
 					if (code === 0) {
-						this.response.result = result.toString()
+						const response: GitResponse = {
+							error: false,
+							result: result.toString(),
+						}
+						resolve(response)
 					} else {
-						this.response.error = `Error while getting branch list, exit code: ${code}`
-						this.response.result = result.toString()
+						const response: GitResponse = {
+							error: `Error while getting list, exit code: ${code}`,
+							result: result.toString(),
+						}
+						resolve(response)
 					}
 				})
-				resolve(this.response)
 			} catch (error: any) {
-				throw new Error(`Error while getting branch list: ${error}`)
+				throw new Error(`Error while getting list: ${error}`)
 			}
 		})
 	}
 
-	private async Name(args?: string): Promise<GitResponseInterface> {
-		const branch = spawn("git", ["branch", args ?? ""])
+	private async Name(): Promise<GitResponseInterface> {
+		const name = spawn("git", ["rev-parse", "--abbrev-ref", "HEAD"])
 		return new Promise((resolve, reject) => {
 			try {
 				let result: string = ""
-				branch.stdout.on("data", (data) => {
+				name.stdout.on("data", (data) => {
 					result += data
 				})
-				branch.on("exit", (code) => {
+				name.on("exit", (code) => {
 					if (code === 0) {
-						this.response.result = result.toString()
+						const response: GitResponse = {
+							error: false,
+							result: result.toString(),
+						}
+						resolve(response)
 					} else {
-						this.response.error = `Error while getting branch name, exit code: ${code}`
-						this.response.result = result.toString()
+						const response: GitResponse = {
+							error: `Error while getting name, exit code: ${code}`,
+							result: result.toString(),
+						}
+						resolve(response)
 					}
 				})
-				resolve(this.response)
 			} catch (error: any) {
-				throw new Error(`Error while getting branch name: ${error}`)
+				throw new Error(`Error while getting name: ${error}`)
 			}
 		})
 	}
 
-	private async Create(args?: string): Promise<GitResponseInterface> {
-		const branch = spawn("git", ["branch", args ?? ""])
+	private async Create(branch: string): Promise<GitResponseInterface> {
+		const create = spawn("git", ["branch", branch])
 		return new Promise((resolve, reject) => {
 			try {
 				let result: string = ""
-				branch.stdout.on("data", (data) => {
+				create.stdout.on("data", (data) => {
 					result += data
 				})
-				branch.on("exit", (code) => {
+				create.on("exit", (code) => {
 					if (code === 0) {
-						this.response.result = result.toString()
+						const response: GitResponse = {
+							error: false,
+							result: result.toString(),
+						}
+						resolve(response)
 					} else {
-						this.response.error = `Error while creating branch, exit code: ${code}`
-						this.response.result = result.toString()
+						const response: GitResponse = {
+							error: `Error while creating branch, exit code: ${code}`,
+							result: result.toString(),
+						}
+						resolve(response)
 					}
 				})
-				resolve(this.response)
 			} catch (error: any) {
 				throw new Error(`Error while creating branch: ${error}`)
 			}
 		})
 	}
 
-	private async Delete(args?: string): Promise<GitResponseInterface> {
-		const branch = spawn("git", ["branch", args ?? ""])
+	private async Delete(branch: string): Promise<GitResponseInterface> {
+		const del = spawn("git", ["branch", "-d", branch])
 		return new Promise((resolve, reject) => {
 			try {
 				let result: string = ""
-				branch.stdout.on("data", (data) => {
+				del.stdout.on("data", (data) => {
 					result += data
 				})
-				branch.on("exit", (code) => {
+				del.on("exit", (code) => {
 					if (code === 0) {
-						this.response.result = result.toString()
+						const response: GitResponse = {
+							error: false,
+							result: result.toString(),
+						}
+						resolve(response)
 					} else {
-						this.response.error = `Error while deleting branch, exit code: ${code}`
-						this.response.result = result.toString()
+						const response: GitResponse = {
+							error: `Error while deleting branch, exit code: ${code}`,
+							result: result.toString(),
+						}
+						resolve(response)
 					}
 				})
-				resolve(this.response)
 			} catch (error: any) {
 				throw new Error(`Error while deleting branch: ${error}`)
 			}
 		})
 	}
 
-	private async DeleteRemote(args?: string): Promise<GitResponseInterface> {
-		const branch = spawn("git", ["branch", args ?? ""])
+	private async DeleteRemote(branch: string): Promise<GitResponseInterface> {
+		const del = spawn("git", ["push", "origin", "--delete", branch])
 		return new Promise((resolve, reject) => {
 			try {
 				let result: string = ""
-				branch.stdout.on("data", (data) => {
+				del.stdout.on("data", (data) => {
 					result += data
 				})
-				branch.on("exit", (code) => {
+				del.on("exit", (code) => {
 					if (code === 0) {
-						this.response.result = result.toString()
+						const response: GitResponse = {
+							error: false,
+							result: result.toString(),
+						}
+						resolve(response)
 					} else {
-						this.response.error = `Error while deleting remote branch, exit code: ${code}`
-						this.response.result = result.toString()
+						const response: GitResponse = {
+							error: `Error while deleting remote branch, exit code: ${code}`,
+							result: result.toString(),
+						}
+						resolve(response)
 					}
 				})
-				resolve(this.response)
 			} catch (error: any) {
 				throw new Error(`Error while deleting remote branch: ${error}`)
 			}
