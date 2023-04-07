@@ -30,6 +30,7 @@ const icons: any = {
 	arrowDown: "⬇",
 	arrowRight: "➡",
 	time: "⏱",
+	debug: "🐛",
 }
 
 export class Icons {
