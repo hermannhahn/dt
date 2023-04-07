@@ -5,7 +5,7 @@ export const checkout = async (
 	branch: string
 ): Promise<GitResponseInterface> => {
 	return new Promise((resolve, reject) => {
-		let response = new GitResponse(false, "")
+		let response = new GitResponse(false, "Error while checking out branch")
 		try {
 			const checkout = spawn("git", ["checkout", branch])
 			let result: string = ""
@@ -14,23 +14,15 @@ export const checkout = async (
 			})
 			checkout.on("exit", (code) => {
 				if (code === 0) {
-					response.error = false
 					response.result = result.toString()
-					resolve(response)
 				} else {
-					const error = new Error(
-						`Error while checking out branch ${branch}, exit code: ${code}`
-					)
-					response.error = error
+					response.error = `Error while checking out branch, exit code: ${code}`
 					response.result = result.toString()
-					reject(response)
 				}
 			})
+			resolve(response)
 		} catch (error: any) {
-			error = new Error(`Error while checking out branch ${branch}: ${error}`)
-			response.error = error
-			response.result = ""
-			reject(response)
+			throw new Error(`Error while checking out branch: ${error}`)
 		}
 	})
 }

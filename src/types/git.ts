@@ -1,15 +1,13 @@
-import { Error } from "types/error"
-
 export interface GitResponseInterface {
-	error: boolean | Error
+	error: boolean | string
 	result: string
 }
 
 export class GitResponse {
-	public error: boolean | Error = false
-	public result: string = ""
+	public error: boolean | string
+	public result: string
 
-	constructor(error: boolean | Error, result: string) {
+	constructor(error: boolean | string, result: string) {
 		this.error = error
 		this.result = result
 	}

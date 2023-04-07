@@ -1,10 +1,10 @@
 import { spawn } from "child_process"
 import { Error } from "types/error"
-import { GitResponse, GitResponseInterface } from "types/git"
+import { GitResponse } from "types/git"
 
-export const Add = async (args: string): Promise<GitResponseInterface> => {
-	return new Promise((resolve, reject) => {
-		let response = new GitResponse(false, "")
+export const Add = async (args: string): Promise<GitResponse> => {
+	return new Promise((resolve) => {
+		let response = new GitResponse(false, "No changes found")
 		try {
 			const porcelain = spawn("git", ["status", "--porcelain"])
 			let resultPorcelain: string = ""
@@ -21,8 +21,7 @@ export const Add = async (args: string): Promise<GitResponseInterface> => {
 							fileList.push(file.trim())
 						})
 					if (fileList[0] === "" || fileList.length === 0) {
-						response.error = new Error(`No files to add, exit code: ${code}`)
-						response.result = "No changes found"
+						response.error = `Error while adding files, exit code: ${code}`
 					}
 					const add = spawn("git", ["add", args])
 					let resultAdd: string = ""
@@ -31,23 +30,13 @@ export const Add = async (args: string): Promise<GitResponseInterface> => {
 					})
 					add.on("exit", (code) => {
 						if (code === 0) {
-							response.error = false
 							response.result = fileList
 						} else {
-							response.error = new Error(
-								`Error while adding files, exit code: ${code}`
-							)
-							response.result = resultAdd.toString()
+							response.error = `Error while adding files, exit code: ${code}`
 						}
 					})
 				} else {
-					const error = new Error(
-						`Error while getting status to add files, exit code: ${code}`
-					)
-					response.error = new Error(
-						`Error while getting status to add files, exit code: ${code}`
-					)
-					response.result = resultPorcelain.toString()
+					response.error = `Error while adding files, exit code: ${code}`
 				}
 				resolve(response)
 			})

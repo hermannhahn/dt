@@ -17,15 +17,17 @@ export const Save = async () => {
 				const name = packageJson.get("name")
 				terminal.log("save", `Saving ${name} v${version} `)
 				const message = opts.message || `v${version}`
-				const status: any = await git.branch.status
+				const status: any = git.branch.status()
 				const add = async () => {
 					const AddFiles: any = await git.add(".")
 					if (AddFiles.error) {
-						throw new Error(AddFiles.error)
-					}
-					const files = AddFiles.result
-					for (const file of files) {
-						terminal.log("file", `${file} [\x1b[33mfound\x1b[0m]`)
+						terminal.log("[\x1b[31mfail\x1b[0m]")
+						throw new Error(AddFiles.result)
+					} else {
+						const files = AddFiles.result
+						for (const file of files) {
+							terminal.log("file", `${file} [\x1b[33mfound\x1b[0m]`)
+						}
 					}
 				}
 				const commands = [

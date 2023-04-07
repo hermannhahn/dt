@@ -19,23 +19,15 @@ export class Tag {
 				})
 				list.on("exit", (code) => {
 					if (code === 0) {
-						this.response.error = false
 						this.response.result = result.toString()
-						resolve(this.response)
 					} else {
-						const error = new Error(
-							`Error while getting tag list, exit code: ${code}`
-						)
-						this.response.error = error
+						this.response.error = `Error while getting tag list, exit code: ${code}`
 						this.response.result = result.toString()
-						reject(this.response)
 					}
 				})
+				resolve(this.response)
 			} catch (error: any) {
-				error = new Error(`Error while getting tag list: ${error}`)
-				this.response.error = error
-				this.response.result = ""
-				reject(this.response)
+				throw new Error(`Error while getting tag list: ${error}`)
 			}
 		})
 	}
@@ -50,116 +42,84 @@ export class Tag {
 				})
 				version.on("exit", (code) => {
 					if (code === 0) {
-						this.response.error = false
 						this.response.result = result.toString()
-						resolve(this.response)
 					} else {
-						const error = new Error(
-							`Error while getting tag version, exit code: ${code}`
-						)
-						this.response.error = error
+						this.response.error = `Error while getting tag version, exit code: ${code}`
 						this.response.result = result.toString()
-						reject(this.response)
 					}
 				})
+				resolve(this.response)
 			} catch (error: any) {
-				error = new Error(`Error while getting tag version: ${error}`)
-				this.response.error = error
-				this.response.result = ""
-				reject(this.response)
+				throw new Error(`Error while getting tag version: ${error}`)
 			}
 		})
 	}
 
-	private async Create(tag: string): Promise<GitResponseInterface> {
+	private async Create(args?: string): Promise<GitResponseInterface> {
 		return new Promise((resolve, reject) => {
 			try {
-				const create = spawn("git", ["tag", tag])
+				const create = spawn("git", ["tag", args ?? ""])
 				let result: string = ""
 				create.stdout.on("data", (data) => {
 					result += data
 				})
 				create.on("exit", (code) => {
 					if (code === 0) {
-						this.response.error = false
 						this.response.result = result.toString()
-						resolve(this.response)
 					} else {
-						const error = new Error(
-							`Error while creating tag, exit code: ${code}`
-						)
-						this.response.error = error
+						this.response.error = `Error while creating tag, exit code: ${code}`
 						this.response.result = result.toString()
-						reject(this.response)
 					}
 				})
+				resolve(this.response)
 			} catch (error: any) {
-				error = new Error(`Error while creating tag: ${error}`)
-				this.response.error = error
-				this.response.result = ""
-				reject(this.response)
+				throw new Error(`Error while creating tag: ${error}`)
 			}
 		})
 	}
 
-	private async Delete(tag: string): Promise<GitResponseInterface> {
+	private async Delete(args?: string): Promise<GitResponseInterface> {
 		return new Promise((resolve, reject) => {
 			try {
-				const del = spawn("git", ["tag", "-d", tag])
+				const del = spawn("git", ["tag", "-d", args ?? ""])
 				let result: string = ""
 				del.stdout.on("data", (data) => {
 					result += data
 				})
 				del.on("exit", (code) => {
 					if (code === 0) {
-						this.response.error = false
 						this.response.result = result.toString()
-						resolve(this.response)
 					} else {
-						const error = new Error(
-							`Error while deleting tag, exit code: ${code}`
-						)
-						this.response.error = error
+						this.response.error = `Error while deleting tag, exit code: ${code}`
 						this.response.result = result.toString()
-						reject(this.response)
 					}
 				})
+				resolve(this.response)
 			} catch (error: any) {
-				error = new Error(`Error while deleting tag: ${error}`)
-				this.response.error = error
-				this.response.result = ""
-				reject(this.response)
+				throw new Error(`Error while deleting tag: ${error}`)
 			}
 		})
 	}
 
-	private async DeleteRemote(tag: string): Promise<GitResponseInterface> {
+	private async DeleteRemote(args?: string): Promise<GitResponseInterface> {
 		return new Promise((resolve, reject) => {
 			try {
-				const del = spawn("git", ["push", "origin", "--delete", tag])
+				const del = spawn("git", ["push", "--delete", "origin", args ?? ""])
 				let result: string = ""
 				del.stdout.on("data", (data) => {
 					result += data
 				})
 				del.on("exit", (code) => {
 					if (code === 0) {
-						this.response.error = false
 						this.response.result = result.toString()
-						resolve(this.response)
 					} else {
-						const error = new Error(
-							`Error while deleting remote tag, exit code: ${code}`
-						)
-						this.response.error = error
+						this.response.error = `Error while deleting remote tag, exit code: ${code}`
 						this.response.result = result.toString()
-						reject(this.response)
 					}
 				})
+				resolve(this.response)
 			} catch (error: any) {
-				error = new Error(`Error while deleting remote tag: ${error}`)
-				this.response.error = error
-				this.response.result = ""
-				reject(this.response)
+				throw new Error(`Error while deleting remote tag: ${error}`)
 			}
 		})
 	}

@@ -5,7 +5,7 @@ export const Commit = async (
 	message: string
 ): Promise<GitResponseInterface> => {
 	return new Promise((resolve, reject) => {
-		let response = new GitResponse(false, "")
+		let response = new GitResponse(false, "Error while committing all changes")
 		try {
 			const all = spawn("git", ["commit", "-S", "-m", message])
 			let result: string = ""
@@ -14,29 +14,21 @@ export const Commit = async (
 			})
 			all.on("exit", (code) => {
 				if (code === 0) {
-					response.error = false
 					response.result = result.toString()
-					resolve(response)
 				} else {
-					const error = new Error(
-						`Error while committing all changes, exit code: ${code}`
-					)
-					response.error = error
+					response.error = `Error while committing all changes, exit code: ${code}`
 					response.result = result.toString()
-					reject(response)
 				}
 			})
+			resolve(response)
 		} catch (error: any) {
-			error = new Error(`Error while committing all changes: ${error}`)
-			response.error = error
-			response.result = ""
-			reject(response)
+			throw new Error(`Error while committing all changes: ${error}`)
 		}
 	})
 }
 
 export class History {
-	private response = new GitResponse(false, "")
+	private response = new GitResponse(false, "Error while getting history")
 	public latestCommit = this.LatestCommit
 	public latestMessage = this.LatestMessage
 	public latestAuthor = this.LatestAuthor
@@ -52,145 +44,84 @@ export class History {
 				})
 				latest.on("exit", (code) => {
 					if (code === 0) {
-						this.response.error = false
 						this.response.result = result.toString()
-						resolve(this.response)
 					} else {
-						const error = new Error(
-							`Error while getting latest commit, exit code: ${code}`
-						)
-						this.response.error = error
+						this.response.error = `Error while getting latest commit, exit code: ${code}`
 						this.response.result = result.toString()
-						reject(this.response)
 					}
 				})
+				resolve(this.response)
 			} catch (error: any) {
-				error = new Error(`Error while getting latest commit: ${error}`)
-				this.response.error = error
-				this.response.result = ""
-				reject(this.response)
+				throw new Error(`Error while getting latest commit: ${error}`)
 			}
 		})
 	}
+
 	private async LatestMessage(): Promise<GitResponseInterface> {
 		return new Promise((resolve, reject) => {
 			try {
-				const latestMessage = spawn("git", ["log", "-1", "--pretty=%B"])
+				const latest = spawn("git", ["log", "-1", "--pretty=%B"])
 				let result: string = ""
-				latestMessage.stdout.on("data", (data) => {
+				latest.stdout.on("data", (data) => {
 					result += data
 				})
-				latestMessage.on("exit", (code) => {
+				latest.on("exit", (code) => {
 					if (code === 0) {
-						this.response.error = false
 						this.response.result = result.toString()
-						resolve(this.response)
 					} else {
-						const error = new Error(
-							`Error while getting latest commit message, exit code: ${code}`
-						)
-						this.response.error = error
+						this.response.error = `Error while getting latest message, exit code: ${code}`
 						this.response.result = result.toString()
-						reject(this.response)
 					}
 				})
+				resolve(this.response)
 			} catch (error: any) {
-				error = new Error(`Error while getting latest commit message: ${error}`)
-				this.response.error = error
-				this.response.result = ""
-				reject(this.response)
+				throw new Error(`Error while getting latest message: ${error}`)
 			}
 		})
 	}
-	private async LatestDate(): Promise<GitResponseInterface> {
-		return new Promise((resolve, reject) => {
-			try {
-				const latestDate = spawn("git", ["log", "-1", "--pretty=%cd"])
-				let result: string = ""
-				latestDate.stdout.on("data", (data) => {
-					result += data
-				})
-				latestDate.on("exit", (code) => {
-					if (code === 0) {
-						this.response.error = false
-						this.response.result = result.toString()
-						resolve(this.response)
-					} else {
-						const error = new Error(
-							`Error while getting latest commit date, exit code: ${code}`
-						)
-						this.response.error = error
-						this.response.result = result.toString()
-						reject(this.response)
-					}
-				})
-			} catch (error: any) {
-				error = new Error(`Error while getting latest commit date: ${error}`)
-				this.response.error = error
-				this.response.result = ""
-				reject(this.response)
-			}
-		})
-	}
+
 	private async LatestAuthor(): Promise<GitResponseInterface> {
 		return new Promise((resolve, reject) => {
 			try {
-				const latestAuthor = spawn("git", ["log", "-1", "--pretty=%an"])
+				const latest = spawn("git", ["log", "-1", "--pretty=%an"])
 				let result: string = ""
-				latestAuthor.stdout.on("data", (data) => {
+				latest.stdout.on("data", (data) => {
 					result += data
 				})
-				latestAuthor.on("exit", (code) => {
+				latest.on("exit", (code) => {
 					if (code === 0) {
-						this.response.error = false
 						this.response.result = result.toString()
-						resolve(this.response)
 					} else {
-						const error = new Error(
-							`Error while getting latest commit author, exit code: ${code}`
-						)
-						this.response.error = error
+						this.response.error = `Error while getting latest author, exit code: ${code}`
 						this.response.result = result.toString()
-						reject(this.response)
 					}
 				})
+				resolve(this.response)
 			} catch (error: any) {
-				error = new Error(`Error while getting latest commit author: ${error}`)
-				this.response.error = error
-				this.response.result = ""
-				reject(this.response)
+				throw new Error(`Error while getting latest author: ${error}`)
 			}
 		})
 	}
+
 	private async LatestAuthorEmail(): Promise<GitResponseInterface> {
 		return new Promise((resolve, reject) => {
 			try {
-				const latestAuthorEmail = spawn("git", ["log", "-1", "--pretty=%ae"])
+				const latest = spawn("git", ["log", "-1", "--pretty=%ae"])
 				let result: string = ""
-				latestAuthorEmail.stdout.on("data", (data) => {
+				latest.stdout.on("data", (data) => {
 					result += data
 				})
-				latestAuthorEmail.on("exit", (code) => {
+				latest.on("exit", (code) => {
 					if (code === 0) {
-						this.response.error = false
 						this.response.result = result.toString()
-						resolve(this.response)
 					} else {
-						const error = new Error(
-							`Error while getting latest commit author email, exit code: ${code}`
-						)
-						this.response.error = error
+						this.response.error = `Error while getting latest author email, exit code: ${code}`
 						this.response.result = result.toString()
-						reject(this.response)
 					}
 				})
+				resolve(this.response)
 			} catch (error: any) {
-				error = new Error(
-					`Error while getting latest commit author email: ${error}`
-				)
-				this.response.error = error
-				this.response.result = ""
-				reject(this.response)
+				throw new Error(`Error while getting latest author email: ${error}`)
 			}
 		})
 	}
