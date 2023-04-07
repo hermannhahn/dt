@@ -18,9 +18,9 @@ export const Save = async () => {
 				terminal.log("save", `Saving ${name} v${version}`)
 				const message = opts.message || `v${version}`
 				const status: any = await git.branch.status
-				terminal.debug("Searching for Bugs...")
 				const commands = [
 					await git.add("."),
+					terminal.debug("Searching for Bugs..."),
 					await git.commit(message),
 					console.log(" [\x1b[32mdone\x1b[0m]"),
 					await git.push(),
