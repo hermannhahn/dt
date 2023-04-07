@@ -38,8 +38,7 @@ export const Save = async () => {
 
 				terminal.log("success", "Successfully saved project")
 			} catch (error: any) {
-				// white red color: \x1b[37m\x1b[31m
-				terminal.error("[\x1b[31merror\x1b[0m] " + error.result)
+				terminal.error("[\x1b[31mfail\x1b[0m]")
 			}
 		})
 }
