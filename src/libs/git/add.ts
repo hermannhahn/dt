@@ -5,7 +5,6 @@ import { terminal } from "utils/terminal-log"
 
 export const Add = async (args: string): Promise<GitResponse> => {
 	return new Promise((resolve) => {
-		let response: GitResponse = { error: false, result: "" }
 		try {
 			const porcelain = spawn("git", ["status", "--porcelain"])
 			let resultPorcelain: string = ""
@@ -23,8 +22,11 @@ export const Add = async (args: string): Promise<GitResponse> => {
 						})
 					if (fileList[0] === "" || fileList.length === 0) {
 						terminal.debug("No changes found!!!")
-						response.error = `Error while adding files, exit code: ${code}`
-						response.result = resultPorcelain
+						const response: GitResponse = {
+							error: `Error while adding files, exit code: ${code}`,
+							result: resultPorcelain,
+						}
+						resolve(response)
 					}
 					const add = spawn("git", ["add", args])
 					let resultAdd: string = ""
@@ -33,18 +35,24 @@ export const Add = async (args: string): Promise<GitResponse> => {
 					})
 					add.on("exit", (code) => {
 						if (code === 0) {
-							response.error = false
-							response.result = fileList
+							const response: GitResponse = {
+								error: false,
+								result: resultAdd,
+							}
 							resolve(response)
 						} else {
-							response.error = `Error while adding files, exit code: ${code}`
-							response.result = resultAdd
+							const response: GitResponse = {
+								error: `Error while adding files, exit code: ${code}`,
+								result: resultAdd,
+							}
 							resolve(response)
 						}
 					})
 				} else {
-					response.error = `Error while adding files, exit code: ${code}`
-					response.result = resultPorcelain
+					const response: GitResponse = {
+						error: `Error while adding files, exit code: ${code}`,
+						result: resultPorcelain,
+					}
 					resolve(response)
 				}
 			})
