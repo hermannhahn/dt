@@ -19,7 +19,9 @@ export const Add = async (args: string): Promise<GitResponseInterface> => {
 						.forEach((file: string) => {
 							fileList.push(file.trim())
 						})
-					console.log(resultPorcelain)
+					if (resultPorcelain === "") {
+						console.log(resultPorcelain)
+					}
 					const add = spawn("git", ["add", args])
 					let resultAdd: string = ""
 					add.stdout.on("data", (data) => {
