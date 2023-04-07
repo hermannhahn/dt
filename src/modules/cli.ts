@@ -1,11 +1,5 @@
-import { Save } from "modules/save"
+import { Save } from "modules/cli/save"
 
 export class Cli {
-	constructor() {
-		this.save()
-	}
-
-	save(): void {
-		new Save()
-	}
+	save = Save
 }
