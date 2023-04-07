@@ -19,12 +19,6 @@ export const Add = async (args: string): Promise<GitResponseInterface> => {
 						.forEach((file: string) => {
 							fileList.push(file.trim())
 						})
-					if (resultPorcelain === "") {
-						const error = new Error(`No changes found`)
-						response.error = error
-						response.result = resultPorcelain.toString()
-						reject("No changes found")
-					}
 					const add = spawn("git", ["add", args])
 					let resultAdd: string = ""
 					add.stdout.on("data", (data) => {
@@ -50,7 +44,7 @@ export const Add = async (args: string): Promise<GitResponseInterface> => {
 					)
 					response.error = error
 					response.result = resultPorcelain.toString()
-					reject(response)
+					reject("response")
 				}
 			})
 		} catch (error: any) {
