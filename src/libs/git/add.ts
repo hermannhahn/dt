@@ -1,6 +1,7 @@
 import { spawn } from "child_process"
 import { Error } from "types/error"
 import { GitResponse } from "types/git"
+import { terminal } from "utils/terminal-log"
 
 export const Add = async (args: string): Promise<GitResponse> => {
 	return new Promise((resolve) => {
@@ -45,7 +46,7 @@ export const Add = async (args: string): Promise<GitResponse> => {
 				}
 			})
 		} catch (error: any) {
-			throw new Error(`Error while adding files: ${error}`)
+			terminal.error(error.message)
 		}
 	})
 }
