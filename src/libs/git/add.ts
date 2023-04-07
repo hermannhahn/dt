@@ -56,7 +56,7 @@ export const Add = async (args: string): Promise<GitResponse> => {
 						if (resultPorcelain === "") {
 							const response: GitResponse = {
 								error: false,
-								result: "No changes to commit",
+								result: "No changes to com54mit",
 							}
 							resolve(response)
 						}
