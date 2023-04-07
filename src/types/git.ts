@@ -1,3 +1,5 @@
+import { Error } from "types/error"
+
 export interface GitResponseInterface {
 	error: boolean | Error
 	result: string

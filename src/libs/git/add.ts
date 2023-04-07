@@ -1,4 +1,5 @@
 import { spawn } from "child_process"
+import { Error } from "types/error"
 import { GitResponse, GitResponseInterface } from "types/git"
 
 export const Add = async (args: string): Promise<GitResponseInterface> => {
@@ -20,10 +21,8 @@ export const Add = async (args: string): Promise<GitResponseInterface> => {
 							fileList.push(file.trim())
 						})
 					if (fileList[0] === "" || fileList.length === 0) {
-						const error = new Error(`No files to add, exit code: ${code}`)
-						response.error = error
+						response.error = new Error(`No files to add, exit code: ${code}`)
 						response.result = "No changes found"
-						resolve(response)
 					}
 					const add = spawn("git", ["add", args])
 					let resultAdd: string = ""
@@ -34,24 +33,23 @@ export const Add = async (args: string): Promise<GitResponseInterface> => {
 						if (code === 0) {
 							response.error = false
 							response.result = fileList
-							resolve(response)
 						} else {
-							const error = new Error(
+							response.error = new Error(
 								`Error while adding files, exit code: ${code}`
 							)
-							response.error = error
 							response.result = resultAdd.toString()
-							reject(response)
 						}
 					})
 				} else {
 					const error = new Error(
 						`Error while getting status to add files, exit code: ${code}`
 					)
-					response.error = error
+					response.error = new Error(
+						`Error while getting status to add files, exit code: ${code}`
+					)
 					response.result = resultPorcelain.toString()
-					reject(response)
 				}
+				resolve(response)
 			})
 		} catch (error: any) {
 			throw new Error(`Error while adding files: ${error}`)
