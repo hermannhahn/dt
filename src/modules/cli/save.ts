@@ -15,7 +15,7 @@ export const Save = async () => {
 			try {
 				const version = packageJson.get("version")
 				const name = packageJson.get("name")
-				terminal.logInline("save", `Saving ${name} v${version}`)
+				terminal.logInline("save", `Saving ${name} v${version} `)
 				const message = opts.message || `v${version}`
 				const status: any = await git.branch.status
 				const commands = [
@@ -28,7 +28,7 @@ export const Save = async () => {
 					await Promise.all(commands)
 				}
 
-				console.log("[", "\x1b[32m", "Done!", "\x1b[0m]")
+				console.log("[\x1b[32m", "Done!", "\x1b[0m]")
 				terminal.log("success", "Project saved")
 			} catch (error: any) {
 				terminal.error("Error: " + error.data)
