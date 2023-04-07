@@ -20,19 +20,13 @@ export const Save = async () => {
 				const status: any = git.branch.status()
 				const add = async () => {
 					const AddFiles: any = await git.add(".")
-					if (AddFiles.error !== false) {
-						terminal.notFoundCheck()
-						terminal.done(AddFiles.result)
-						throw new Error(AddFiles.error)
-					} else {
-						const files = AddFiles.result
-						for (const file of files) {
-							terminal.log("file", `${file} [\x1b[33mfound\x1b[0m]`)
-						}
+					const files = AddFiles.result
+					for (const file of files) {
+						terminal.log("file", `${file} [\x1b[33mfound\x1b[0m]`)
 					}
 				}
 				const commands = [
-					terminal.log("search", "Searching for changes... "),
+					terminal.logInline("search", "Searching for changes... "),
 					await add(),
 					terminal.logInline("password", "Waiting for signature password... "),
 					await git.commit(message),

@@ -1,5 +1,4 @@
 import { spawn } from "child_process"
-import { Error } from "types/error"
 import { GitResponse } from "types/git"
 
 export const Add = async (args: string): Promise<GitResponse> => {
@@ -20,11 +19,7 @@ export const Add = async (args: string): Promise<GitResponse> => {
 							fileList.push(file.trim())
 						})
 					if (fileList[0] === "" || fileList.length === 0) {
-						const response: GitResponse = {
-							error: `Error while adding files, exit code: ${code}`,
-							result: resultPorcelain,
-						}
-						resolve(response)
+						throw new Error(`Error while adding files, exit code: ${code}`)
 					}
 					const add = spawn("git", ["add", args])
 					let resultAdd: string = ""
@@ -39,19 +34,13 @@ export const Add = async (args: string): Promise<GitResponse> => {
 							}
 							resolve(response)
 						} else {
-							const response: GitResponse = {
-								error: `Error while adding files, exit code: ${code}`,
-								result: resultAdd,
-							}
-							resolve(response)
+							throw new Error(`Error while adding files, exit code: ${code}`)
 						}
 					})
 				} else {
-					const response: GitResponse = {
-						error: `Error while adding files, exit code: ${code}`,
-						result: resultPorcelain,
-					}
-					resolve(response)
+					throw new Error(
+						`Error while getting status to add files, exit code: ${code}`
+					)
 				}
 			})
 		} catch (error: any) {
