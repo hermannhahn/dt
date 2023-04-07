@@ -5,7 +5,7 @@ import { terminal } from "utils/terminal-log"
 
 export const Add = async (args: string): Promise<GitResponse> => {
 	return new Promise((resolve) => {
-		let response = new GitResponse(false, "No changes found")
+		let response: GitResponse = { error: false, result: "" }
 		try {
 			const porcelain = spawn("git", ["status", "--porcelain"])
 			let resultPorcelain: string = ""
