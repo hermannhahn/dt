@@ -23,7 +23,7 @@ export const Save = async () => {
 					if (AddFiles.error) {
 						terminal.notFoundCheck()
 						terminal.debug(AddFiles.result)
-						throw new Error(`${AddFiles.result.toString()}`)
+						throw new Error(AddFiles.error)
 					} else {
 						const files = AddFiles.result
 						for (const file of files) {
