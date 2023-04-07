@@ -20,7 +20,7 @@ export const Add = async (args: string): Promise<GitResponseInterface> => {
 							fileList.push(file.trim())
 						})
 					if (resultPorcelain === "") {
-						console.log(resultPorcelain)
+						console.log("resultPorcelain")
 					}
 					const add = spawn("git", ["add", args])
 					let resultAdd: string = ""
