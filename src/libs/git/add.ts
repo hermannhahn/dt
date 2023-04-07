@@ -12,7 +12,7 @@ export const Add = async (args: string): Promise<GitResponse> => {
 			porcelain.on("exit", (code) => {
 				if (resultPorcelain === "") {
 					const response: GitResponse = {
-						error: `Error while adding files, exit code: ${code}`,
+						error: false,
 						result: "No changes to commit",
 					}
 					resolve(response)
