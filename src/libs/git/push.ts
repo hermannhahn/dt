@@ -6,10 +6,10 @@ export const Push = async (args?: string): Promise<GitResponseInterface> => {
 	return new Promise((resolve, reject) => {
 		let response = new GitResponse(false, "")
 		if (args === "undefined") {
+			terminal.debug("Searching for Bugs... (Push) " + args)
 			args = ""
 		}
 		try {
-			terminal.debug("Searching for Bugs... (Push) " + args)
 			const push = spawn("git", ["push", args ?? ""])
 			let result: string = ""
 			push.stdout.on("data", (data) => {
