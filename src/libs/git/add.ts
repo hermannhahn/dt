@@ -20,7 +20,7 @@ export const Add = async (args: string): Promise<GitResponseInterface> => {
 						.forEach((file: string) => {
 							fileList.push(file.trim())
 						})
-					if (fileList.length === 0) {
+					if (fileList[0] === "" || fileList.length === 0) {
 						terminal.debug("test")
 						const error = new Error(`No files to add, exit code: ${code}`)
 						response.error = error
