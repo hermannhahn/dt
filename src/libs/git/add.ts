@@ -30,15 +30,18 @@ export const Add = async (args: string): Promise<GitResponse> => {
 					})
 					add.on("exit", (code) => {
 						if (code === 0) {
+							response.error = false
 							response.result = fileList
 							resolve(response)
 						} else {
 							response.error = `Error while adding files, exit code: ${code}`
+							response.result = resultAdd
 							resolve(response)
 						}
 					})
 				} else {
 					response.error = `Error while adding files, exit code: ${code}`
+					response.result = resultPorcelain
 					resolve(response)
 				}
 			})
