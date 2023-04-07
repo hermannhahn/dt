@@ -21,7 +21,10 @@ export const Add = async (args: string): Promise<GitResponse> => {
 							fileList.push(file.trim())
 						})
 					if (fileList[0] === "" || fileList.length === 0) {
-						throw new Error(`Error while adding files, exit code: ${code}`)
+						throw new Error(
+							`Error while adding files, exit code: ${code}`,
+							"No changes found"
+						)
 					}
 					const add = spawn("git", ["add", args])
 					let resultAdd: string = ""
@@ -36,12 +39,16 @@ export const Add = async (args: string): Promise<GitResponse> => {
 							}
 							resolve(response)
 						} else {
-							throw new Error(`Error while adding files, exit code: ${code}`)
+							throw new Error(
+								`Error while adding files, exit code: ${code}`,
+								resultAdd
+							)
 						}
 					})
 				} else {
 					throw new Error(
-						`Error while getting status to add files, exit code: ${code}`
+						`Error while getting status to add files, exit code: ${code}`,
+						resultPorcelain
 					)
 				}
 			})
