@@ -1,5 +1,6 @@
 const icons: any = {
 	success: "✔",
+	successBox: "🗸",
 	error: "✖",
 	stop: "⛔",
 	bug: "🐞",

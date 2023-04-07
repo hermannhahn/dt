@@ -38,7 +38,7 @@ export const Save = async () => {
 					await Promise.all(commands)
 				}
 
-				terminal.log("success", "Successfully saved project")
+				terminal.log("successBox", "Successfully saved project")
 			} catch (error: any) {
 				terminal.error("[\x1b[31mfail\x1b[0m]")
 			}
