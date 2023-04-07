@@ -23,7 +23,7 @@ export const Add = async (args: string): Promise<GitResponseInterface> => {
 						const error = new Error(`No changes found`)
 						response.error = error
 						response.result = resultPorcelain.toString()
-						reject(response)
+						reject("No changes found")
 					}
 					const add = spawn("git", ["add", args])
 					let resultAdd: string = ""
