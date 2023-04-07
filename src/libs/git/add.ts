@@ -45,11 +45,11 @@ export const Add = async (args: string): Promise<GitResponseInterface> => {
 					)
 					response.error = error
 					response.result = resultPorcelain.toString()
-					terminal.debug("test")
 					reject(response)
 				}
 			})
 		} catch (error: any) {
+			terminal.debug("test")
 			throw new Error(`Error while adding files: ${error}`)
 		}
 	})
