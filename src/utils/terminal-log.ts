@@ -29,6 +29,10 @@ export class terminal {
 		console.log("[\x1b[33mfound\x1b[0m]")
 	}
 
+	public static notFoundCheck() {
+		console.log("[\x1b[31mnot found\x1b[0m]")
+	}
+
 	public static fail(text: string) {
 		this.log("fail", text)
 	}

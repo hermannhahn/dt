@@ -21,9 +21,9 @@ export const Save = async () => {
 				const add = async () => {
 					const AddFiles: any = await git.add(".")
 					if (AddFiles.error) {
-						terminal.failCheck()
+						terminal.notFoundCheck()
 						terminal.debug(AddFiles.result)
-						throw new Error(`${AddFiles.result}`)
+						throw new Error(`${AddFiles.result.toString()}`)
 					} else {
 						const files = AddFiles.result
 						for (const file of files) {
@@ -32,7 +32,7 @@ export const Save = async () => {
 					}
 				}
 				const commands = [
-					terminal.log("search", "Searching for changes... "),
+					terminal.logInline("search", "Searching for changes... "),
 					await add(),
 					terminal.logInline("password", "Waiting for signature password... "),
 					await git.commit(message),
