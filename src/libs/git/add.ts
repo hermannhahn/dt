@@ -39,7 +39,7 @@ export const Add = async (args: string): Promise<GitResponse> => {
 				} else {
 					response.error = `Error while adding files, exit code: ${code}`
 				}
-				terminal.debug("add")
+				terminal.debug(response)
 				resolve(response)
 			})
 		} catch (error: any) {

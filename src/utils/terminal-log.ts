@@ -13,27 +13,27 @@ export class terminal {
 		process.stdout.write(msgIcon.print() + msg)
 	}
 
-	public static success(text?: string) {
+	public static success(text: string) {
 		this.log("success", text)
 	}
 
-	public static error(text?: string) {
+	public static error(text: string) {
 		this.log("error", text)
 	}
 
-	public static warn(text?: string) {
+	public static warn(text: string) {
 		this.log("warn", text)
 	}
 
-	public static info(text?: string) {
+	public static info(text: string) {
 		this.log("info", text)
 	}
 
-	public static debug(text?: string) {
+	public static debug(text: any) {
 		this.log("debug", text)
 	}
 
-	public static bug(text?: string) {
+	public static bug(text: string) {
 		this.log("bug", text)
 	}
 
