@@ -19,7 +19,10 @@ export const Save = async () => {
 				const message = opts.message || `v${version}`
 				const status: any = await git.branch.status
 				const add = async () => {
-					const AddFiles = await git.add(".")
+					const AddFiles: any = await git.add(".")
+					if (AddFiles.error) {
+						terminal.error(AddFiles.error)
+					}
 					const files = AddFiles.result
 					for (const file of files) {
 						terminal.log("file", `${file} [\x1b[33mfound\x1b[0m]`)
