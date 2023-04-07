@@ -37,8 +37,12 @@ export const Commit = async (
 
 export class History {
 	private response = new GitResponse(false, "")
+	public latestCommit = this.LatestCommit
+	public latestMessage = this.LatestMessage
+	public latestAuthor = this.LatestAuthor
+	public latestAuthorEmail = this.LatestAuthorEmail
 
-	public async Latest(): Promise<GitResponseInterface> {
+	private async LatestCommit(): Promise<GitResponseInterface> {
 		return new Promise((resolve, reject) => {
 			try {
 				const latest = spawn("git", ["rev-parse", "HEAD"])
@@ -68,7 +72,7 @@ export class History {
 			}
 		})
 	}
-	public async LatestMessage(): Promise<GitResponseInterface> {
+	private async LatestMessage(): Promise<GitResponseInterface> {
 		return new Promise((resolve, reject) => {
 			try {
 				const latestMessage = spawn("git", ["log", "-1", "--pretty=%B"])
@@ -98,7 +102,7 @@ export class History {
 			}
 		})
 	}
-	public async LatestDate(): Promise<GitResponseInterface> {
+	private async LatestDate(): Promise<GitResponseInterface> {
 		return new Promise((resolve, reject) => {
 			try {
 				const latestDate = spawn("git", ["log", "-1", "--pretty=%cd"])
@@ -128,7 +132,7 @@ export class History {
 			}
 		})
 	}
-	public async LatestAuthor(): Promise<GitResponseInterface> {
+	private async LatestAuthor(): Promise<GitResponseInterface> {
 		return new Promise((resolve, reject) => {
 			try {
 				const latestAuthor = spawn("git", ["log", "-1", "--pretty=%an"])
@@ -158,7 +162,7 @@ export class History {
 			}
 		})
 	}
-	public async LatestAuthorEmail(): Promise<GitResponseInterface> {
+	private async LatestAuthorEmail(): Promise<GitResponseInterface> {
 		return new Promise((resolve, reject) => {
 			try {
 				const latestAuthorEmail = spawn("git", ["log", "-1", "--pretty=%ae"])

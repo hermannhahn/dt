@@ -3,7 +3,13 @@ import { GitResponse, GitResponseInterface } from "types/git"
 
 export class Tag {
 	private response = new GitResponse(false, "")
-	public async List(): Promise<GitResponseInterface> {
+	public list = this.List
+	public version = this.Version
+	public create = this.Create
+	public delete = this.Delete
+	public deleteRemote = this.DeleteRemote
+
+	private async List(): Promise<GitResponseInterface> {
 		return new Promise((resolve, reject) => {
 			try {
 				const list = spawn("git", ["tag"])
@@ -34,7 +40,7 @@ export class Tag {
 		})
 	}
 
-	public async Version(): Promise<GitResponseInterface> {
+	private async Version(): Promise<GitResponseInterface> {
 		return new Promise((resolve, reject) => {
 			try {
 				const version = spawn("git", ["describe", "--tags"])
@@ -65,7 +71,7 @@ export class Tag {
 		})
 	}
 
-	public async Create(tag: string): Promise<GitResponseInterface> {
+	private async Create(tag: string): Promise<GitResponseInterface> {
 		return new Promise((resolve, reject) => {
 			try {
 				const create = spawn("git", ["tag", tag])
@@ -96,7 +102,7 @@ export class Tag {
 		})
 	}
 
-	public async Delete(tag: string): Promise<GitResponseInterface> {
+	private async Delete(tag: string): Promise<GitResponseInterface> {
 		return new Promise((resolve, reject) => {
 			try {
 				const del = spawn("git", ["tag", "-d", tag])
@@ -127,7 +133,7 @@ export class Tag {
 		})
 	}
 
-	public async DeleteRemote(tag: string): Promise<GitResponseInterface> {
+	private async DeleteRemote(tag: string): Promise<GitResponseInterface> {
 		return new Promise((resolve, reject) => {
 			try {
 				const del = spawn("git", ["push", "origin", "--delete", tag])

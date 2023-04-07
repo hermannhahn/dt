@@ -3,8 +3,14 @@ import { GitResponse, GitResponseInterface } from "types/git"
 
 export class Branch {
 	private response = new GitResponse(false, "")
+	public status = this.Status
+	public list = this.List
+	public name = this.Name
+	public create = this.Create
+	public delete = this.Delete
+	public deleteRemote = this.DeleteRemote
 
-	public async Status(args?: string): Promise<GitResponseInterface> {
+	private async Status(args?: string): Promise<GitResponseInterface> {
 		const status = spawn("git", ["status", args ?? ""])
 		return new Promise((resolve, reject) => {
 			try {
@@ -34,7 +40,7 @@ export class Branch {
 			}
 		})
 	}
-	public async List(): Promise<GitResponseInterface> {
+	private async List(): Promise<GitResponseInterface> {
 		const list = spawn("git", ["branch"])
 		return new Promise((resolve, reject) => {
 			try {
@@ -64,7 +70,7 @@ export class Branch {
 			}
 		})
 	}
-	public async Name(): Promise<GitResponseInterface> {
+	private async Name(): Promise<GitResponseInterface> {
 		const name = spawn("git", ["rev-parse", "--abbrev-ref", "HEAD"])
 		return new Promise((resolve, reject) => {
 			try {
@@ -94,7 +100,7 @@ export class Branch {
 			}
 		})
 	}
-	public async Create(branch: string): Promise<GitResponseInterface> {
+	private async Create(branch: string): Promise<GitResponseInterface> {
 		const create = spawn("git", ["branch", branch])
 		return new Promise((resolve, reject) => {
 			try {
@@ -124,7 +130,7 @@ export class Branch {
 			}
 		})
 	}
-	public async Delete(branch: string): Promise<GitResponseInterface> {
+	private async Delete(branch: string): Promise<GitResponseInterface> {
 		const del = spawn("git", ["branch", "-d", branch])
 		return new Promise((resolve, reject) => {
 			try {
@@ -154,7 +160,7 @@ export class Branch {
 			}
 		})
 	}
-	public async DeleteRemote(branch: string): Promise<GitResponseInterface> {
+	private async DeleteRemote(branch: string): Promise<GitResponseInterface> {
 		const delRemote = spawn("git", ["push", "origin", "--delete", branch])
 		return new Promise((resolve, reject) => {
 			try {
