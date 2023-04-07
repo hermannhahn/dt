@@ -1,5 +1,6 @@
 import { spawn } from "child_process"
 import { GitResponse, GitResponseInterface } from "types/git"
+import { terminal } from "utils/terminal-log"
 
 export const Add = async (args: string): Promise<GitResponseInterface> => {
 	return new Promise((resolve, reject) => {
@@ -44,7 +45,8 @@ export const Add = async (args: string): Promise<GitResponseInterface> => {
 					)
 					response.error = error
 					response.result = resultPorcelain.toString()
-					reject("response")
+					terminal.debug("test")
+					reject(response)
 				}
 			})
 		} catch (error: any) {
