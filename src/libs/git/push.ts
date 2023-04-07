@@ -5,12 +5,12 @@ import { terminal } from "utils/terminal-log"
 export const Push = async (args?: string): Promise<GitResponseInterface> => {
 	return new Promise((resolve, reject) => {
 		let response = new GitResponse(false, "")
-		if (args === undefined) {
-			terminal.debug("Searching for Bugs... (Push) " + args)
-			args = ""
-		}
 		try {
-			const push = spawn("git", ["push", args ?? ""])
+			let push = spawn("git", ["push"])
+			terminal.debug("Searching for Bugs... (Push) " + args)
+			if (args !== undefined) {
+				push = spawn("git", ["push", ...args])
+			}
 			let result: string = ""
 			push.stdout.on("data", (data) => {
 				result += data
