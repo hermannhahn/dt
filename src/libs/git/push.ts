@@ -5,7 +5,7 @@ import { terminal } from "utils/terminal-log"
 export const Push = async (args?: string): Promise<GitResponseInterface> => {
 	return new Promise((resolve, reject) => {
 		let response = new GitResponse(false, "")
-		if (args === "undefined") {
+		if (args === undefined) {
 			terminal.debug("Searching for Bugs... (Push) " + args)
 			args = ""
 		}
