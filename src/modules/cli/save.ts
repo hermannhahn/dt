@@ -21,9 +21,9 @@ export const Save = async () => {
 				const add = async () => {
 					const AddFiles: any = await git.add(".")
 					if (AddFiles.error) {
-						terminal.debug(AddFiles.error)
 						terminal.failCheck()
-						throw new Error(`${AddFiles.error}`)
+						terminal.debug(AddFiles.result)
+						throw new Error(`${AddFiles.result}`)
 					} else {
 						const files = AddFiles.result
 						for (const file of files) {
