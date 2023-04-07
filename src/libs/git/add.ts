@@ -1,7 +1,5 @@
 import { spawn } from "child_process"
-import { Error } from "types/error"
 import { GitResponse } from "types/git"
-import { terminal } from "utils/terminal-log"
 
 export const Add = async (args: string): Promise<GitResponse> => {
 	return new Promise((resolve) => {
@@ -21,10 +19,11 @@ export const Add = async (args: string): Promise<GitResponse> => {
 							fileList.push(file.trim())
 						})
 					if (fileList[0] === "" || fileList.length === 0) {
-						throw new Error(
-							`Error while adding files, exit code: ${code}`,
-							"No changes found"
-						)
+						const response: GitResponse = {
+							error: `Error while adding files, exit code: ${code}`,
+							result: resultPorcelain,
+						}
+						resolve(response)
 					}
 					const add = spawn("git", ["add", args])
 					let resultAdd: string = ""
@@ -39,21 +38,23 @@ export const Add = async (args: string): Promise<GitResponse> => {
 							}
 							resolve(response)
 						} else {
-							throw new Error(
-								`Error while adding files, exit code: ${code}`,
-								resultAdd
-							)
+							const response: GitResponse = {
+								error: `Error while adding files, exit code: ${code}`,
+								result: resultAdd,
+							}
+							resolve(response)
 						}
 					})
 				} else {
-					throw new Error(
-						`Error while getting status to add files, exit code: ${code}`,
-						resultPorcelain
-					)
+					const response: GitResponse = {
+						error: `Error while adding files, exit code: ${code}`,
+						result: resultPorcelain,
+					}
+					resolve(response)
 				}
 			})
 		} catch (error: any) {
-			terminal.error(error.message)
+			throw new Error(`Error while adding files: ${error}`)
 		}
 	})
 }
