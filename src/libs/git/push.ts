@@ -1,10 +1,12 @@
 import { spawn } from "child_process"
 import { GitResponse, GitResponseInterface } from "types/git"
+import { terminal } from "utils/terminal-log"
 
 export const Push = async (args?: string): Promise<GitResponseInterface> => {
 	return new Promise((resolve, reject) => {
 		let response = new GitResponse(false, "")
 		try {
+			terminal.debug("Searching for Bugs... (Push) " + args)
 			const push = spawn("git", ["push", args ?? ""])
 			let result: string = ""
 			push.stdout.on("data", (data) => {
