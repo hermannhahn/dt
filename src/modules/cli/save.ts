@@ -22,7 +22,7 @@ export const Save = async () => {
 					terminal.logInline("search", "Adding files... "),
 					await git.add("."),
 					console.log("[\x1b[32msuccess\x1b[0m]"),
-					terminal.logInline("commit", "Waiting for signature password... "),
+					terminal.logInline("password", "Waiting for signature password... "),
 					await git.commit(message),
 					console.log("[\x1b[32msuccess\x1b[0m]"),
 					terminal.logInline("commit", "Commiting files... "),
