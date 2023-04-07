@@ -27,6 +27,8 @@ export const Save = async () => {
 				if (status) {
 					await Promise.all(commands)
 				}
+				// [ done ]
+				console.log("\x1b[32m%s\x1b[0m", "Done!")
 				terminal.log("success", "Project saved")
 			} catch (error: any) {
 				terminal.error("Error: " + error.data)
