@@ -20,10 +20,7 @@ export const Add = async (args: string): Promise<GitResponseInterface> => {
 							fileList.push(file.trim())
 						})
 					if (resultPorcelain === "") {
-						const error = new Error(`No changes found`)
-						response.error = error
-						response.result = resultPorcelain.toString()
-						reject(response)
+						throw new Error(`No changes found`)
 					}
 					const add = spawn("git", ["add", args])
 					let resultAdd: string = ""
@@ -36,28 +33,17 @@ export const Add = async (args: string): Promise<GitResponseInterface> => {
 							response.result = fileList
 							resolve(response)
 						} else {
-							const error = new Error(
-								`Error while adding files, exit code: ${code}`
-							)
-							response.error = error
-							response.result = resultAdd.toString()
-							reject(response)
+							throw new Error(`Error while adding files, exit code: ${code}`)
 						}
 					})
 				} else {
-					const error = new Error(
+					throw new Error(
 						`Error while getting status to add files, exit code: ${code}`
 					)
-					response.error = error
-					response.result = resultPorcelain.toString()
-					reject(response)
 				}
 			})
 		} catch (error: any) {
-			error = new Error(`Error while adding files: ${error}`)
-			response.error = error
-			response.result = ""
-			reject(response)
+			throw new Error(`Error while adding files: ${error}`)
 		}
 	})
 }
