@@ -37,7 +37,9 @@ export const Save = async () => {
 				if (status) {
 					await Promise.all(commands)
 				}
-				console.log(commands[1])
+				if (commands[1]) {
+					console.log(commands[1].result)
+				}
 
 				terminal.log("done", "Project successfully saved!")
 			} catch (error: any) {
