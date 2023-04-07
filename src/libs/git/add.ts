@@ -1,10 +1,11 @@
 import { spawn } from "child_process"
 import { Error } from "types/error"
 import { GitResponse } from "types/git"
+import { terminal } from "utils/terminal-log"
 
 export const Add = async (args: string): Promise<GitResponse> => {
 	return new Promise((resolve) => {
-		let response = new GitResponse(false, "No changes found")
+		const response = new GitResponse(false, "No changes found")
 		try {
 			const porcelain = spawn("git", ["status", "--porcelain"])
 			let resultPorcelain: string = ""
@@ -21,7 +22,9 @@ export const Add = async (args: string): Promise<GitResponse> => {
 							fileList.push(file.trim())
 						})
 					if (fileList[0] === "" || fileList.length === 0) {
+						terminal.debug("No changes found!!!")
 						response.error = `Error while adding files, exit code: ${code}`
+						response.result = resultPorcelain
 					}
 					const add = spawn("git", ["add", args])
 					let resultAdd: string = ""

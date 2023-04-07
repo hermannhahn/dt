@@ -21,7 +21,7 @@ export const Save = async () => {
 				const add = async () => {
 					const AddFiles: any = await git.add(".")
 					terminal.debug(AddFiles.error)
-					if (AddFiles.error) {
+					if (AddFiles.error !== false) {
 						terminal.notFoundCheck()
 						throw new Error(AddFiles.result)
 					} else {
