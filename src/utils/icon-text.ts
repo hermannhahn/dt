@@ -117,6 +117,19 @@ const icons: any = {
 	arrowRight: "➡️",
 	arrowUp: "⬆️",
 	arrowDown: "⬇️",
+	fingerUp: "👆",
+	fingerDown: "👇",
+	fingerLeft: "👈",
+	fingerRight: "👉",
+	dot: "⚪",
+	dotBlack: "⚫",
+	dotRed: "🔴",
+	dotGreen: "🟢",
+	dotBlue: "🔵",
+	dotYellow: "🟡",
+	dotPurple: "🟣",
+	dotOrange: "🟠",
+	dotBrown: "🟤",
 }
 
 export class Icons {

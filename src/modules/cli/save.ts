@@ -31,7 +31,7 @@ export const Save = async () => {
 					const { error, result } = await git.add(".")
 					if (error === false) {
 						for (const file of result) {
-							terminal.log("checked", `${file} [\x1b[36madded\x1b[0m]`)
+							terminal.log("dotGreen", `${file} [\x1b[36madded\x1b[0m]`)
 						}
 					}
 				}
