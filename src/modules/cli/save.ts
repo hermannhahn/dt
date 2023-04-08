@@ -31,7 +31,7 @@ export const Save = async () => {
 				terminal.logInline("search", "Searching for changes... ")
 				if (status.error) {
 					terminal.label("red", "not found")
-					terminal.log(status.error)
+					terminal.log(status.result)
 				} else {
 					terminal.label("green", "found")
 					await add()
