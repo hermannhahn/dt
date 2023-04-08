@@ -37,7 +37,7 @@ export const Save = async () => {
 					await add()
 					terminal.logInline("password", "Waiting for signature password... ")
 					await git.commit(message)
-					terminal.label("green", "done")
+					terminal.label("green", "signed")
 					terminal.logInline("commit", "Commiting files... ")
 					terminal.label("green", "done")
 					terminal.logInline("push", "Pushing files... ")
