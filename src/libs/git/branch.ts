@@ -1,5 +1,6 @@
 import { spawn } from "child_process"
 import { GitResponse, GitResponseInterface } from "types/git"
+import { terminal } from "utils/terminal-log"
 
 export class Branch {
 	public status = this.Status
@@ -17,6 +18,7 @@ export class Branch {
 				status.stdout.on("data", (data) => {
 					result += data
 				})
+				terminal.debug(result)
 				status.on("exit", (code) => {
 					if (result === "") {
 						const response: GitResponse = {
