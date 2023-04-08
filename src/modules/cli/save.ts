@@ -31,6 +31,7 @@ export const Save = async () => {
 					terminal.notFoundCheck()
 					terminal.log("done", "No changes to commit")
 				} else {
+					terminal.foundCheck()
 					await add()
 					terminal.logInline("password", "Waiting for signature password... ")
 					await git.commit(message)
