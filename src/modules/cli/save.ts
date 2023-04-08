@@ -21,7 +21,7 @@ export const Save = async () => {
 					const { error, result } = await git.add(".")
 					if (error === false) {
 						for (const file of result) {
-							terminal.log("file", `${file} [\x1b[33madded\x1b[0m]`)
+							terminal.log("file", `${file} [\x1b[36madded\x1b[0m]`)
 						}
 					}
 				}
@@ -37,7 +37,7 @@ export const Save = async () => {
 				// cyan color: \x1b[36m
 				terminal.log(
 					"save",
-					`Saving project \x1b[36m${name}\x1b[0m version \x1b[33m${version}\x1b[0m`
+					`Saving project \x1b[35m${name}\x1b[0m version \x1b[35m${version}\x1b[0m`
 				)
 				terminal.logInline("search", "Searching for changes")
 				if (status.error) {
