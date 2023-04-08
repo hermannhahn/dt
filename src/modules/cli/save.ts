@@ -33,9 +33,11 @@ export const Save = async () => {
 				// blue color: \x1b[34m
 				// yellow color: \x1b[33m
 				// reset color: \x1b[0m
+				// magenta color: \x1b[35m
+				// cyan color: \x1b[36m
 				terminal.log(
 					"save",
-					`Saving project \x1b[34m${name}\x1b[0m version \x1b[33m${version}\x1b[0m`
+					`Saving project \x1b[36m${name}\x1b[0m version \x1b[33m${version}\x1b[0m`
 				)
 				terminal.logInline("search", "Searching for changes")
 				if (status.error) {
