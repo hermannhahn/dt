@@ -21,7 +21,7 @@ export const Save = async () => {
 				const add = async () => {
 					const { error, result } = await git.add(".")
 					if (error === false) {
-						terminal.debug(error)
+						terminal.debug(result)
 						for (const file of result) {
 							terminal.log("file", `${file} [\x1b[33mfound\x1b[0m]`)
 						}
