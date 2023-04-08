@@ -57,8 +57,8 @@ export class terminal {
 		this.log("info", text)
 	}
 
-	public static debug(text: any) {
-		this.log("debug", text)
+	public static debug(...text: any) {
+		this.log("debug", ...text)
 	}
 
 	public static bug(text: string) {
