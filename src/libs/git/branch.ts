@@ -26,7 +26,7 @@ export class Branch {
 						}
 						resolve(response)
 					} else {
-						terminal.debug(result.toString())
+						terminal.debug(code)
 						const response: GitResponse = {
 							error: `Error while getting status, exit code: ${code}`,
 							result: result.toString(),
