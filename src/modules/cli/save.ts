@@ -21,14 +21,14 @@ export const Save = async () => {
 				const add = async () => {
 					const { error, result } = await git.add(".")
 					if (error === false) {
-						terminal.debug(result)
+						terminal.foundCheck()
 						for (const file of result) {
-							terminal.log("file", `${file} [\x1b[33mfound\x1b[0m]`)
+							terminal.log("file", `${file} [\x1b[33madded\x1b[0m]`)
 						}
 					}
 				}
+				terminal.logInline("search", "Searching for changes... ")
 				const commands = [
-					terminal.logInline("search", "Searching for changes... "),
 					await add(),
 					terminal.logInline("password", "Waiting for signature password... "),
 					await git.commit(message),
@@ -42,11 +42,12 @@ export const Save = async () => {
 					await git.push("--tags"),
 					console.log("[\x1b[32msuccess\x1b[0m]"),
 				]
-				if (status) {
+				if (status.error === false) {
 					await Promise.all(commands)
+					terminal.log("done", "Project successfully saved!")
+				} else {
+					terminal.notFoundCheck()
 				}
-
-				terminal.log("done", "Project successfully saved!")
 			} catch (error: any) {
 				throw new Error(`Error while saving project: ${error}`)
 			}

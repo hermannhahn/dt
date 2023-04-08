@@ -18,18 +18,26 @@ export class Branch {
 					result += data
 				})
 				status.on("exit", (code) => {
-					if (code === 0) {
+					if (result === "") {
 						const response: GitResponse = {
-							error: false,
-							result: result.toString(),
+							error: true,
+							result: "No changes to commit",
 						}
 						resolve(response)
 					} else {
-						const response: GitResponse = {
-							error: `Error while getting status, exit code: ${code}`,
-							result: result.toString(),
+						if (code === 0) {
+							const response: GitResponse = {
+								error: false,
+								result: result.toString(),
+							}
+							resolve(response)
+						} else {
+							const response: GitResponse = {
+								error: `Error while getting status, exit code: ${code}`,
+								result: result.toString(),
+							}
+							resolve(response)
 						}
-						resolve(response)
 					}
 				})
 			} catch (error: any) {
