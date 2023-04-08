@@ -26,7 +26,7 @@ export const Save = async () => {
 				}
 
 				// Check if there are changes
-				const status: any = await git.branch.status()
+				const status: { error: any; result: any } = await git.branch.status()
 				terminal.debug(status.error)
 
 				// Save project
