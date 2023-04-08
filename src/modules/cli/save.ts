@@ -18,7 +18,6 @@ export const Save = async () => {
 				terminal.log("save", `Saving ${name} v${version} `)
 				const message = opts.message || `v${version}`
 				const status: any = await git.branch.status()
-				terminal.debug("status", status.error)
 				const add = async () => {
 					const { error, result } = await git.add(".")
 					if (error === false) {
@@ -44,6 +43,7 @@ export const Save = async () => {
 					console.log("[\x1b[32msuccess\x1b[0m]"),
 				]
 				if (status.error === false) {
+					terminal.debug("status", status.error)
 					await Promise.all(commands)
 					terminal.log("done", "Project successfully saved!")
 				} else {
