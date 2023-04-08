@@ -1,27 +1,31 @@
-import { readFileSync, writeFileSync } from "fs"
+import { execSync } from "child_process"
+import { existsSync, readFileSync } from "fs"
+import { terminal } from "./terminal-log"
 
 export class PackageJson {
-	private data: any
+	private readonly packageJsonPath: string
+	public error = false
+	public data: any
 
-	constructor(private filePath: string) {
-		this.data = this.load()
+	constructor(packageJsonPath: string) {
+		this.packageJsonPath = packageJsonPath
+		try {
+			this.data = JSON.parse(readFileSync(this.packageJsonPath, "utf8"))
+		} catch (error: any) {
+			terminal.debug("error", error)
+			this.createPackageJson()
+		}
 	}
 
-	private load(): any {
-		const content = readFileSync(this.filePath, { encoding: "utf8" })
-		return JSON.parse(content)
-	}
-
-	private save(): void {
-		writeFileSync(this.filePath, JSON.stringify(this.data, null, 2))
-	}
-
-	public get(prop: string): any {
-		return this.data[prop]
-	}
-
-	public set(prop: string, value: any): void {
-		this.data[prop] = value
-		this.save()
+	private createPackageJson() {
+		// Check if package.json exists
+		if (!existsSync(this.packageJsonPath)) {
+			// Create package.json
+			try {
+				execSync("npm init -y", { stdio: "ignore" })
+			} catch (error: any) {
+				this.error = error
+			}
+		}
 	}
 }

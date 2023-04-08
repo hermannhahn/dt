@@ -3,12 +3,12 @@ import { Cli } from "modules/cli"
 import { PackageJson } from "utils/package-manager"
 import { terminal } from "utils/terminal-log"
 
-const packageJson = new PackageJson("package.json")
+const packageJson: any = new PackageJson("package.json")
 const cli = new Cli()
 
 program
 	.version(
-		packageJson.get("name") + " cli " + packageJson.get("version"),
+		packageJson.data.name + " cli " + packageJson.data.version,
 		"-v, --version",
 		"output the current version"
 	)

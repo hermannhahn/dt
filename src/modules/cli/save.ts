@@ -4,7 +4,6 @@ import { GitResponse } from "types/git"
 import { PackageJson } from "utils/package-manager"
 import { terminal } from "utils/terminal-log"
 
-const packageJson = new PackageJson("package.json")
 const git = new Git()
 
 export const Save = async () => {
@@ -14,14 +13,25 @@ export const Save = async () => {
 		.description("save project")
 		.action(async (opts, cmd) => {
 			try {
-				const version = packageJson.get("version")
-				const name = packageJson.get("name")
+				const gitTopLevel: GitResponse = await git.topLevel()
+				if (gitTopLevel.error) {
+					terminal.log("error", "No project found, did you run 'init' command?")
+					process.exit(1)
+				}
+				const rootDir = gitTopLevel.result
+				const packageJson: any = new PackageJson(`${rootDir}/package.json`)
+				if (packageJson.error !== false) {
+					terminal.log("error", "No project found, did you run 'init' command?")
+					process.exit(1)
+				}
+				const version = packageJson.data.version
+				const name = packageJson.data.name
 				const message = opts.message || `v${version}`
 				const add = async () => {
 					const { error, result } = await git.add(".")
 					if (error === false) {
 						for (const file of result) {
-							terminal.log("file", `${file} [\x1b[36madded\x1b[0m]`)
+							terminal.log("arrowRight", `${file} [\x1b[36madded\x1b[0m]`)
 						}
 					}
 				}
@@ -30,11 +40,6 @@ export const Save = async () => {
 				const status: GitResponse = await git.branch.status()
 
 				// Save project
-				// blue color: \x1b[34m
-				// yellow color: \x1b[33m
-				// reset color: \x1b[0m
-				// magenta color: \x1b[35m
-				// cyan color: \x1b[36m
 				terminal.log(
 					"save",
 					`Saving project \x1b[35m${name}\x1b[0m version \x1b[35m${version}\x1b[0m`
@@ -60,7 +65,7 @@ export const Save = async () => {
 					terminal.log("done", "Project successfully saved!")
 				}
 			} catch (error: any) {
-				throw new Error(`Error while saving project: ${error}`)
+				terminal.log("error", error)
 			}
 		})
 }
