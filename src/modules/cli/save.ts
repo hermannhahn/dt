@@ -42,7 +42,7 @@ export const Save = async () => {
 				// Save project
 				terminal.log(
 					"save",
-					`Saving project \x1b[34m${name}\x1b[0m version \x1b[34m${version}\x1b[0m`
+					`Saving project \x1b[33m${name}\x1b[0m version \x1b[33m${version}\x1b[0m`
 				)
 				terminal.logInline("search", "Searching for changes")
 				if (status.error) {
