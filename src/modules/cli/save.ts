@@ -27,30 +27,23 @@ export const Save = async () => {
 					}
 				}
 				terminal.logInline("search", "Searching for changes... ")
-				const commands = [
-					await add(),
-					terminal.logInline("password", "Waiting for signature password... "),
-					await git.commit(message),
-					console.log("[\x1b[32msuccess\x1b[0m]"),
-					terminal.logInline("commit", "Commiting files... "),
-					console.log("[\x1b[32msuccess\x1b[0m]"),
-					terminal.logInline("push", "Pushing files... "),
-					await git.push(),
-					console.log("[\x1b[32msuccess\x1b[0m]"),
-					terminal.logInline("push", "Pushing tags... "),
-					await git.push("--tags"),
-					console.log("[\x1b[32msuccess\x1b[0m]"),
-				]
-				try {
-					if (status.error === false) {
-						terminal.notFoundCheck()
-						await Promise.all(commands)
-						terminal.log("done", "Project successfully saved!")
-					} else {
-						terminal.log("done", "No changes to commit")
-					}
-				} catch (error: any) {
-					throw new Error(`Error while saving project: ${error}`)
+				if (status.error) {
+					terminal.notFoundCheck()
+					terminal.log("done", "No changes to commit")
+				} else {
+					await add()
+					terminal.logInline("password", "Waiting for signature password... ")
+					await git.commit(message)
+					console.log("[\x1b[32msuccess\x1b[0m]")
+					terminal.logInline("commit", "Commiting files... ")
+					console.log("[\x1b[32msuccess\x1b[0m]")
+					terminal.logInline("push", "Pushing files... ")
+					await git.push()
+					console.log("[\x1b[32msuccess\x1b[0m]")
+					terminal.logInline("push", "Pushing tags... ")
+					await git.push("--tags")
+					console.log("[\x1b[32msuccess\x1b[0m]")
+					terminal.log("done", "Project successfully saved!")
 				}
 			} catch (error: any) {
 				throw new Error(`Error while saving project: ${error}`)
