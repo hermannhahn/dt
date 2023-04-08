@@ -20,13 +20,13 @@ export class Branch {
 				})
 				status.on("exit", (code) => {
 					if (code === 0) {
+						terminal.debug(result.toString())
 						const response: GitResponse = {
 							error: false,
 							result: result.toString(),
 						}
 						resolve(response)
 					} else {
-						terminal.debug(code)
 						const response: GitResponse = {
 							error: `Error while getting status, exit code: ${code}`,
 							result: result.toString(),
