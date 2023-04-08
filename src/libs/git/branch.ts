@@ -18,7 +18,7 @@ export class Branch {
 				status.stdout.on("data", (data) => {
 					result += data
 				})
-				terminal.debug(result)
+				terminal.debug(status)
 				status.on("exit", (code) => {
 					if (result === "") {
 						const response: GitResponse = {
