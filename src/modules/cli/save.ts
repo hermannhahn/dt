@@ -30,7 +30,13 @@ export const Save = async () => {
 				const status: GitResponse = await git.branch.status()
 
 				// Save project
-				terminal.log("save", `Saving project ${name} version ${version}`)
+				// blue color: \x1b[34m
+				// yellow color: \x1b[33m
+				// reset color: \x1b[0m
+				terminal.log(
+					"save",
+					`Saving project \x1b[34m${name}\x1b[0m version \x1b[33m${version}\x1b[0m`
+				)
 				terminal.logInline("search", "Searching for changes")
 				if (status.error) {
 					terminal.label("red", "not found")
