@@ -16,7 +16,6 @@ export const Save = async () => {
 				const version = packageJson.get("version")
 				const name = packageJson.get("name")
 				const message = opts.message || `v${version}`
-				const status: any = await git.branch.status()
 				const add = async () => {
 					const { error, result } = await git.add(".")
 					if (error === false) {
@@ -26,12 +25,15 @@ export const Save = async () => {
 					}
 				}
 
+				// Check if there are changes
+				const status: any = await git.branch.status()
+
 				// Save project
 				terminal.log("save", `Saving ${name} v${version} `)
 				terminal.logInline("search", "Searching for changes... ")
 				if (status.error) {
 					terminal.label("red", "not found")
-					terminal.log(status.result)
+					terminal.log(status.error)
 				} else {
 					terminal.label("green", "found")
 					await add()
