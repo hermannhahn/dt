@@ -13,24 +13,43 @@ export class terminal {
 		process.stdout.write(msgIcon.print() + msg)
 	}
 
-	public static failCheck() {
-		console.log("[\x1b[31mfail\x1b[0m]")
-	}
-
-	public static successCheck() {
-		console.log("[\x1b[32msuccess\x1b[0m]")
-	}
-
-	public static doneCheck() {
-		console.log("[\x1b[32mdone\x1b[0m]")
-	}
-
-	public static foundCheck() {
-		console.log("[\x1b[33mfound\x1b[0m]")
-	}
-
-	public static notFoundCheck() {
-		console.log("[\x1b[31mnot found\x1b[0m]")
+	public static label(color: string, text: string) {
+		// green color
+		if (color === "green") {
+			console.log("[\x1b[32m" + text + "\x1b[0m]")
+		}
+		// red color
+		if (color === "red") {
+			console.log("[\x1b[31m" + text + "\x1b[0m]")
+		}
+		// yellow color
+		if (color === "yellow") {
+			console.log("[\x1b[33m" + text + "\x1b[0m]")
+		}
+		// blue color
+		if (color === "blue") {
+			console.log("[\x1b[34m" + text + "\x1b[0m]")
+		}
+		// magenta color
+		if (color === "magenta") {
+			console.log("[\x1b[35m" + text + "\x1b[0m]")
+		}
+		// cyan color
+		if (color === "cyan") {
+			console.log("[\x1b[36m" + text + "\x1b[0m]")
+		}
+		// orange color
+		if (color === "orange") {
+			console.log("[\x1b[33m" + text + "\x1b[0m]")
+		}
+		// white color
+		if (color === "white") {
+			console.log("[\x1b[37m" + text + "\x1b[0m]")
+		}
+		// gray color
+		if (color === "gray") {
+			console.log("[\x1b[90m" + text + "\x1b[0m]")
+		}
 	}
 
 	public static fail(text: string) {

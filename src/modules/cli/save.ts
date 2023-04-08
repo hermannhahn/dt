@@ -28,10 +28,10 @@ export const Save = async () => {
 				}
 				terminal.logInline("search", "Searching for changes... ")
 				if (status.error) {
-					terminal.notFoundCheck()
-					terminal.log("done", "No changes to commit")
+					terminal.label("red", "not found")
+					terminal.log("done", "All files are up to date!")
 				} else {
-					terminal.foundCheck()
+					terminal.label("green", "found")
 					await add()
 					terminal.logInline("password", "Waiting for signature password... ")
 					await git.commit(message)
