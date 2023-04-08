@@ -1,6 +1,5 @@
 import { spawn } from "child_process"
 import { GitResponse, GitResponseInterface } from "types/git"
-import { terminal } from "utils/terminal-log"
 
 export class Branch {
 	public status = this.Status
@@ -20,7 +19,13 @@ export class Branch {
 				})
 				status.on("exit", (code) => {
 					if (code === 0) {
-						terminal.debug(result.toString())
+						if (result.includes("nothing to commit")) {
+							const response: GitResponse = {
+								error: true,
+								result: result.toString(),
+							}
+							resolve(response)
+						}
 						const response: GitResponse = {
 							error: false,
 							result: result.toString(),
