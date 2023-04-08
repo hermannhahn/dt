@@ -15,7 +15,6 @@ export const Save = async () => {
 			try {
 				const version = packageJson.get("version")
 				const name = packageJson.get("name")
-				terminal.log("save", `Saving ${name} v${version} `)
 				const message = opts.message || `v${version}`
 				const status: any = await git.branch.status()
 				const add = async () => {
@@ -26,24 +25,27 @@ export const Save = async () => {
 						}
 					}
 				}
+
+				// Save project
+				terminal.log("save", `Saving ${name} v${version} `)
 				terminal.logInline("search", "Searching for changes... ")
 				if (status.error) {
 					terminal.label("red", "not found")
-					terminal.log("done", "All files are up to date!")
+					terminal.log(status.error)
 				} else {
 					terminal.label("green", "found")
 					await add()
 					terminal.logInline("password", "Waiting for signature password... ")
 					await git.commit(message)
-					console.log("[\x1b[32msuccess\x1b[0m]")
+					terminal.label("green", "done")
 					terminal.logInline("commit", "Commiting files... ")
-					console.log("[\x1b[32msuccess\x1b[0m]")
+					terminal.label("green", "done")
 					terminal.logInline("push", "Pushing files... ")
 					await git.push()
-					console.log("[\x1b[32msuccess\x1b[0m]")
+					terminal.label("green", "done")
 					terminal.logInline("push", "Pushing tags... ")
 					await git.push("--tags")
-					console.log("[\x1b[32msuccess\x1b[0m]")
+					terminal.label("green", "done")
 					terminal.log("done", "Project successfully saved!")
 				}
 			} catch (error: any) {

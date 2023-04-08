@@ -21,7 +21,7 @@ export class Branch {
 					if (code === 0) {
 						if (result.includes("nothing to commit")) {
 							const response: GitResponse = {
-								error: true,
+								error: "All files are up to date!",
 								result: result.toString(),
 							}
 							resolve(response)
