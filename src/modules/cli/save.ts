@@ -1,5 +1,6 @@
 import { program } from "@commander-js/extra-typings"
 import { Git } from "libs/git"
+import { GitResponse } from "types/git"
 import { PackageJson } from "utils/package-manager"
 import { terminal } from "utils/terminal-log"
 
@@ -26,7 +27,7 @@ export const Save = async () => {
 				}
 
 				// Check if there are changes
-				const status: { error: any; result: any } = await git.branch.status()
+				const status: GitResponse = await git.branch.status()
 				terminal.debug(status.error)
 
 				// Save project
@@ -34,7 +35,7 @@ export const Save = async () => {
 				terminal.logInline("search", "Searching for changes... ")
 				if (status.error) {
 					terminal.label("red", "not found")
-					terminal.log(status.error)
+					terminal.done(status.error)
 				} else {
 					terminal.label("green", "found")
 					await add()
