@@ -10,8 +10,8 @@ export class Branch {
 	public delete = this.Delete
 	public deleteRemote = this.DeleteRemote
 
-	private async Status(args?: string): Promise<GitResponseInterface> {
-		const status = spawn("git", ["status", args ?? ""])
+	private async Status(): Promise<GitResponseInterface> {
+		const status = spawn("git", ["status"])
 		return new Promise((resolve, reject) => {
 			try {
 				let result: string = ""
