@@ -45,7 +45,7 @@ export const Upgrade = async (opts: any) => {
 
 	// Create new version branch
 	terminal.logInline("git", "Creating new version branch...")
-	const newVersionBranch = new Command(`git checkout -b v${newVersion}`)
+	const newVersionBranch = new Command(`git checkout -b ${newVersion}`)
 	if (newVersionBranch.error) {
 		terminal.label("red", "error")
 		terminal.log("error", newVersionBranch.error)
@@ -55,7 +55,7 @@ export const Upgrade = async (opts: any) => {
 
 	// Push changes
 	terminal.logInline("git", "Pushing changes...")
-	const pushChanges = new Command(`git push origin v${newVersion}`)
+	const pushChanges = new Command(`git push origin ${newVersion}`)
 	if (pushChanges.error) {
 		terminal.label("red", "error")
 		terminal.log("error", pushChanges.error)
