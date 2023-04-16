@@ -53,19 +53,6 @@ export const Upgrade = async (opts: any) => {
 	}
 	terminal.label("green", "done")
 
-	// Commit changes
-	terminal.logInline("git", "Waiting for signature passphrase...")
-	const commitChanges = new Command(`git commit -S -am "v${newVersion}"`)
-	if (commitChanges.error) {
-		terminal.label("red", "error")
-		terminal.log("error", commitChanges.error)
-		process.exit(1)
-	}
-	terminal.label("green", "signed")
-	terminal.logInline("sign", "Commiting changes...")
-	await new Promise((resolve) => setTimeout(resolve, 1000))
-	terminal.label("green", "done")
-
 	// Push changes
 	terminal.logInline("git", "Pushing changes...")
 	const pushChanges = new Command(`git push origin v${newVersion}`)
