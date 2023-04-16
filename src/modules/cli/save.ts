@@ -58,9 +58,9 @@ export const Save = async (opts?: any) => {
 		// Get list of changed files
 		const changedFiles = status.toString().split("\n")
 		// Print list of changed files
-		terminal.log("file", "Changed files:")
+		terminal.log("update", "Changed files:")
 		changedFiles.forEach((file: any) => {
-			console.log("file", file)
+			terminal.log("file", file)
 		})
 	} else {
 		terminal.label("green", "none")
