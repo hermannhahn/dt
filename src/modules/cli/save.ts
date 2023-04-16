@@ -4,7 +4,7 @@ import { Project } from "modules/project"
 import { Command } from "utils/command-runner"
 import { terminal } from "utils/terminal-log"
 
-export const Save = async (opts: any) => {
+export const Save = async (opts?: any) => {
 	terminal.log("info", "Saving changes...")
 
 	// Git requirements
