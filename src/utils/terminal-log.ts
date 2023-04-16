@@ -4,13 +4,13 @@ export class terminal {
 	public static log(icon: any, ...text: any) {
 		const msgIcon = new Icons(icon)
 		const msg = text !== undefined ? " " + text : ""
-		console.log(msgIcon.print() + msg)
+		console.log(msgIcon + msg)
 	}
 
 	public static logInline(icon: any, text?: any) {
 		const msgIcon = new Icons(icon)
-		const msg = text ? " " + text : ""
-		process.stdout.write(msgIcon.print() + msg)
+		const msg = text !== undefined ? " " + text : ""
+		process.stdout.write(msgIcon + msg)
 	}
 
 	public static label(color: any, text: any) {
@@ -52,103 +52,108 @@ export class terminal {
 		}
 	}
 
-	public static fail(text: any) {
+	public static fail(...text: any) {
 		this.log("fail", text)
 	}
 
-	public static success(text: any) {
+	public static success(...text: any) {
 		this.log("success", text)
 	}
 
-	public static done(text: any) {
+	public static done(...text: any) {
 		this.log("done", text)
 	}
 
-	public static error(text: any) {
+	public static error(...text: any) {
 		this.log("error", text)
 	}
 
-	public static warn(text: any) {
+	public static warn(...text: any) {
 		this.log("warn", text)
 	}
 
-	public static info(text: any) {
+	public static info(...text: any) {
 		this.log("info", text)
+	}
+
+	public static init(...text: any) {
+		this.log("init", text)
 	}
 
 	public static debug(...text: any) {
 		this.log("debug", ...text)
+		process.exit()
 	}
 
-	public static bug(text: any) {
+	public static bug(...text: any) {
 		this.log("bug", text)
 	}
 
-	public static green(text: any) {
+	public static green(...text: any) {
 		process.stdout.write("\x1b[32m" + text + "\x1b[0m")
 	}
 
-	public static red(text: any) {
+	public static red(...text: any) {
 		process.stdout.write("\x1b[31m" + text + "\x1b[0m")
 	}
 
-	public static yellow(text: any) {
+	public static yellow(...text: any) {
 		process.stdout.write("\x1b[33m" + text + "\x1b[0m")
 	}
 
-	public static black(text: any) {
+	public static black(...text: any) {
 		process.stdout.write("\x1b[30m" + text + "\x1b[0m")
 	}
 
-	public static orange(text: any) {
+	public static orange(...text: any) {
 		process.stdout.write("\x1b[33m" + text + "\x1b[0m")
 	}
 
-	public static blue(text: any) {
+	public static blue(...text: any) {
 		process.stdout.write("\x1b[34m" + text + "\x1b[0m")
 	}
 
-	public static magenta(text: any) {
+	public static magenta(...text: any) {
 		process.stdout.write("\x1b[35m" + text + "\x1b[0m")
 	}
 
-	public static cyan(text: any) {
+	public static cyan(...text: any) {
 		process.stdout.write("\x1b[36m" + text + "\x1b[0m")
 	}
 
-	public static white(text: any) {
+	public static white(...text: any) {
 		process.stdout.write("\x1b[37m" + text + "\x1b[0m")
 	}
 
-	public static gray(text: any) {
+	public static gray(...text: any) {
 		process.stdout.write("\x1b[90m" + text + "\x1b[0m")
 	}
 
-	public static grey(text: any) {
+	public static grey(...text: any) {
 		process.stdout.write("\x1b[90m" + text + "\x1b[0m")
 	}
 
-	public static bold(text: any) {
+	public static bold(...text: any) {
 		process.stdout.write("\x1b[1m" + text + "\x1b[0m")
 	}
 
-	public static italic(text: any) {
+	public static italic(...text: any) {
 		process.stdout.write("\x1b[3m" + text + "\x1b[0m")
 	}
 
-	public static underline(text: any) {
+	public static underline(...text: any) {
 		process.stdout.write("\x1b[4m" + text + "\x1b[0m")
 	}
 
-	public static inverse(text: any) {
+	public static inverse(...text: any) {
 		process.stdout.write("\x1b[7m" + text + "\x1b[0m")
 	}
 
-	public static strikethrough(text: any) {
+	public static strikethrough(...text: any) {
 		process.stdout.write("\x1b[9m" + text + "\x1b[0m")
 	}
 
-	public static hidden(text: any) {
+	public static hidden(...text: any) {
 		process.stdout.write("\x1b[8m" + text + "\x1b[0m")
 	}
 

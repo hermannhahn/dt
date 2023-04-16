@@ -7,36 +7,16 @@
 		"dt": "build/dt.js"
 	},
 	"scripts": {
-		"eslint": "eslint src/**/*.ts",
-		"prettier": "prettier --write \"src/**/*.ts\"",
-		"prettier-check": "prettier --check \"src/**/*.ts\"",
-		"lint-staged": "lint-staged",
-		"dev": "webpack --mode development --watch",
-		"cfg": "chokidar \"src/app.config.js\" -c \"sleep 3 && cp src/app.config.js build/\"",
-		"pre": "chokidar \"build/dt.js\" -c \"sleep 3 && npm run start\"",
-		"build": "lint-staged && webpack --mode production",
-		"start-ts": "ts-node src/bin/dt.ts",
+		"eslint": "echo 'Linting...' && eslint src/**/*.ts",
+		"lint-staged": "echo 'Linting...' && lint-staged",
+		"prettier": "echo 'Formatting...' && prettier --write \"src/**/*.ts\"",
+		"prettier:check": "echo 'Formatting...' && prettier --check \"src/**/*.ts\"",
+		"dev": "nodemon --watch src --exec \"webpack --mode development --watch\" --ext *.ts,*.js,*.json && title Watching...",
+		"dev:ts": "ts-node src/bin/dt.ts",
+		"dev:watch": "cp src/app.config.js build/ && webpack --mode development --watch",
+		"build": "webpack --mode production && cp src/app.config.js build/",
+		"compile": "title Compiling... && pkg build/dt.js --target node18-win-x64,node18-macos-x64,node18-linux-x64 --out-dir ./dist && sleep 1 && cp dist/dt-win.exe bin/dt.exe && title Compiled!",
 		"start": "cp src/app.config.js build/ && node build/dt.js"
-	},
-	"pkg": {
-		"scripts": "build/dt.js",
-		"targets": [
-			"node12-win-x64",
-			"node12-linux-x64",
-			"node12-macos-x64"
-		]
-	},
-	"nodemonConfig": {
-		"ignore": [
-			"**/test/**",
-			"**/docs/**",
-			"**/node_modules/**",
-			"**/bin/**",
-			"**/dist/**",
-			"**/pre-build/**",
-			"**/src/**"
-		],
-		"delay": 2500
 	},
 	"repository": {
 		"type": "git",
@@ -47,7 +27,8 @@
 		"chatgpt",
 		"dev",
 		"cli",
-		"tools"
+		"tools",
+		"git"
 	],
 	"author": "Hermann Hahn",
 	"license": "MIT",
@@ -78,6 +59,7 @@
 	"dependencies": {
 		"@commander-js/extra-typings": "^10.0.3",
 		"commander": "^10.0.0",
-		"dotenv": "^16.0.3"
+		"dotenv": "^16.0.3",
+		"prompts": "^2.4.2"
 	}
 }

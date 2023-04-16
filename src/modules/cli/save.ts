@@ -1,71 +1,102 @@
-import { program } from "@commander-js/extra-typings"
+import * as fs from "fs"
 import { Git } from "libs/git"
-import { GitResponse } from "types/git"
-import { PackageJson } from "utils/package-manager"
+import { Project } from "modules/project"
+import { Command } from "utils/command-runner"
 import { terminal } from "utils/terminal-log"
 
-const git = new Git()
+export const Save = async (opts: any) => {
+	terminal.log("info", "Saving changes...")
 
-export const Save = async () => {
-	program
-		.command("save")
-		.option("-m, --message <message>", "commit message")
-		.description("save project")
-		.action(async (opts, cmd) => {
-			try {
-				const gitTopLevel: GitResponse = await git.topLevel()
-				if (gitTopLevel.error) {
-					terminal.log("error", "No project found, did you run 'init' command?")
-					process.exit(1)
-				}
-				const rootDir = gitTopLevel.result
-				const packageJson: any = new PackageJson(`${rootDir}/package.json`)
-				if (packageJson.error !== false) {
-					terminal.log("error", "No project found, did you run 'init' command?")
-					process.exit(1)
-				}
-				const version = packageJson.data.version
-				const name = packageJson.data.name
-				const message = opts.message || `v${version}`
-				const add = async () => {
-					const { error, result } = await git.add(".")
-					if (error === false) {
-						for (const file of result) {
-							terminal.log("dotGreen", `${file} [\x1b[36madded\x1b[0m]`)
-						}
-					}
-				}
+	// Git requirements
+	terminal.logInline("git", "Checking git requirements...")
+	await Git.requirements()
 
-				// Check if there are changes
-				const status: GitResponse = await git.branch.status()
+	// Get git root directory
+	const rootDir: any = new Command("git rev-parse --show-toplevel").toString()
 
-				// Save project
-				terminal.log(
-					"save",
-					`Saving project \x1b[33m${name}\x1b[0m version \x1b[33m${version}\x1b[0m`
-				)
-				terminal.logInline("search", "Searching for changes")
-				if (status.error) {
-					terminal.label("red", "not found")
-					terminal.done(status.error)
-				} else {
-					terminal.label("green", "found")
-					await add()
-					terminal.logInline("password", "Waiting for signature password")
-					await git.commit(message)
-					terminal.label("green", "signed")
-					terminal.logInline("commit", "Commiting files")
-					terminal.label("green", "done")
-					terminal.logInline("push", "Pushing files")
-					await git.push()
-					terminal.label("green", "done")
-					terminal.logInline("push", "Pushing tags")
-					await git.push("--tags")
-					terminal.label("green", "done")
-					terminal.log("done", "Project successfully saved!")
-				}
-			} catch (error: any) {
-				terminal.log("error", error)
-			}
+	// Project requirements
+	terminal.logInline("info", "Checking project requirements...")
+	await Project.requirements()
+
+	// Get packageJson
+	const packageJson = JSON.parse(
+		fs.readFileSync(`${rootDir}/package.json`, "utf8")
+	)
+
+	// Go to root directory
+	process.chdir(rootDir)
+
+	// Branch Guard
+	terminal.logInline("lock", "Getting branch guard authorization...")
+	await Git.branchGuard()
+
+	// GPG requirements
+	terminal.logInline("sign", "Checking GPG requirements...")
+	await Git.gpgRequirements()
+
+	// Get status
+	terminal.logInline("search", "Searching for changes...")
+	const status: any = new Command(`git status --porcelain`)
+	if (status.error) {
+		terminal.log("error", status.error)
+		process.exit(1)
+	}
+	// If there are changes, get list of changed files
+	if (status.result) {
+		terminal.label("orange", "found")
+
+		// Get list of changed files
+		const changedFiles = status.result.split(" ")
+		// Print list of changed files
+		terminal.log("info", "Changed files:")
+		changedFiles.forEach((file: any) => {
+			terminal.log("file", file)
 		})
+	} else {
+		terminal.label("green", "none")
+		terminal.success("All files are up to date")
+		process.exit(0)
+	}
+
+	// Add all files to git
+	terminal.log("info", "Adding changes to git...")
+	const add: any = new Command(`git add .`)
+	if (add.error) {
+		terminal.log("error", add.error)
+		process.exit(1)
+	}
+	terminal.success("Changes added")
+
+	// Commit changes
+	terminal.logInline("password", "Waiting for signature passphrase...")
+	const commit: any = new Command(`git commit -S -m "${packageJson.version}"`)
+	if (commit.error) {
+		terminal.label("green", "invalid")
+		terminal.log("error", commit.error)
+		process.exit(1)
+	}
+	terminal.label("green", "signed")
+	terminal.logInline("sign", "Commiting changes...")
+	await new Promise((resolve) => setTimeout(resolve, 1000))
+	terminal.label("green", "done")
+
+	// Push changes
+	terminal.logInline("info", "Pushing changes...")
+	const push: any = new Command(`git push`)
+	if (push.error) {
+		terminal.log("error", push.error)
+		process.exit(1)
+	}
+	terminal.label("green", "done")
+
+	// Push tags
+	terminal.logInline("info", "Pushing tags...")
+	const pushTags: any = new Command(`git push --tags`)
+	if (pushTags.error) {
+		terminal.log("error", pushTags.error)
+		process.exit(1)
+	}
+	terminal.label("green", "done")
+	terminal.log("success", "Changes saved")
+	process.exit(0)
 }

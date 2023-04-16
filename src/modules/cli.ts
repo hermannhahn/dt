@@ -1,5 +1,7 @@
+import { New } from "modules/cli/new"
 import { Save } from "modules/cli/save"
 
 export class Cli {
-	save = Save
+	public save = Save
+	public new = New
 }

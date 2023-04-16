@@ -1,26 +1,59 @@
 import { program } from "@commander-js/extra-typings"
 import { Cli } from "modules/cli"
-import { PackageJson } from "utils/package-manager"
 import { terminal } from "utils/terminal-log"
 
-const packageJson: any = new PackageJson("package.json")
+// Version
+const name = "devtool (dt)"
+const version = "0.0.0"
+const versionString = name + " cli " + version
+
+// Cli
 const cli = new Cli()
 
 program
-	.version(
-		packageJson.data.name + " cli " + packageJson.data.version,
-		"-v, --version",
-		"output the current version"
-	)
-	.description("A CLI for managing your projects")
+	.version(versionString, "-v, --version", "output the current dt version")
+	.description("Tools for developers")
 
+// test command
 program
 	.command("ping")
-	.description("let's ping")
+	.description("test command")
 	.action(() => {
 		terminal.log("success", "pong")
 	})
 
-cli.save()
+// save command
+program
+	.command("save")
+	.description("save project")
+	.option("-m, --message <message>", "commit message")
+	.action((opts) => {
+		cli.save(opts)
+	})
 
+// patch command
+program
+	.command("new patch")
+	.description("create new patch version")
+	.action((opts) => {
+		cli.new.patch(opts)
+	})
+
+// update command
+program
+	.command("new update")
+	.description("create new update version")
+	.action((opts) => {
+		cli.new.update(opts)
+	})
+
+// upgrade command
+program
+	.command("new upgrade")
+	.description("create new upgrade version")
+	.action((opts) => {
+		cli.new.upgrade(opts)
+	})
+
+// Parse arguments
 program.parse(process.argv)

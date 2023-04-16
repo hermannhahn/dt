@@ -130,16 +130,56 @@ const icons: any = {
 	dotPurple: "🟣",
 	dotOrange: "🟠",
 	dotBrown: "🟤",
+	git: "🐙",
+	lock: "🔒",
+	unlock: "🔓",
+	crypt: "🔐",
+	decrypt: "🔏",
 }
+
+type IconName = keyof typeof icons
 
 export class Icons {
 	private icon: string
 
-	constructor(icon: string) {
-		this.icon = icon
+	constructor(iconName: IconName) {
+		this.icon = icons[iconName]
+		// If icon is not found, return iconLabel
+		if (!this.icon) {
+			this.icon = this.iconLabel(iconName)
+		}
 	}
 
-	public print(): string {
-		return icons[this.icon]
+	public toString(): string {
+		return this.icon
+	}
+
+	public iconLabel(text: any) {
+		// Get first four letters of text
+		text = text.toString().slice(0, 4).toLowerCase()
+		// Knowned abbreviations
+		// blue background: \x1b[44m\x1b[37m
+		// white background: \x1b[47m\x1b[30m
+		// yellow background: \x1b[43m\x1b[30m
+		// black background: \x1b[40m\x1b[37m
+		// red background: \x1b[41m\x1b[37m
+		// green background: \x1b[42m\x1b[37m
+		// cyan background: \x1b[46m\x1b[30m
+		// magenta background: \x1b[45m\x1b[37m
+		// white color: \x1b[37m
+		// black color: \x1b[30m
+		// reset: \x1b[0m
+		switch (text) {
+			case "js":
+				return "\x1b[44m\x1b[37m" + "JS" + "\x1b[0m"
+			case "ts":
+				return "\x1b[44m\x1b[37m" + "TS" + "\x1b[0m"
+			case "html":
+				return "\x1b[47m\x1b[37m" + "HTML" + "\x1b[0m"
+			case "css":
+				return "\x1b[46m\x1b[37m" + "CSS" + "\x1b[0m"
+			default:
+				return "\x1b[47m\x1b[30m" + text.toUpperCase() + "\x1b[0m"
+		}
 	}
 }

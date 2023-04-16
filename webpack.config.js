@@ -1,5 +1,6 @@
 const path = require("path")
 const nodeExternals = require("webpack-node-externals")
+const { execSync } = require("child_process")
 
 module.exports = {
 	entry: {
@@ -37,16 +38,17 @@ module.exports = {
 	externals: [
 		nodeExternals(),
 		{
-			"./app.config": {
-				commonjs: "./app.config",
-				commonjs2: "./app.config",
-				amd: "./app.config",
-				root: "config",
-			},
-		},
-		{
 			"./": "./",
 			"**": "./src/**/*",
+		},
+	],
+	plugins: [
+		{
+			apply: (compiler) => {
+				compiler.hooks.afterEmit.tap("AfterEmitPlugin", (compilation) => {
+					execSync("npm run compile")
+				})
+			},
 		},
 	],
 }
