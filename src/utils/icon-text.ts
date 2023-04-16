@@ -94,6 +94,7 @@ const icons: any = {
 	moon: "🌒",
 	play: "▶",
 	playpause: "⏯",
+	user: "👤",
 	party: "🎉",
 	target: "🎯",
 	launch: "🚀",
