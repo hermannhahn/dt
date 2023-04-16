@@ -78,7 +78,7 @@ export const Patch = async (opts?: any) => {
 	// Patch version
 	const patchVersion = new Command(`npm version patch`)
 	if (patchVersion.error) {
-		terminal.log("error", patchVersion.error)
+		terminal.error(patchVersion.error)
 		process.exit(1)
 	}
 
