@@ -56,10 +56,12 @@ export const Save = async (opts?: any) => {
 		terminal.label("orange", "found")
 
 		// Get list of changed files
-		const changedFiles = status.toString().split(",")
+		const changedFiles = status.toString().split("\n")
 		// Print list of changed files
 		terminal.log("file", "Changed files:")
-		console.log(changedFiles)
+		changedFiles.forEach((file: any) => {
+			console.log("file", file)
+		})
 	} else {
 		terminal.label("green", "none")
 		terminal.success("All files are up to date")
