@@ -35,7 +35,7 @@ export class Git {
 				process.exit(1)
 			}
 		}
-		terminal.label("green", "ok")
+		terminal.label("green", "OK")
 
 		// Check if git is installed
 		terminal.logInline("git", "Checking if git is installed...")
@@ -50,7 +50,7 @@ export class Git {
 				process.exit(1)
 			}
 		}
-		terminal.label("green", "ok")
+		terminal.label("green", "OK")
 
 		// Check if gnupg is installed
 		terminal.logInline("crypt", "Checking if gnupg is installed...")
@@ -65,7 +65,7 @@ export class Git {
 				process.exit(1)
 			}
 		}
-		terminal.label("green", "ok")
+		terminal.label("green", "OK")
 
 		await this.configureGitUser()
 	}
@@ -135,7 +135,7 @@ export class Git {
 			terminal.error(enableSign.error)
 			process.exit(1)
 		}
-		terminal.label("green", "ok")
+		terminal.label("green", "OK")
 
 		// Check if gpg key is already configured
 		terminal.logInline("crypt", "Checking if GPG key is configured...")
@@ -208,7 +208,7 @@ export class Git {
 			terminal.label("red", "error")
 			terminal.error("Error generating GPG key")
 		} else {
-			terminal.label("green", "ok")
+			terminal.label("green", "OK")
 			terminal.success(`New GPG key generated with ID ${newKeyId}`)
 		}
 		return newKeyId
