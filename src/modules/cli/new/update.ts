@@ -5,10 +5,23 @@ import { Project } from "modules/project"
 import { Command } from "utils/command-runner"
 import { terminal } from "utils/terminal-log"
 
-export const Update = async (opts: any) => {
+export const Update = async (opts?: any) => {
 	// Git requirements
 	terminal.logInline("git", "Checking git requirements...")
 	await Git.requirements()
+
+	// Check if git is initialized
+	const topLevel: any = new Command("git rev-parse --show-toplevel")
+	// If git is not initialized
+	if (topLevel.error) {
+		if (topLevel.error.includes("not a git repository")) {
+			terminal.log(
+				"info",
+				"Git is not initialized, run \x1b[1mdt init\x1b[0m command first"
+			)
+			process.exit(1)
+		}
+	}
 
 	// If current branch is not production branch, exit
 	const isProductionBranch: any = Git.isProductionBranch()

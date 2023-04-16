@@ -5,17 +5,29 @@ import { Command } from "utils/command-runner"
 import { terminal } from "utils/terminal-log"
 
 export const Save = async (opts?: any) => {
-	terminal.log("info", "Saving changes...")
+	terminal.log("save", "Saving changes...")
 
 	// Git requirements
-	terminal.logInline("git", "Checking git requirements...")
 	await Git.requirements()
+
+	// Check if git is initialized
+	const topLevel: any = new Command("git rev-parse --show-toplevel")
+	// If git is not initialized
+	if (topLevel.error) {
+		if (topLevel.error.includes("not a git repository")) {
+			terminal.log(
+				"warn",
+				"Git is not initialized, run \x1b[1mdt init\x1b[0m command first"
+			)
+			process.exit(1)
+		}
+	}
 
 	// Get git root directory
 	const rootDir: any = new Command("git rev-parse --show-toplevel").toString()
 
 	// Project requirements
-	terminal.logInline("info", "Checking project requirements...")
+	terminal.logInline("package", "Checking project requirements...")
 	await Project.requirements()
 
 	// Get packageJson
@@ -27,11 +39,9 @@ export const Save = async (opts?: any) => {
 	process.chdir(rootDir)
 
 	// Branch Guard
-	terminal.logInline("lock", "Getting branch guard authorization...")
 	await Git.branchGuard()
 
 	// GPG requirements
-	terminal.logInline("sign", "Checking GPG requirements...")
 	await Git.gpgRequirements()
 
 	// Get status
@@ -46,9 +56,9 @@ export const Save = async (opts?: any) => {
 		terminal.label("orange", "found")
 
 		// Get list of changed files
-		const changedFiles = status.result.split(" ")
+		const changedFiles = status.toString().split(" ")
 		// Print list of changed files
-		terminal.log("info", "Changed files:")
+		terminal.log("file", "Changed files:")
 		changedFiles.forEach((file: any) => {
 			terminal.log("file", file)
 		})

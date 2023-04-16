@@ -22,6 +22,14 @@ program
 		terminal.log("success", "pong")
 	})
 
+// init command
+program
+	.command("init")
+	.description("initialize git repository")
+	.action((opts) => {
+		cli.init(opts)
+	})
+
 // save command
 program
 	.command("save")
