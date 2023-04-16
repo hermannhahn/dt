@@ -1,5 +1,6 @@
 import * as fs from "fs"
 import { Git } from "libs/git"
+import { Cli } from "modules/cli"
 import { Project } from "modules/project"
 import { Command } from "utils/command-runner"
 import { terminal } from "utils/terminal-log"
@@ -29,19 +30,15 @@ export const Update = async (opts: any) => {
 	// Go to root directory
 	process.chdir(rootDir)
 
-	// Update version
-	const updateVersion = new Command(`npm version minor`)
-	if (updateVersion.error) {
-		terminal.log("error", updateVersion.error)
-		process.exit(1)
-	}
-
 	// Get package.json
 	const packageJson = JSON.parse(fs.readFileSync("package.json", "utf8"))
 
-	// Get new version
-	const newVersion = packageJson.version
-	terminal.log("success", `New patch version: ${newVersion}`)
+	// add +1 to update number in version
+	const version = packageJson.version.split(".")
+	const update = parseInt(version[2]) + 1
+	version[2] = update.toString()
+	const newVersion = version.join(".")
+	terminal.log("success", `New update version: ${newVersion}`)
 
 	// Create new version branch
 	terminal.logInline("git", "Creating new version branch...")
@@ -62,6 +59,17 @@ export const Update = async (opts: any) => {
 		process.exit(1)
 	}
 	terminal.label("green", "done")
+
+	// Update version
+	const updateVersion = new Command(`npm version minor`)
+	if (updateVersion.error) {
+		terminal.log("error", updateVersion.error)
+		process.exit(1)
+	}
+
+	// Save changes
+	const cli = new Cli()
+	cli.save()
 
 	// Finish
 	terminal.success(`

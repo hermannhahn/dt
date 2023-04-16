@@ -68,7 +68,6 @@ export const Patch = async (opts: any) => {
 	}
 
 	// Save changes
-	terminal.logInline("git", "Saving changes...")
 	const cli = new Cli()
 	cli.save()
 
