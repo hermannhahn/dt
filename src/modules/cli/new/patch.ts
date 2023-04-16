@@ -1,3 +1,4 @@
+import * as fs from "fs"
 import { Git } from "libs/git"
 import { Project } from "modules/project"
 import { Command } from "utils/command-runner"
@@ -35,8 +36,11 @@ export const Patch = async (opts: any) => {
 		process.exit(1)
 	}
 
+	// Get package.json
+	const packageJson = JSON.parse(fs.readFileSync("package.json", "utf8"))
+
 	// Get new version
-	const newVersion = new Command(`npm version`).toString()
+	const newVersion = packageJson.version
 	terminal.log("success", `New patch version: ${newVersion}`)
 
 	// Create new version branch
