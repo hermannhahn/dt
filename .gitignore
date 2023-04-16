@@ -3,6 +3,8 @@
 build
 pre-build/
 node_modules/
+bin/
+dist/
 
 # Logs
 logs
