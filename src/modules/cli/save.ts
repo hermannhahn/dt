@@ -94,17 +94,6 @@ export const Save = async (opts?: any) => {
 	terminal.logInline("info", "Pushing changes...")
 	const push: any = new Command(`git push`)
 	if (push.error) {
-		if (push.error.includes("has no upstream branch")) {
-			const branch: any = new Command(`git branch --show-current`).toString()
-			const pushUpstream: any = new Command(
-				`git push --set-upstream origin ${branch}`
-			)
-			if (pushUpstream.error) {
-				terminal.label("red", "error")
-				terminal.log("error", pushUpstream.error)
-				process.exit(1)
-			}
-		}
 		terminal.label("red", "error")
 		terminal.log("error", push.error)
 		process.exit(1)

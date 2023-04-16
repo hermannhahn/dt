@@ -65,7 +65,9 @@ export const Patch = async (opts?: any) => {
 
 	// Push changes
 	terminal.logInline("git", "Pushing changes...")
-	const pushChanges = new Command(`git push origin ${newVersion}`)
+	const pushChanges = new Command(
+		`git push --set-upstream origin ${newVersion}`
+	)
 	if (pushChanges.error) {
 		terminal.label("red", "error")
 		terminal.log("error", pushChanges.error)
