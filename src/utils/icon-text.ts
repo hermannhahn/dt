@@ -68,6 +68,8 @@ const icons: any = {
 	push: "📤",
 	pull: "📥",
 	commit: "📝",
+	staging: "📦",
+	stack: "📚",
 	branch: "🌱",
 	merge: "🔀",
 	package: "📦",

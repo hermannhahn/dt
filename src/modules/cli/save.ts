@@ -69,14 +69,14 @@ export const Save = async (opts?: any) => {
 	}
 
 	// Add all files to git
-	terminal.logInline("add", "Adding changes to git...")
+	terminal.logInline("add", "Stacking changed files to be signed.")
 	const add: any = new Command(`git add .`)
 	if (add.error) {
 		terminal.label("red", "error")
 		terminal.log("error", add.error)
 		process.exit(1)
 	}
-	terminal.label("green", "done")
+	terminal.label("green", "DONE")
 
 	// Commit changes
 	terminal.logInline("password", "Waiting for signature passphrase...")
@@ -86,29 +86,29 @@ export const Save = async (opts?: any) => {
 		terminal.log("error", commit.error)
 		process.exit(1)
 	}
-	terminal.label("green", "signed")
+	terminal.label("cyan", "SIGNED")
 	terminal.logInline("sign", "Commiting changes...")
-	await new Promise((resolve) => setTimeout(resolve, 1000))
-	terminal.label("green", "done")
+	new Command("sleep 1")
+	terminal.label("green", "DONE")
 
 	// Push changes
-	terminal.logInline("info", "Pushing changes...")
+	terminal.logInline("upload", "Pushing changes...")
 	const push: any = new Command(`git push`)
 	if (push.error) {
 		terminal.label("red", "error")
 		terminal.log("error", push.error)
 		process.exit(1)
 	}
-	terminal.label("green", "done")
+	terminal.label("green", "DONE")
 
 	// Push tags
-	terminal.logInline("info", "Pushing tags...")
+	terminal.logInline("upload", "Pushing tags...")
 	const pushTags: any = new Command(`git push --tags`)
 	if (pushTags.error) {
 		terminal.log("error", pushTags.error)
 		process.exit(1)
 	}
-	terminal.label("green", "done")
+	terminal.label("green", "DONE")
 	terminal.log("success", "Changes saved")
 	process.exit(0)
 }
