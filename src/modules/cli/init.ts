@@ -8,7 +8,6 @@ const prompts = require("prompts")
 
 export const Init = async (opts: any) => {
 	// Git requirements
-	terminal.logInline("info", "Checking git requirements...")
 	await Git.requirements()
 
 	// Check if git is initialized
@@ -23,12 +22,11 @@ export const Init = async (opts: any) => {
 				process.exit(1)
 			}
 			terminal.log("success", init.result)
-
-			// GPG requirements
-			terminal.logInline("info", "Checking GPG requirements...")
-			await Git.gpgRequirements()
 		}
 	}
+
+	// GPG requirements
+	await Git.gpgRequirements()
 
 	// Get git root directory
 	const rootDir = new Command("git rev-parse --show-toplevel")
@@ -40,16 +38,15 @@ export const Init = async (opts: any) => {
 		// Initialize project
 		const init: any = new Command("npm init -y")
 		if (init.error) {
-			terminal.log("error", init.error)
+			terminal.error(init.error)
 			process.exit(1)
 		}
 		// Change version to 0.0.0
 		const version: any = new Command("npm version 0.0.0")
 		if (version.error) {
-			terminal.log("error", version.error)
+			terminal.error(version.error)
 			process.exit(1)
 		}
-		terminal.log("success", "Project initialized")
 	}
 
 	// Create README.md if it does not exist
@@ -115,4 +112,6 @@ export const Init = async (opts: any) => {
 
 	// Patch project
 	cli.new.patch()
+
+	terminal.success("New project initialized!")
 }

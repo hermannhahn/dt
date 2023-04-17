@@ -5,6 +5,7 @@ import { terminal } from "utils/terminal-log"
 export class Project {
 	static async requirements() {
 		// Get git root directory
+		terminal.logInline("info", "Checking project requirements...")
 		const rootDir: any = new Command("git rev-parse --show-toplevel").toString()
 
 		// Check if package.json exists

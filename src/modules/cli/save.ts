@@ -69,7 +69,7 @@ export const Save = async (opts?: any) => {
 	}
 
 	// Add all files to git
-	terminal.logInline("stack", "Stacking changed files to be signed.")
+	terminal.logInline("stack", "Stacking changed files to be commited...")
 	const add: any = new Command(`git add .`)
 	if (add.error) {
 		terminal.label("red", "error")

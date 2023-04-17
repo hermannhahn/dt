@@ -7,7 +7,6 @@ import { terminal } from "utils/terminal-log"
 
 export const Patch = async (opts?: any) => {
 	// Git requirements
-	terminal.logInline("git", "Checking git requirements...")
 	await Git.requirements()
 
 	// Check if git is initialized
@@ -37,7 +36,6 @@ export const Patch = async (opts?: any) => {
 	const rootDir = new Command("git rev-parse --show-toplevel").toString()
 
 	// Project requirements
-	terminal.logInline("info", "Checking project requirements...")
 	await Project.requirements()
 
 	// Go to root directory
@@ -61,7 +59,7 @@ export const Patch = async (opts?: any) => {
 		terminal.log("error", newVersionBranch.error)
 		process.exit(1)
 	}
-	terminal.label("green", "done")
+	terminal.label("green", "DONE")
 
 	// Push changes
 	terminal.logInline("git", "Pushing changes...")
@@ -73,7 +71,7 @@ export const Patch = async (opts?: any) => {
 		terminal.log("error", pushChanges.error)
 		process.exit(1)
 	}
-	terminal.label("green", "done")
+	terminal.label("green", "DONE")
 
 	// Patch version
 	const patchVersion = new Command(`npm version patch`)
