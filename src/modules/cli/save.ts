@@ -27,7 +27,6 @@ export const Save = async (opts?: any) => {
 	const rootDir: any = new Command("git rev-parse --show-toplevel").toString()
 
 	// Project requirements
-	terminal.logInline("package", "Checking project requirements...")
 	await Project.requirements()
 
 	// Get packageJson
