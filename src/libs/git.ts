@@ -20,12 +20,12 @@ export class Git {
 
 	// Requirements
 	static async requirements() {
-		terminal.logInline("package", "Checking if chocolatey is installed...")
 		// Check if chocolatey is installed
 		const chocolatey = new Command("choco --version")
 		// If chocolatey is not installed
 		if (chocolatey.error) {
 			// Install chocolatey
+			terminal.logInline("package", "Installing chocolatey...")
 			const installChocolatey: any = new Command(
 				"powershell -NoProfile -ExecutionPolicy Bypass -Command \"iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))\""
 			)
@@ -34,38 +34,38 @@ export class Git {
 				terminal.error(installChocolatey.error)
 				process.exit(1)
 			}
+			terminal.label("green", "OK")
 		}
-		terminal.label("green", "OK")
 
 		// Check if git is installed
-		terminal.logInline("git", "Checking if git is installed...")
 		const git = new Command("git --version")
 		// If git is not installed
 		if (git.error) {
 			// Install git
+			terminal.logInline("git", "Installing git...")
 			const installGit: any = new Command("choco install git -y")
 			if (installGit.error) {
 				terminal.label("red", "error")
 				terminal.error(installGit.error)
 				process.exit(1)
 			}
+			terminal.label("green", "OK")
 		}
-		terminal.label("green", "OK")
 
 		// Check if gnupg is installed
-		terminal.logInline("crypt", "Checking if gnupg is installed...")
 		const gnupg = new Command("gpg --version")
 		// If gnupg is not installed
 		if (gnupg.error) {
 			// Install gnupg
+			terminal.logInline("crypt", "Installing gnupg...")
 			const installGnupg: any = new Command("choco install gnupg -y")
 			if (installGnupg.error) {
 				terminal.label("red", "error")
 				terminal.error(installGnupg.error)
 				process.exit(1)
 			}
+			terminal.label("green", "OK")
 		}
-		terminal.label("green", "OK")
 
 		await this.configureGitUser()
 	}
@@ -73,11 +73,10 @@ export class Git {
 	// Configure git user
 	private static async configureGitUser() {
 		// Check if git user is configured
-		terminal.logInline("user", "Checking git user configuration...")
 		let name = new Command("git config --global user.name")
 		// If git user is not configured
 		if (!name.result) {
-			terminal.label("yellow", "configuring")
+			terminal.logInline("user", "Git user is not configured.")
 			name = await prompts([
 				{
 					type: "text",
@@ -92,18 +91,13 @@ export class Git {
 				process.exit(1)
 			}
 			terminal.log("user", "Git user has been configured.")
-		} else {
-			terminal.label("green", "OK")
 		}
 
 		// Check if git email is configured
-		terminal.logInline("email", "Checking git email configuration...")
 		let email = new Command("git config --global user.email")
 		// If git email is not configured
 		if (!email.result) {
-			if (name) {
-				terminal.label("yellow", "configuring")
-			}
+			terminal.logInline("email", "Git email is not configured.")
 			email = await prompts([
 				{
 					type: "text",
@@ -120,29 +114,23 @@ export class Git {
 				process.exit(1)
 			}
 			terminal.log("email", "Git email has been configured.")
-		} else {
-			terminal.label("green", "OK")
 		}
 	}
 
 	// Configure gpg
 	static async gpgRequirements() {
 		// Set git to use GPG signing
-		terminal.logInline("sign", "Setting git to use GPG signing...")
 		const enableSign = new Command("git config --global commit.gpgsign true")
 		if (enableSign.error) {
-			terminal.label("red", "error")
 			terminal.error(enableSign.error)
 			process.exit(1)
 		}
-		terminal.label("green", "OK")
 
 		// Check if gpg key is already configured
-		terminal.logInline("crypt", "Checking if GPG key is configured...")
 		const gpgKey = new Command("git config --global user.signingkey")
 		// If git gpg key is not configured
 		if (!gpgKey.result) {
-			terminal.label("yellow", "configuring")
+			terminal.log("crypt", "GPG key is not configured.")
 			// Check if existing key is found
 			const existingKeyId = this.getExistingKeyId()
 
@@ -159,8 +147,6 @@ export class Git {
 				await this.setGitConfigWithKeyId(newKeyId)
 				this.printPublicKey(newKeyId)
 			}
-		} else {
-			terminal.label("green", "OK")
 		}
 	}
 
@@ -180,7 +166,7 @@ export class Git {
 
 	// Generate gpg key
 	private static async generateGpgKey(): Promise<string> {
-		terminal.logInline("crypt", "Generating new GPG key...")
+		terminal.log("crypt", "Generating new GPG key...")
 		const { passphrase } = await prompts([
 			{
 				type: "password",
@@ -198,17 +184,14 @@ export class Git {
 			`gpg --batch --passphrase "${passphrase}" --quick-gen-key "${name} <${email}>"`
 		)
 		if (generateGpg.error) {
-			terminal.label("red", "error")
 			terminal.error(generateGpg.error)
 			process.exit(1)
 		}
 
 		const newKeyId: any = this.getExistingKeyId()
 		if (!newKeyId) {
-			terminal.label("red", "error")
 			terminal.error("Error generating GPG key")
 		} else {
-			terminal.label("green", "OK")
 			terminal.success(`New GPG key generated with ID ${newKeyId}`)
 		}
 		return newKeyId
@@ -220,7 +203,7 @@ export class Git {
 			terminal.error(configKey.error)
 			process.exit(1)
 		}
-		terminal.success("Git has been configured with the GPG key.")
+		terminal.success("Successfully configured GPG key")
 	}
 
 	private static async printPublicKey(keyId: string) {

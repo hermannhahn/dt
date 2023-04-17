@@ -40,6 +40,7 @@ const icons: any = {
 	mouse: "🖱️",
 	keyboard: "⌨️",
 	speechballoon: "💬",
+	update: "🔄",
 	trash: "🗑️",
 	map: "🗺️",
 	earth: "🌍",
