@@ -53,7 +53,7 @@ export const Save = async (opts?: any) => {
 	}
 	// If there are changes, get list of changed files
 	if (status.result) {
-		terminal.label("orange", "found")
+		terminal.label("cyan", "FOUND")
 
 		// Get list of changed files
 		const changedFiles = status.toString().trim().split("\n")
@@ -69,7 +69,7 @@ export const Save = async (opts?: any) => {
 	}
 
 	// Add all files to git
-	terminal.logInline("add", "Stacking changed files to be signed.")
+	terminal.logInline("stack", "Stacking changed files to be signed.")
 	const add: any = new Command(`git add .`)
 	if (add.error) {
 		terminal.label("red", "error")
@@ -109,6 +109,6 @@ export const Save = async (opts?: any) => {
 		process.exit(1)
 	}
 	terminal.label("green", "DONE")
-	terminal.log("success", "Changes saved")
+	terminal.log("success", "Changes saved!")
 	process.exit(0)
 }
