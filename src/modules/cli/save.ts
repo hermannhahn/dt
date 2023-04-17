@@ -56,7 +56,7 @@ export const Save = async (opts?: any) => {
 		terminal.label("orange", "found")
 
 		// Get list of changed files
-		const changedFiles = status.toString().split("\n")
+		const changedFiles = status.toString().trim().split("\n")
 		// Print list of changed files
 		terminal.log("update", "Changed files:")
 		changedFiles.forEach((file: any) => {
@@ -69,13 +69,14 @@ export const Save = async (opts?: any) => {
 	}
 
 	// Add all files to git
-	terminal.log("info", "Adding changes to git...")
+	terminal.logInline("add", "Adding changes to git...")
 	const add: any = new Command(`git add .`)
 	if (add.error) {
+		terminal.label("red", "error")
 		terminal.log("error", add.error)
 		process.exit(1)
 	}
-	terminal.success("Changes added")
+	terminal.label("green", "done")
 
 	// Commit changes
 	terminal.logInline("password", "Waiting for signature passphrase...")
