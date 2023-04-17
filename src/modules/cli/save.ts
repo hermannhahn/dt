@@ -60,7 +60,7 @@ export const Save = async (opts?: any) => {
 		// Print list of changed files
 		terminal.log("update", "Changed files:")
 		changedFiles.forEach((file: any) => {
-			terminal.log("file", file)
+			terminal.log("file", file.trim())
 		})
 	} else {
 		terminal.label("green", "none")

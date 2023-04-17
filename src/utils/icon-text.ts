@@ -162,7 +162,7 @@ export class Icons {
 	public iconLabel(text: any) {
 		// Get first four letters of text
 		text = text.toString().slice(0, 4).toLowerCase()
-		// Knowned abbreviations
+		// Colors:
 		// blue background: \x1b[44m\x1b[37m
 		// white background: \x1b[47m\x1b[30m
 		// yellow background: \x1b[43m\x1b[30m
