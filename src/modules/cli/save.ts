@@ -87,12 +87,12 @@ export const Save = async (opts?: any) => {
 		process.exit(1)
 	}
 	terminal.label("cyan", "SIGNED")
-	terminal.logInline("sign", "Commiting changes...")
+	terminal.logInline("commit", "Commiting changes...")
 	new Command("sleep 1")
 	terminal.label("green", "DONE")
 
 	// Push changes
-	terminal.logInline("upload", "Pushing changes...")
+	terminal.logInline("push", "Pushing changes...")
 	const push: any = new Command(`git push`)
 	if (push.error) {
 		terminal.label("red", "error")
@@ -102,7 +102,7 @@ export const Save = async (opts?: any) => {
 	terminal.label("green", "DONE")
 
 	// Push tags
-	terminal.logInline("upload", "Pushing tags...")
+	terminal.logInline("push", "Pushing tags...")
 	const pushTags: any = new Command(`git push --tags`)
 	if (pushTags.error) {
 		terminal.log("error", pushTags.error)
