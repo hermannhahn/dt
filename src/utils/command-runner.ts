@@ -6,21 +6,19 @@ export class Command {
 
 	constructor(command: string, options?: any) {
 		try {
-			let cmd: any
 			if (options) {
 				if (options.silent) {
-					cmd = execSync(command, {
+					const result: any = execSync(command, {
 						stdio: "inherit",
 					})
-					this.result = cmd
+					this.result = result
 				}
-			}
-			// Run command
-			if (!cmd) {
-				cmd = execSync(command, {
+			} else {
+				// Run command
+				const result: any = execSync(command, {
 					stdio: "pipe",
 				})
-				this.result = cmd
+				this.result = result
 			}
 		} catch (error: any) {
 			this.error = error.message

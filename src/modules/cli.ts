@@ -1,7 +1,11 @@
+import { Init } from "modules/cli/init"
 import { New } from "modules/cli/new"
 import { Save } from "modules/cli/save"
+import { Template } from "modules/cli/template"
 
 export class Cli {
-	public save = Save
-	public new = New
+	static save = Save
+	static new = New
+	static init = Init
+	static template = Template
 }
