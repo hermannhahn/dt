@@ -61,4 +61,5 @@ if (command === "template") {
 	if (option === "list") Cli.template.list()
 	if (option === "install") Cli.template.install()
 }
+
 if (command === "deploy") Cli.deploy()
