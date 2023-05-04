@@ -29,6 +29,9 @@ program
 	.argument("<patch|update|upgrade>")
 	.description("create new patch, update or upgrade.")
 
+// deploy command
+program.command("deploy").description("deploy project")
+
 // upgrade command
 program
 	.command("template")
@@ -58,3 +61,5 @@ if (command === "template") {
 	if (option === "list") Cli.template.list()
 	if (option === "install") Cli.template.install()
 }
+
+if (command === "deploy") Cli.deploy()

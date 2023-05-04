@@ -5,6 +5,7 @@ pre-build/
 node_modules/
 bin/
 dist/
+.vscode
 
 # Logs
 logs
