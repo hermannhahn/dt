@@ -20,7 +20,10 @@
 	},
 	"repository": {
 		"type": "git",
-		"url": "git+https://github.com/hermannhahn/dt.git"
+		"url": "git+https://github.com/hermannhahn/dt.git",
+		"branches": {
+			"production": "main"
+		}
 	},
 	"keywords": [
 		"openai",
