@@ -1,41 +1,26 @@
-import * as fs from "fs"
-import { Git } from "libs/git"
+import { Cli } from "modules/cli"
 import { Project } from "modules/project"
 import { Command } from "utils/command-runner"
 import { terminal } from "utils/terminal-log"
 
 export const Deploy = async (opts?: any) => {
+	// Save first
+	await Cli.save(opts)
+
 	terminal.log("info", "Starting deployment...")
 
-	// Git requirements
-	terminal.logInline("git", "Checking git requirements...")
-	await Git.requirements()
-
 	// Get git root directory
-	const rootDir: any = new Command("git rev-parse --show-toplevel").toString()
+	const rootDir: any = Project.rootDir()
 
-	// Project requirements
-	terminal.logInline("info", "Checking project requirements...")
+	// Check if package.json exists
 	await Project.requirements()
-
-	// Get packageJson
-	const packageJson = JSON.parse(
-		fs.readFileSync(`${rootDir}/package.json`, "utf8")
-	)
+	const packageJson = await Project.packageJson()
 
 	// Get version branch name
 	const versionBranch = packageJson.version
 
 	// Go to root directory
 	process.chdir(rootDir)
-
-	// Branch Guard
-	terminal.logInline("lock", "Getting branch guard authorization...")
-	await Git.branchGuard()
-
-	// GPG requirements
-	terminal.logInline("sign", "Checking GPG requirements...")
-	await Git.gpgRequirements()
 
 	// Go to main branch
 	terminal.logInline("search", "Checking out to production branch...")
@@ -68,12 +53,7 @@ export const Deploy = async (opts?: any) => {
 	}
 
 	// Patch version
-	terminal.logInline("info", "Patching version...")
-	const patch: any = new Command(`dt version patch`)
-	if (patch.error) {
-		terminal.log("error", patch.error)
-		process.exit(1)
-	}
+	await Cli.new.patch(opts)
 
 	// Inform result
 	terminal.log("success", "Project deployed successfully")
