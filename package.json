@@ -1,6 +1,6 @@
 {
 	"name": "dt",
-	"version": "0.0.1",
+	"version": "0.0.2",
 	"description": "Tools for fast and powerful development.",
 	"main": "build/dt.js",
 	"bin": {
@@ -20,7 +20,10 @@
 	},
 	"repository": {
 		"type": "git",
-		"url": "git+https://github.com/hermannhahn/dt.git"
+		"url": "git+https://github.com/hermannhahn/dt.git",
+		"branches": {
+			"production": "main"
+		}
 	},
 	"keywords": [
 		"openai",

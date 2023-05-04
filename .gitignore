@@ -5,9 +5,6 @@ pre-build/
 node_modules/
 bin/
 dist/
-build/app.config.js
-src/app.config.ts
-
 
 # Logs
 logs
