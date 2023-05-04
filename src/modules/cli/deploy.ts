@@ -7,7 +7,7 @@ export const Deploy = async (opts?: any) => {
 	// Save first
 	await Cli.save(opts)
 
-	terminal.log("info", "Starting deployment...")
+	terminal.log("package", "Starting deployment...")
 
 	// Get git root directory
 	const rootDir: any = Project.rootDir()
@@ -23,7 +23,7 @@ export const Deploy = async (opts?: any) => {
 	process.chdir(rootDir)
 
 	// Go to main branch
-	terminal.logInline("search", "Checking out to production branch...")
+	terminal.log("git", "Checking out to production branch...")
 	const production: any = new Command(
 		`git checkout ${packageJson.repository.branches.production}`
 	)
@@ -45,15 +45,20 @@ export const Deploy = async (opts?: any) => {
 	terminal.label("green", "done")
 
 	// Push changes
-	terminal.logInline("info", "Pushing changes...")
+	terminal.logInline("push", "Pushing changes...")
 	const pushProduction: any = new Command(`git push`)
 	if (pushProduction.error) {
 		terminal.log("error", pushProduction.error)
 		process.exit(1)
 	}
 
-	// Patch version
-	await Cli.new.patch(opts)
+	// Back to version branch
+	terminal.logInline("search", "Checking out to version branch...")
+	const version: any = new Command(`git checkout ${versionBranch}`)
+	if (version.error) {
+		terminal.log("error", version.error)
+		process.exit(1)
+	}
 
 	// Inform result
 	terminal.log("success", "Project deployed successfully")
