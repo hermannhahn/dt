@@ -51,6 +51,7 @@ export const Deploy = async (opts?: any) => {
 		terminal.log("error", pushProduction.error)
 		process.exit(1)
 	}
+	terminal.label("green", "done")
 
 	// Back to version branch
 	terminal.logInline("search", "Checking out to version branch...")
@@ -59,6 +60,7 @@ export const Deploy = async (opts?: any) => {
 		terminal.log("error", version.error)
 		process.exit(1)
 	}
+	terminal.label("green", "done")
 
 	// Inform result
 	terminal.log("success", "Project deployed successfully")
