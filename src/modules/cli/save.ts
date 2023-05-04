@@ -46,7 +46,8 @@ export const Save = async (opts?: any) => {
 		terminal.label("orange", "found")
 
 		// Get list of changed files
-		const changedFiles = status.result.split(" ")
+		const changedFiles =
+			typeof status.result === "string" ? status.result.split(" ") : []
 		// Print list of changed files
 		terminal.log("info", "Changed files:")
 		changedFiles.forEach((file: any) => {

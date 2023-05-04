@@ -55,5 +55,13 @@ program
 		cli.new.upgrade(opts)
 	})
 
+// deploy command
+program
+	.command("deploy")
+	.description("deploy project")
+	.action((opts) => {
+		cli.deploy(opts)
+	})
+
 // Parse arguments
 program.parse(process.argv)

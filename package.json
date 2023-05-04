@@ -20,7 +20,13 @@
 	},
 	"repository": {
 		"type": "git",
-		"url": "git+https://github.com/hermannhahn/dt.git"
+		"url": "git+https://github.com/hermannhahn/dt.git",
+		"production": {
+			"host": "github.com",
+			"owner": "hermannhahn",
+			"repo": "dt",
+			"branch": "main"
+		}
 	},
 	"keywords": [
 		"openai",

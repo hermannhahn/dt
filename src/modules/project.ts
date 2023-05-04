@@ -2,6 +2,13 @@ import * as fs from "fs"
 import { Command } from "utils/command-runner"
 import { terminal } from "utils/terminal-log"
 
+/**
+ * Project module
+ * @class
+ * @module Project
+ * @static
+ * import { Project } from "modules/project"
+ */
 export class Project {
 	static async requirements() {
 		// Get git root directory
