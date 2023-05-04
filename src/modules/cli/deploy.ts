@@ -5,7 +5,7 @@ import { Command } from "utils/command-runner"
 import { terminal } from "utils/terminal-log"
 
 export const Deploy = async (opts?: any) => {
-	terminal.log("info", "Saving changes...")
+	terminal.log("info", "Starting deployment...")
 
 	// Git requirements
 	terminal.logInline("git", "Checking git requirements...")
