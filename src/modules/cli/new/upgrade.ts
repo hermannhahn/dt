@@ -49,7 +49,11 @@ export const Upgrade = async (opts?: any) => {
 	terminal.log('version', `Successfully upgraded version`)
 	terminal.log('version', `Old version: ${currentVersion}`)
 	terminal.log('version', `New version: ${newVersion}`)
-	terminal.log('version', `Run \x1b[1mdt deploy\x1b[0m to publish new version`)
+	terminal.log('version', `Run \x1b[1mdt save\x1b[0m to save changes`)
+	terminal.log(
+		'version',
+		`Run \x1b[1mdt deploy\x1b[0m to publish changes and create a new patch`
+	)
 }
 
 const int = (str: string) => {
