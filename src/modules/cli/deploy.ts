@@ -25,9 +25,7 @@ export const Deploy = async (opts?: any) => {
 
 	// Go to main branch
 	terminal.log("git", "Checking out to production branch...")
-	const production: any = new Command(
-		`git checkout ${packageJson.repository.branches.production}`
-	)
+	const production: any = new Command(`git checkout main`)
 	if (production.error) {
 		terminal.log("error", production.error)
 		process.exit(1)
