@@ -1,6 +1,6 @@
 {
 	"name": "dt",
-	"version": "0.0.4",
+	"version": "0.0.5",
 	"description": "Tools for fast and powerful development.",
 	"main": "build/dt.js",
 	"bin": {
