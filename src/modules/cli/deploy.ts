@@ -51,14 +51,9 @@ export const Deploy = async (opts?: any) => {
 	}
 	terminal.label("green", "done")
 
-	// Back to version branch
-	terminal.logInline("search", "Checking out to version branch...")
-	const version: any = new Command(`git checkout ${versionBranch}`)
-	if (version.error) {
-		terminal.log("error", version.error)
-		process.exit(1)
-	}
-	terminal.label("green", "done")
+	// Patch version
+	terminal.logInline("patch", "Patching version...")
+	const patch: any = Cli.new.patch(opts)
 
 	// Inform result
 	terminal.log("success", "Project deployed successfully")
