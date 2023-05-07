@@ -18,9 +18,11 @@ export const Patch = async (opts?: any) => {
 	const currentVersion = packageJson.version
 
 	// Predict new version
-	let newVersion = packageJson.version
-	newVersion = newVersion[0] + '.' + newVersion[1] + '.' + (newVersion[2] + 1)
-	terminal.debug('newVersion', newVersion)
+	const version = packageJson.version
+	let major = int(version[0])
+	let minor = int(version[2])
+	let patch = int(version[4]) + 1
+	const newVersion = `${major}.${minor}.${patch}`
 
 	// Create new branch
 	terminal.logInline('branch', 'Creating new version branch...')
@@ -48,4 +50,8 @@ export const Patch = async (opts?: any) => {
 	terminal.log('version', `Old version: ${currentVersion}`)
 	terminal.log('version', `New version: ${newVersion}`)
 	terminal.log('version', `Run \x1b[1mdt deploy\x1b[0m to publish new version`)
+}
+
+const int = (str: string) => {
+	return parseInt(str, 10)
 }
