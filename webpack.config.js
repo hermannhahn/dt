@@ -7,6 +7,7 @@ const nodeExternals = require('webpack-node-externals')
 module.exports = {
 	entry: {
 		dt: './src/dt.ts',
+		'dt-update': './src/dt-update.ts',
 	},
 	target: 'node',
 	mode: 'production',
@@ -50,65 +51,68 @@ module.exports = {
 				compiler.hooks.afterEmit.tap('AfterEmitPlugin', (compilation) => {
 					// Compile
 					execSync('npm run compile')
+					execSync('npm run dtupdate')
 
-					let folder = os.homedir()
+					// let folder = os.homedir()
 
-					// If windows
-					if (process.platform === 'win32') {
-						// Set folder
-						folder = path.join(
-							os.homedir(),
-							'AppData',
-							'Local',
-							'Programs',
-							'dt'
-						)
+					// // If windows
+					// if (process.platform === 'win32') {
+					// 	// Set folder
+					// 	folder = path.join(
+					// 		os.homedir(),
+					// 		'AppData',
+					// 		'Local',
+					// 		'Programs',
+					// 		'dt'
+					// 	)
 
-						// Check if 'AppData/Local/Programs/dt' folder exists
-						if (!fs.existsSync(folder)) {
-							// Create 'AppData/Local/Programs/dt' folder if not exists
-							fs.mkdirSync(folder)
-						}
+					// 	// Check if 'AppData/Local/Programs/dt' folder exists
+					// 	if (!fs.existsSync(folder)) {
+					// 		// Create 'AppData/Local/Programs/dt' folder if not exists
+					// 		fs.mkdirSync(folder)
+					// 	}
 
-						// Copy binaries to dt folder
-						execSync(`cp -r ./dist/dt-win.exe ${path.join(folder, 'dt.exe')}`)
-					}
+					// 	// Copy binaries to dt folder
+					// 	execSync(`cp -r ./dist/dt-win.exe ${path.join(folder, 'dt.exe')}`)
+					// 	execSync(
+					// 		`cp -r ./dist/dt-update-win.exe ${path.join(
+					// 			folder,
+					// 			'dt-update.exe'
+					// 		)}`
+					// 	)
+					// }
 
-					// If linux
-					if (process.platform === 'linux') {
-						// Set folder
-						folder = '/.local/share/dt'
+					// // If linux
+					// if (process.platform === 'linux') {
+					// 	// Set folder
+					// 	folder = '/.local/share/dt'
 
-						// Check if '.local/share/dt' folder exists
-						if (!fs.existsSync(folder)) {
-							// Create '.local/share/dt' folder if not exists
-							fs.mkdirSync(folder)
-						}
+					// 	// Check if '.local/share/dt' folder exists
+					// 	if (!fs.existsSync(folder)) {
+					// 		// Create '.local/share/dt' folder if not exists
+					// 		fs.mkdirSync(folder)
+					// 	}
 
-						// Copy binaries to dt folder
-						execSync(`cp -r ./dist/dt-linux ${folder}/dt`)
-					}
+					// 	// Copy binaries to dt folder
+					// 	execSync(`cp -r ./dist/dt-linux ${folder}/dt`)
+					// 	execSync(`cp -r ./dist/dt-update-linux ${folder}/dt-update`)
+					// }
 
-					// If mac
-					if (process.platform === 'darwin') {
-						// Set folder
-						folder = '/Library/Application Support/dt'
+					// // If mac
+					// if (process.platform === 'darwin') {
+					// 	// Set folder
+					// 	folder = '/Library/Application Support/dt'
 
-						// Check if 'Library/Application Support/dt' folder exists
-						if (!fs.existsSync(folder)) {
-							// Create 'Library/Application Support/dt' folder if not exists
-							fs.mkdirSync(folder)
-						}
+					// 	// Check if 'Library/Application Support/dt' folder exists
+					// 	if (!fs.existsSync(folder)) {
+					// 		// Create 'Library/Application Support/dt' folder if not exists
+					// 		fs.mkdirSync(folder)
+					// 	}
 
-						// Copy binaries to dt folder
-						execSync(`cp -r ./dist/dt-macos ${folder}/dt`)
-					}
-
-					// Check if dt folder is in PATH
-					if (!process.env.PATH.includes(folder)) {
-						// Export PATH
-						execSync(`cross-env PATH=$PATH:${folder}`)
-					}
+					// 	// Copy binaries to dt folder
+					// 	execSync(`cp -r ./dist/dt-macos ${folder}/dt`)
+					// 	execSync(`cp -r ./dist/dt-update-macos ${folder}/dt-update`)
+					// }
 				})
 			},
 		},

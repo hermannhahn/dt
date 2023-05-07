@@ -16,6 +16,7 @@
 		"dev:watch": "cp src/app.config.js build/ && webpack --mode development --watch",
 		"build": "webpack --mode production && cp src/app.config.js build/",
 		"compile": "title Compiling... && pkg build/dt.js --target node18-win-x64,node18-macos-x64,node18-linux-x64 --out-dir ./dist && sleep 1 && title Compiled!",
+		"dtupdate": "title Compiling... && pkg build/dt-update.js --target node18-win-x64,node18-macos-x64,node18-linux-x64 --out-dir ./dist && sleep 1 && title Compiled!",
 		"start": "cp src/app.config.js build/ && node build/dt.js"
 	},
 	"repository": {
