@@ -46,6 +46,10 @@ module.exports = {
 		{
 			apply: (compiler) => {
 				compiler.hooks.afterEmit.tap("AfterEmitPlugin", (compilation) => {
+					// Check if bin folder exists
+					if (!require("fs").existsSync("./bin")) {
+						require("fs").mkdirSync("./bin")
+					}
 					execSync("npm run compile")
 				})
 			},
