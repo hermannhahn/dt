@@ -24,13 +24,23 @@ export const Deploy = async (opts?: any) => {
 
 	// Go to main branch
 	terminal.log("git", "Checking out to production branch...")
-	const production: any = new Command(
-		`git checkout ${packageJson.repository.branches.production}`
-	)
+	const production: any = new Command(`git checkout main`)
 	if (production.error) {
 		terminal.log("error", production.error)
 		process.exit(1)
 	}
+
+	// Pull changes
+	terminal.logInline("pull", "Pulling changes...")
+	const pull: any = new Command(`git pull`)
+	if (pull.error) {
+		terminal.log("error", pull.error)
+		process.exit(1)
+	}
+	terminal.label("green", "done")
+
+	// Save changes
+	await Cli.save(opts)
 
 	// Merge version branch into main branch
 	terminal.logInline(
@@ -53,14 +63,9 @@ export const Deploy = async (opts?: any) => {
 	}
 	terminal.label("green", "done")
 
-	// Back to version branch
-	terminal.logInline("search", "Checking out to version branch...")
-	const version: any = new Command(`git checkout ${versionBranch}`)
-	if (version.error) {
-		terminal.log("error", version.error)
-		process.exit(1)
-	}
-	terminal.label("green", "done")
+	// Patch version
+	terminal.logInline("patch", "Patching version...")
+	const patch: any = Cli.new.patch(opts)
 
 	// Inform result
 	terminal.log("success", "Project deployed successfully")

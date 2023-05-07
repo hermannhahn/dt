@@ -1,9 +1,10 @@
 # OpenAI GPTDev
 .env
-build
+build/
 pre-build/
 node_modules/
-.vscode
+package-lock.json
+bin/
 
 # Logs
 logs
