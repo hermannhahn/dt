@@ -30,6 +30,17 @@ export const Deploy = async (opts?: any) => {
 		process.exit(1)
 	}
 
+	// Pull changes
+	terminal.logInline("pull", "Pulling changes...")
+	const pull: any = new Command(`git pull`)
+	if (pull.error) {
+		terminal.log("error", pull.error)
+		process.exit(1)
+	}
+
+	// Save changes
+	await Cli.save(opts)
+
 	// Merge version branch into main branch
 	terminal.logInline(
 		"merge",
