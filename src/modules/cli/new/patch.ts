@@ -21,7 +21,6 @@ export const Patch = async (opts?: any) => {
 	let newVersion = packageJson.version
 	newVersion = newVersion[0] + '.' + newVersion[1] + '.' + (newVersion[2] + 1)
 	terminal.debug('newVersion', newVersion)
-	process.exit(0)
 
 	// Create new branch
 	terminal.logInline('branch', 'Creating new version branch...')
