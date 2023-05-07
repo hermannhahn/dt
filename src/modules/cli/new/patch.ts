@@ -5,7 +5,7 @@ import { terminal } from 'utils/terminal-log'
 
 export const Patch = async (opts?: any) => {
 	// Save changes
-	await Cli.save(opts)
+	//await Cli.save(opts)
 
 	// Go to root directory
 	const rootDir: any = Project.rootDir()
