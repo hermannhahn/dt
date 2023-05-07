@@ -4,6 +4,7 @@ build
 pre-build/
 node_modules/
 .vscode
+bin/
 
 # Logs
 logs
