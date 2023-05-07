@@ -37,9 +37,9 @@ export const Deploy = async (opts?: any) => {
 		terminal.log("error", pull.error)
 		process.exit(1)
 	}
+	terminal.label("green", "done")
 
 	// Save changes
-	terminal.log("pull", "Updating production branch before deploy...")
 	await Cli.save(opts)
 
 	// Merge version branch into main branch
