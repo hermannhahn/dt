@@ -11,12 +11,6 @@
 		"extensions": [".js", ".jsx", ".ts", ".tsx"]
 	},
 	"editor.formatOnSave": true,
-	"[javascript]": {
-		"editor.formatOnSave": true
-	},
-	"[typescript]": {
-		"editor.formatOnSave": true
-	},
 	"editor.defaultFormatter": "esbenp.prettier-vscode",
 	"editor.codeActionsOnSave": {
 		"source.fixAll": true,
@@ -63,5 +57,7 @@
 		"warn": 3000,
 		"error": 6000
 	},
-	"docker.commands.attach": "${containerCommand} exec -it ${containerId} ${shellCommand}"
+	"docker.commands.attach": "${containerCommand} exec -it ${containerId} ${shellCommand}",
+	"git.confirmSync": false,
+	"prettier.bracketSpacing": true
 }
