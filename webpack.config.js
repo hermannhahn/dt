@@ -1,7 +1,8 @@
-const path = require('path')
+const fs = require('fs')
 const os = require('os')
-const nodeExternals = require('webpack-node-externals')
+const path = require('path')
 const { execSync } = require('child_process')
+const nodeExternals = require('webpack-node-externals')
 
 module.exports = {
 	entry: {
@@ -35,7 +36,7 @@ module.exports = {
 			},
 		],
 	},
-	// adicionando a configuração para ignorar os módulos do node_modules
+	// ignorar os módulos do node_modules
 	externals: [
 		nodeExternals(),
 		{
@@ -53,18 +54,24 @@ module.exports = {
 					let folder = os.homedir()
 
 					// If windows
-					if (process.platform !== 'win32') {
+					if (process.platform === 'win32') {
 						// Set folder
-						folder = folder + '/AppData/Local/Programs/dt'
+						folder = path.join(
+							os.homedir(),
+							'AppData',
+							'Local',
+							'Programs',
+							'dt'
+						)
 
 						// Check if 'AppData/Local/Programs/dt' folder exists
-						if (!require('fs').existsSync(folder)) {
+						if (!fs.existsSync(folder)) {
 							// Create 'AppData/Local/Programs/dt' folder if not exists
-							require('fs').mkdirSync(folder)
+							fs.mkdirSync(folder)
 						}
 
 						// Copy binaries to dt folder
-						execSync(`cp -r ./dist/dt-win.exe ${folder}/dt.exe`)
+						execSync(`cp -r ./dist/dt-win.exe ${path.join(folder, 'dt.exe')}`)
 					}
 
 					// If linux
@@ -73,9 +80,9 @@ module.exports = {
 						folder = '/.local/share/dt'
 
 						// Check if '.local/share/dt' folder exists
-						if (!require('fs').existsSync(folder)) {
+						if (!fs.existsSync(folder)) {
 							// Create '.local/share/dt' folder if not exists
-							require('fs').mkdirSync(folder)
+							fs.mkdirSync(folder)
 						}
 
 						// Copy binaries to dt folder
@@ -88,9 +95,9 @@ module.exports = {
 						folder = '/Library/Application Support/dt'
 
 						// Check if 'Library/Application Support/dt' folder exists
-						if (!require('fs').existsSync(folder)) {
+						if (!fs.existsSync(folder)) {
 							// Create 'Library/Application Support/dt' folder if not exists
-							require('fs').mkdirSync(folder)
+							fs.mkdirSync(folder)
 						}
 
 						// Copy binaries to dt folder
@@ -98,9 +105,9 @@ module.exports = {
 					}
 
 					// Check if dt folder is in PATH
-					if (!process.env.PATH.indexOf(folder) === -1) {
+					if (!process.env.PATH.includes(folder)) {
 						// Export PATH
-						execSync(`export PATH=$PATH:${folder}`)
+						execSync(`cross-env PATH=$PATH:${folder}`)
 					}
 				})
 			},
