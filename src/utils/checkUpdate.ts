@@ -3,14 +3,15 @@ import { terminal } from 'utils/terminal-log'
 
 // Check for updates
 export const checkUpdate = async () => {
-	const result: any = new Command('dt.exe', ['--version'])
-	if (result.code === 0) {
-		const version = result.stdout.split(' ')[1]
-		const latestVersion = await getLatestVersion()
-		if (version !== latestVersion) {
-			terminal.log(`\nUpdate available: ${version} -> ${latestVersion}`)
-			terminal.log('Run `dt-update` to update')
-		}
+	const version: any = new Command('dt -v')
+	if (version.error) {
+		terminal.error(version.error)
+		process.exit(1)
+	}
+	const latestVersion = await getLatestVersion()
+	if (version !== latestVersion) {
+		terminal.log(`\nUpdate available: ${version} -> ${latestVersion}`)
+		terminal.log('Run `dt-update` to update')
 	}
 }
 

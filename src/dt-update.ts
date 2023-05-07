@@ -1,20 +1,22 @@
 import fs from 'fs'
 import os from 'os'
 import { Command } from 'utils/command-runner'
+import { terminal } from 'utils/terminal-log'
 
 // Update dt.exe
 export const checkUpdate = async () => {
-	const result: any = new Command('dt.exe', ['--version'])
-	if (result.code === 0) {
-		const version = result.stdout.split(' ')[1]
-		const latestVersion = await getLatestVersion()
-		if (version !== latestVersion) {
-			console.log(`\nUpdate available: ${version} -> ${latestVersion}`)
-			// Download binary from main branch
-			await updateBinary()
-		}
+	const version: any = new Command('dt -v')
+	if (version.error) {
+		terminal.error(version.error)
+		process.exit(1)
+	}
+	const latestVersion = await getLatestVersion()
+	if (version !== latestVersion) {
+		console.log(`\nUpdate available: ${version} -> ${latestVersion}`)
+		// Download binary from main branch
+		await updateBinary()
 	} else {
-		console.log('Unable to check for updates')
+		console.log(`\nYou are using the latest dt version: ${version}`)
 	}
 }
 
