@@ -4,9 +4,8 @@ build
 pre-build/
 node_modules/
 .vscode
-bin/
 package-lock.json
-dist/
+
 
 # Logs
 logs
