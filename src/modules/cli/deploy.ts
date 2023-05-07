@@ -18,6 +18,7 @@ export const Deploy = async (opts?: any) => {
 
 	// Get version branch name
 	const versionBranch = packageJson.version
+	terminal.debug("Version branch:", versionBranch)
 
 	// Go to root directory
 	process.chdir(rootDir)
