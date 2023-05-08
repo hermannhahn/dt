@@ -35,7 +35,7 @@ program
 	.description('create new patch, update or upgrade.')
 
 // deploy command
-program.command('deploy').argument('<release>').description('deploy project')
+program.command('deploy').option('npm').description('deploy project')
 
 // upgrade command
 program
