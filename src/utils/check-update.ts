@@ -4,7 +4,8 @@ import { terminal } from 'utils/terminal-log'
 
 // Check for updates
 export const checkUpdate = async () => {
-	const version: any = new Command('dt', ['-v'])
+	const version: any = new Command('dt version').toString()
+	terminal.log('current', `Current version: \x1b[5m${version}\x1b[0m`)
 	if (version.error) {
 		terminal.error(version.error)
 		process.exit(1)
