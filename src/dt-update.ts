@@ -1,4 +1,3 @@
-import axios from 'axios'
 import fs from 'fs'
 import https from 'https'
 import os from 'os'
@@ -15,22 +14,37 @@ const checkUpdate = async () => {
 	}
 	const latestVersion = await getLatestVersion()
 	if (version !== latestVersion) {
-		console.log(`\nUpdate available: ${version} -> ${latestVersion}`)
+		terminal.log('new', `\nUpdate available: ${version} -> ${latestVersion}`)
 		// Download binary from main branch
 		await updateBinary()
 	} else {
-		console.log(`\nYou are using the latest dt version: ${version}`)
+		terminal.log('success', `\nYou are using the latest dt version: ${version}`)
 	}
 }
 
-async function getLatestVersion(): Promise<string> {
+async function getLatestVersion() {
 	const packageJsonUrl =
 		'https://raw.githubusercontent.com/hermannhahn/dt/main/package.json'
-
-	const response = await axios.get(packageJsonUrl)
-	const { version } = response.data
-
-	return version
+	return new Promise((resolve, reject) => {
+		https
+			.get(packageJsonUrl, (res) => {
+				let data = ''
+				res.on('data', (chunk) => {
+					data += chunk
+				})
+				res.on('end', () => {
+					try {
+						const packageJson = JSON.parse(data)
+						resolve(packageJson.version)
+					} catch (error) {
+						reject(error)
+					}
+				})
+			})
+			.on('error', (error) => {
+				reject(error)
+			})
+	})
 }
 
 const updateBinary = async () => {
@@ -38,12 +52,9 @@ const updateBinary = async () => {
 	const latestVersion = await getLatestVersion()
 	if (sys === 'win32') {
 		const url = `https://github.com/hermannhahn/dt/releases/download/latest/dt-win.exe`
-
 		const fileName = 'dt.exe'
 		const filePath = path.join(__dirname, fileName)
-
 		const file = fs.createWriteStream(filePath)
-
 		https
 			.get(url, (response) => {
 				response.pipe(file)
@@ -59,12 +70,9 @@ const updateBinary = async () => {
 			})
 	} else if (sys === 'linux') {
 		const url = `https://github.com/hermannhahn/dt/releases/download/latest/dt-linux`
-
 		const fileName = 'dt'
 		const filePath = path.join(__dirname, fileName)
-
 		const file = fs.createWriteStream(filePath)
-
 		https
 			.get(url, (response) => {
 				response.pipe(file)
@@ -80,12 +88,9 @@ const updateBinary = async () => {
 			})
 	} else if (sys === 'darwin') {
 		const url = `https://github.com/hermannhahn/dt/releases/download/latest/dt-macos`
-
 		const fileName = 'dt'
 		const filePath = path.join(__dirname, fileName)
-
 		const file = fs.createWriteStream(filePath)
-
 		https
 			.get(url, (response) => {
 				response.pipe(file)

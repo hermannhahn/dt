@@ -1,7 +1,7 @@
 import { program } from '@commander-js/extra-typings'
 import { Cli } from 'modules/cli'
 import { Project } from 'modules/project'
-import { checkUpdate } from 'utils/checkUpdate'
+import { checkUpdate } from 'utils/check-update'
 import { terminal } from 'utils/terminal-log'
 
 // Version
@@ -11,8 +11,6 @@ const packageJson: any = async () => {
 }
 const version = packageJson().version
 const versionString = name + ' cli ' + version
-
-checkUpdate()
 
 program
 	.version(versionString, '-v, --version', 'output the current dt version')
@@ -74,3 +72,5 @@ if (command === 'template') {
 }
 
 if (command === 'deploy') Cli.deploy()
+
+checkUpdate()
