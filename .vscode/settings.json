@@ -59,5 +59,9 @@
 	},
 	"docker.commands.attach": "${containerCommand} exec -it ${containerId} ${shellCommand}",
 	"git.confirmSync": false,
-	"prettier.bracketSpacing": true
+	"prettier.bracketSpacing": true,
+	"[python]": {
+		"editor.defaultFormatter": "ms-python.black-formatter"
+	},
+	"python.formatting.provider": "none"
 }

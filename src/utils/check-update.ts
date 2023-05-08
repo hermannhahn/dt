@@ -8,7 +8,9 @@ export const checkUpdate = async () => {
 	const latestVersion = await getLatestVersion()
 
 	if (
-		version.localeCompare(latestVersion, undefined, { numeric: true }) === -1
+		version
+			.toString()
+			.localeCompare(latestVersion, undefined, { numeric: true }) === -1
 	) {
 		terminal.log(
 			'new',

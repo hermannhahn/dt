@@ -7,7 +7,6 @@ const fs = require('fs-extra')
 module.exports = {
 	entry: {
 		dt: './src/dt.ts',
-		'dt-update': './src/dt-update.ts',
 	},
 	target: 'node',
 	mode: 'production',
@@ -73,9 +72,9 @@ module.exports = {
 						}
 
 						// Copy binaries to dt folder
-						execSync(`cp -r ./dist/dt-win.exe ${path.join(folder, 'dt.exe')}`)
+						execSync(`cp -r ./dist/win/dt.exe ${path.join(folder, 'dt.exe')}`)
 						execSync(
-							`cp -r ./dist/dt-update-win.exe ${path.join(
+							`cp -r ./dist/win/dt-update.exe ${path.join(
 								folder,
 								'dt-update.exe'
 							)}`
@@ -94,8 +93,8 @@ module.exports = {
 						}
 
 						// Copy binaries to dt folder
-						execSync(`cp -r ./dist/dt-linux ${folder}/dt`)
-						execSync(`cp -r ./dist/dt-update-linux ${folder}/dt-update`)
+						execSync(`cp -r ./dist/linux/dt ${folder}/dt`)
+						execSync(`cp -r ./dist/linux/dt-update ${folder}/dt-update`)
 					}
 
 					// If mac
@@ -110,8 +109,8 @@ module.exports = {
 						}
 
 						// Copy binaries to dt folder
-						execSync(`cp -r ./dist/dt-macos ${folder}/dt`)
-						execSync(`cp -r ./dist/dt-update-macos ${folder}/dt-update`)
+						execSync(`cp -r ./dist/macos/dt ${folder}/dt`)
+						execSync(`cp -r ./dist/macos/dt-update ${folder}/dt-update`)
 					}
 				})
 			},
