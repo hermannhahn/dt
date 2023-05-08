@@ -86,7 +86,7 @@ export const Deploy = async (opts?: any) => {
 		// Publish release on github
 		terminal.logInline('github', 'Publishing release on github...')
 		const github: any = new Command(
-			`gh release create v${versionBranch} --target=latest --title "v${versionBranch}" --notes ${updates} --repo hermannhahn/main dist/*`
+			`gh release create v${versionBranch} --target=latest --title "v${versionBranch}" --notes ${updates} --repo hermannhahn/main ../dist/*`
 		)
 		if (github.error) {
 			terminal.log('error', github.error)
