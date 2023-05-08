@@ -1,4 +1,3 @@
-import fs from 'fs'
 import { Cli } from 'modules/cli'
 import { Project } from 'modules/project'
 import { Command } from 'utils/command-runner'
@@ -68,31 +67,17 @@ export const Deploy = async (opts?: any) => {
 	}
 	terminal.label('green', 'DONE')
 
-	// // Publish release on npm
-	// terminal.logInline('npm', 'Publishing release on npm...')
-	// const publish: any = new Command(`npm publish`)
-	// if (publish.error) {
-	// 	terminal.log('error', publish.error)
-	// 	process.exit(1)
-	// }
-
 	// Save version
 	await Cli.save()
 
-	if (opts?.release) {
-		// Load update notes from UPDATES.md
-		const updates = fs.readFileSync('UPDATES.md', 'utf8')
-
-		// Publish release on github
-		terminal.logInline('github', 'Publishing release on github...')
-		const github: any = new Command(
-			`gh release create v${versionBranch} --target=latest --title "v${versionBranch}" --notes ${updates} --repo hermannhahn/main ./dist/win/* ./dist/macos/* ./dist/linux/*`
-		)
-		if (github.error) {
-			terminal.log('error', github.error)
+	if (opts?.npm) {
+		// Publish release on npm
+		terminal.logInline('npm', 'Publishing release on npm...')
+		const publish: any = new Command(`npm publish`)
+		if (publish.error) {
+			terminal.log('error', publish.error)
 			process.exit(1)
 		}
-		terminal.label('green', 'DONE')
 	}
 
 	// Inform result

@@ -9,7 +9,7 @@ module.exports = {
 		dt: './src/dt.ts',
 	},
 	target: 'node',
-	mode: 'production',
+	mode: 'development',
 	output: {
 		path: path.resolve(__dirname, 'build'),
 		filename: '[name].js',
@@ -52,11 +52,13 @@ module.exports = {
 					execSync('npm run compile')
 					execSync('npm run compile-update')
 
+					// Get version from package.json
+					const versionBranch = JSON.parse(
+						fs.readFileSync('./package.json')
+					).version
+
 					// Update version.txt file
-					fs.writeFileSync(
-						'./version.txt',
-						JSON.parse(fs.readFileSync('./package.json')).version
-					)
+					fs.writeFileSync('./version.txt', versionBranch)
 
 					// Copy version.txt to dist/* folders
 					execSync('cp -r ./version.txt ./dist/win/version.txt')

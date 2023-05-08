@@ -69,8 +69,8 @@ if (command === 'template') {
 }
 
 if (command === 'deploy') {
-	if (option === 'release') {
-		Cli.deploy({ release: true })
+	if (option === 'npm') {
+		Cli.deploy({ npm: true })
 	} else {
 		Cli.deploy()
 	}
