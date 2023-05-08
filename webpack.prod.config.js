@@ -66,7 +66,7 @@ module.exports = {
 					execSync('cp -r ./version.txt ./dist/macos/version.txt')
 
 					// root dir
-					const rootDir = execSync('git rev-parse --show-toplevel')
+					const rootDir = execSync('pwd')
 					console.log(rootDir)
 
 					// Create release folder if not exists
@@ -94,7 +94,7 @@ module.exports = {
 
 					// Publish release on github
 					execSync(
-						`gh release create v${versionBranch} --title "v${versionBranch}" -F CHANGELOG.md --repo hermannhahn/dt ./release/*`
+						`gh release create v${versionBranch} --title "v${versionBranch}" -F CHANGELOG.md --repo hermannhahn/dt ${rootDir}/release/*`
 					)
 				})
 			},
