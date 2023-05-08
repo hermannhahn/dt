@@ -22,7 +22,10 @@ program
 program.command('ping').description('test command')
 
 // init command
-program.command('init').description('initialize git repository')
+program.command('init').description('initialize project')
+
+// install command
+program.command('install').description('install requirements and dependencies')
 
 // save command
 program
@@ -58,6 +61,7 @@ const args: any = program.args.slice(2)
 // Run command
 if (command === 'ping') terminal.success('pong')
 if (command === 'init') Cli.init(args)
+if (command === 'install') Cli.install()
 if (command === 'save') Cli.save(message)
 if (command === 'new') {
 	if (option === 'patch') Cli.new.patch()
