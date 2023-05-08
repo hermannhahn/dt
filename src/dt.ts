@@ -35,7 +35,7 @@ program
 	.description('create new patch, update or upgrade.')
 
 // deploy command
-program.command('deploy').description('deploy project')
+program.command('deploy').argument('<release>').description('deploy project')
 
 // upgrade command
 program
@@ -68,6 +68,12 @@ if (command === 'template') {
 	if (option === 'install') Cli.template.install()
 }
 
-if (command === 'deploy') Cli.deploy()
+if (command === 'deploy') {
+	if (option === 'release') {
+		Cli.deploy({ release: true })
+	} else {
+		Cli.deploy()
+	}
+}
 
 checkUpdate()
