@@ -14,11 +14,17 @@ const checkUpdate = async () => {
 	}
 	const latestVersion = await getLatestVersion()
 	if (version !== latestVersion) {
-		terminal.log('new', `\nUpdate available: ${version} -> ${latestVersion}`)
+		terminal.log(
+			'new',
+			`Update available: \x1b[5m[1m${version}\x1b[0m -> \x1b[5m[1m${latestVersion}\x1b[0m`
+		)
 		// Download binary from main branch
 		await updateBinary()
 	} else {
-		terminal.log('success', `\nYou are using the latest dt version: ${version}`)
+		terminal.log(
+			'success',
+			`\nYou are using the latest dt version: \x1b[1m${version}\x1b[0m`
+		)
 	}
 }
 

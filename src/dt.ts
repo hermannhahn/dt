@@ -1,19 +1,14 @@
 import { program } from '@commander-js/extra-typings'
+import fs from 'fs'
 import { Cli } from 'modules/cli'
-import { Project } from 'modules/project'
 import { checkUpdate } from 'utils/check-update'
 import { terminal } from 'utils/terminal-log'
 
 // Version
-const name = 'devtool (dt)'
-const packageJson: any = async () => {
-	return await Project.packageJson()
-}
-const version = packageJson().version
-const versionString = name + ' cli ' + version
+const version = JSON.parse(fs.readFileSync('./package.json', 'utf8')).version
 
 program
-	.version(versionString, '-v, --version', 'output the current dt version')
+	.version(version, '-v, --version', 'output the current dt version')
 	.description('Tools for developers')
 
 // test command

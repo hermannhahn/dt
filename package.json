@@ -16,7 +16,8 @@
 		"dev:watch": "cp src/app.config.js build/ && webpack --mode development --watch",
 		"build": "webpack --mode production && cp src/app.config.js build/",
 		"compile": "title Compiling... && pkg build/dt.js --target node18-win-x64,node18-macos-x64,node18-linux-x64 --out-dir ./dist && sleep 1 && title Compiled!",
-		"dtupdate": "title Compiling... && pkg build/dt-update.js --target node18-win-x64,node18-macos-x64,node18-linux-x64 --out-dir ./dist && sleep 1 && title Compiled!",
+		"update-version": "sed -i 's/const version = \".*\";/const version = \"'$(cat package.json | jq -r '.version')'\";/' src/bin/dt.ts",
+		"compile-update": "title Compiling... && pkg build/dt-update.js --target node18-win-x64,node18-macos-x64,node18-linux-x64 --out-dir ./dist && sleep 1 && title Compiled!",
 		"start": "cp src/app.config.js build/ && node build/dt.js"
 	},
 	"repository": {
@@ -27,8 +28,6 @@
 		}
 	},
 	"keywords": [
-		"openai",
-		"chatgpt",
 		"dev",
 		"cli",
 		"tools",
@@ -49,6 +48,7 @@
 		"babel-loader": "^9.1.2",
 		"eslint": "^8.36.0",
 		"eslint-plugin-import": "^2.27.5",
+		"fs-extra": "^11.1.1",
 		"jest": "^29.5.0",
 		"jest-extended": "^3.2.4",
 		"lint-staged": "^13.2.0",

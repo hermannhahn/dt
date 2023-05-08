@@ -11,7 +11,10 @@ export const checkUpdate = async () => {
 	}
 	const latestVersion = await getLatestVersion()
 	if (version !== latestVersion) {
-		terminal.log('new', `\nUpdate available: ${version} -> ${latestVersion}`)
+		terminal.log(
+			'new',
+			`Update available: \x1b[5m[1m${version}\x1b[0m -> \x1b[5m[1m${latestVersion}\x1b[0m`
+		)
 	}
 }
 
