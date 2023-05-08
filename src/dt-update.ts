@@ -13,10 +13,12 @@ const checkUpdate = async () => {
 		process.exit(1)
 	}
 	const latestVersion = await getLatestVersion()
-	if (version !== latestVersion) {
+	if (
+		version.localeCompare(latestVersion, undefined, { numeric: true }) === -1
+	) {
 		terminal.log(
 			'new',
-			`Update available: \x1b[5m[1m${version}\x1b[0m -> \x1b[5m[1m${latestVersion}\x1b[0m`
+			`Update available: \x1b[36m\x1b[1m${version}\x1b[0m -> \x1b[5m\x1b[33m\x1b[1m${latestVersion}\x1b[0m`
 		)
 		// Download binary from main branch
 		await updateBinary()
