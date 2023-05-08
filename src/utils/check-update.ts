@@ -1,15 +1,10 @@
+import fs from 'fs'
 import https from 'https'
-import { Command } from 'utils/command-runner'
 import { terminal } from 'utils/terminal-log'
 
 // Check for updates
 export const checkUpdate = async () => {
-	const version: any = new Command('dt --version').result
-	terminal.log('current', `Current version: \x1b[5m${version}\x1b[0m`)
-	if (version.error) {
-		terminal.error(version.error)
-		process.exit(1)
-	}
+	const version = JSON.parse(fs.readFileSync('./package.json', 'utf8')).version
 	const latestVersion = await getLatestVersion()
 	if (version !== latestVersion) {
 		terminal.log(
