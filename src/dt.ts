@@ -53,7 +53,7 @@ const option: any = program.args[1]
 const message: any = program.args[2]
 const args: any = program.args.slice(2)
 
-// Run command
+// Command handler
 if (command === 'ping') terminal.success('pong')
 if (command === 'init') Cli.init(args)
 if (command === 'install') Cli.install()
