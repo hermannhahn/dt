@@ -57,7 +57,6 @@ async function getLatestVersion() {
 
 const updateBinary = async () => {
 	const sys = os.platform()
-	const latestVersion = await getLatestVersion()
 	if (sys === 'win32') {
 		const url = `https://github.com/hermannhahn/dt/releases/download/latest/dt-win.exe`
 		const fileName = 'dt.exe'
@@ -99,19 +98,13 @@ const updateBinary = async () => {
 		const fileName = 'dt'
 		const filePath = path.join(__dirname, fileName)
 		const file = fs.createWriteStream(filePath)
-		https
-			.get(url, (response) => {
-				response.pipe(file)
-				file.on('finish', () => {
-					file.close()
-					console.log(`Download complete. File saved as ${filePath}.`)
-				})
+		https.get(url, (response) => {
+			response.pipe(file)
+			file.on('finish', () => {
+				file.close()
+				console.log(`Download complete. File saved as ${filePath}.`)
 			})
-			.on('error', (error) => {
-				fs.unlink(filePath, () => {
-					console.error(`Error downloading file: ${error.message}`)
-				})
-			})
+		})
 	}
 }
 
