@@ -3,6 +3,7 @@ const path = require('path')
 const { execSync } = require('child_process')
 const nodeExternals = require('webpack-node-externals')
 const fs = require('fs-extra')
+const { exec } = require('child_process')
 
 module.exports = {
 	entry: {
@@ -92,8 +93,16 @@ module.exports = {
 					// Deploy to github
 					execSync('dt deploy')
 
+					// Npm publish
+					execSync('npm publish')
+
 					// Publish release on github
-					execSync('./create-release.sh')
+					exec('./create-release.sh', (error, stdout, stderr) => {
+						if (error) {
+							console.error(`exec error: ${error}`)
+							return
+						}
+					})
 				})
 			},
 		},

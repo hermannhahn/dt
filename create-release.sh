@@ -9,9 +9,6 @@ GITHUB_REPO=$(node -p -e "require('./package.json').repository.url.split('/')[4]
 git tag -a $VERSION -m "Release $VERSION"
 git push origin $VERSION
 
-# Publish to npm
-npm publish
-
 # Create a new release on GitHub
 gh release create \
   --user $GITHUB_USER \
