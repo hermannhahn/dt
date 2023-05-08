@@ -1,4 +1,3 @@
-import { Cli } from 'modules/cli'
 import { Command } from 'utils/command-runner'
 import { terminal } from 'utils/terminal-log'
 
@@ -27,9 +26,6 @@ export const InstallRequirements = async (opts?: any) => {
 	if (eslint.error) {
 		terminal.error(eslint.error)
 	}
-
-	// Save project
-	await Cli.save(opts)
 
 	// Finish
 	terminal.success('Requirements installed!')

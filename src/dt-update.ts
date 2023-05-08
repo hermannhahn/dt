@@ -1,10 +1,13 @@
+import axios from 'axios'
 import fs from 'fs'
+import https from 'https'
 import os from 'os'
+import path from 'path'
 import { Command } from 'utils/command-runner'
 import { terminal } from 'utils/terminal-log'
 
 // Update dt.exe
-export const checkUpdate = async () => {
+const checkUpdate = async () => {
 	const version: any = new Command('dt', ['-v'])
 	if (version.error) {
 		terminal.error(version.error)
@@ -20,57 +23,83 @@ export const checkUpdate = async () => {
 	}
 }
 
-const getLatestVersion = async () => {
-	const packageJson = await fetch(
-		'https://github.com/hermannhahn/dt/blob/76d373c54f237a7633982c9cea66fb8360b3ebf9/package.json'
-	)
-	const packageJsonData = await packageJson.json()
-	return packageJsonData.version
+async function getLatestVersion(): Promise<string> {
+	const packageJsonUrl =
+		'https://raw.githubusercontent.com/hermannhahn/dt/main/package.json'
+
+	const response = await axios.get(packageJsonUrl)
+	const { version } = response.data
+
+	return version
 }
 
 const updateBinary = async () => {
 	const sys = os.platform()
+	const latestVersion = await getLatestVersion()
 	if (sys === 'win32') {
-		// Get dt folder path
-		const dtPath: any = new Command('where', ['dt.exe'])
-		const dtPathString = dtPath.split('\n')[0]
-		const dtFolderPath = dtPathString.replace('dt.exe', '')
-		// Go to dt folder
-		process.chdir(dtFolderPath)
-		// Download binary
-		const download = await fetch(
-			'https://github.com/hermannhahn/dt/blob/76d373c54f237a7633982c9cea66fb8360b3ebf9/dist/dt-win.exe'
-		)
-		const downloadData = await download.arrayBuffer()
-		const downloadBuffer = Buffer.from(downloadData)
-		fs.writeFileSync('dt.exe', downloadBuffer)
+		const url = `https://github.com/hermannhahn/dt/releases/download/latest/dt-win.exe`
+
+		const fileName = 'dt.exe'
+		const filePath = path.join(__dirname, fileName)
+
+		const file = fs.createWriteStream(filePath)
+
+		https
+			.get(url, (response) => {
+				response.pipe(file)
+				file.on('finish', () => {
+					file.close()
+					console.log(`Download complete. File saved as ${filePath}.`)
+				})
+			})
+			.on('error', (error) => {
+				fs.unlink(filePath, () => {
+					console.error(`Error downloading file: ${error.message}`)
+				})
+			})
 	} else if (sys === 'linux') {
-		// Get dt folder path
-		const dtPath: any = new Command('which', ['dt'])
-		const dtPathString = dtPath.split('\n')[0]
-		const dtFolderPath = dtPathString.replace('dt', '')
-		// Go to dt folder
-		process.chdir(dtFolderPath)
-		// Download binary
-		const download = await fetch(
-			'https://github.com/hermannhahn/dt/blob/76d373c54f237a7633982c9cea66fb8360b3ebf9/dist/dt-linux'
-		)
-		const downloadData = await download.arrayBuffer()
-		const downloadBuffer = Buffer.from(downloadData)
-		fs.writeFileSync('dt', downloadBuffer)
+		const url = `https://github.com/hermannhahn/dt/releases/download/latest/dt-linux`
+
+		const fileName = 'dt'
+		const filePath = path.join(__dirname, fileName)
+
+		const file = fs.createWriteStream(filePath)
+
+		https
+			.get(url, (response) => {
+				response.pipe(file)
+				file.on('finish', () => {
+					file.close()
+					console.log(`Download complete. File saved as ${filePath}.`)
+				})
+			})
+			.on('error', (error) => {
+				fs.unlink(filePath, () => {
+					console.error(`Error downloading file: ${error.message}`)
+				})
+			})
 	} else if (sys === 'darwin') {
-		// Get dt folder path
-		const dtPath: any = new Command('which', ['dt'])
-		const dtPathString = dtPath.split('\n')[0]
-		const dtFolderPath = dtPathString.replace('dt', '')
-		// Go to dt folder
-		process.chdir(dtFolderPath)
-		// Download binary
-		const download = await fetch(
-			'https://github.com/hermannhahn/dt/blob/76d373c54f237a7633982c9cea66fb8360b3ebf9/dist/dt-macos'
-		)
-		const downloadData = await download.arrayBuffer()
-		const downloadBuffer = Buffer.from(downloadData)
-		fs.writeFileSync('dt', downloadBuffer)
+		const url = `https://github.com/hermannhahn/dt/releases/download/latest/dt-macos`
+
+		const fileName = 'dt'
+		const filePath = path.join(__dirname, fileName)
+
+		const file = fs.createWriteStream(filePath)
+
+		https
+			.get(url, (response) => {
+				response.pipe(file)
+				file.on('finish', () => {
+					file.close()
+					console.log(`Download complete. File saved as ${filePath}.`)
+				})
+			})
+			.on('error', (error) => {
+				fs.unlink(filePath, () => {
+					console.error(`Error downloading file: ${error.message}`)
+				})
+			})
 	}
 }
+
+checkUpdate()

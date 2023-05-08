@@ -1,4 +1,3 @@
-import { Cli } from 'modules/cli'
 import { Command } from 'utils/command-runner'
 import { terminal } from 'utils/terminal-log'
 
@@ -12,9 +11,6 @@ export const InstallDependencies = async (opts?: any) => {
 		terminal.error('Error installing dependencies')
 		process.exit(1)
 	}
-
-	// Save project
-	await Cli.save(opts)
 
 	// Finish
 	terminal.success('Dependencies installed!')
