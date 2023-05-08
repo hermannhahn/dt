@@ -52,6 +52,17 @@ module.exports = {
 					execSync('npm run compile')
 					execSync('npm run compile-update')
 
+					// Update version.txt file
+					fs.writeFileSync(
+						'./version.txt',
+						JSON.parse(fs.readFileSync('./package.json')).version
+					)
+
+					// Copy version.txt to dist/* folders
+					execSync('cp -r ./version.txt ./dist/win/version.txt')
+					execSync('cp -r ./version.txt ./dist/linux/version.txt')
+					execSync('cp -r ./version.txt ./dist/macos/version.txt')
+
 					// let folder = os.homedir()
 
 					// // If windows

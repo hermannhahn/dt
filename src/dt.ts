@@ -4,8 +4,8 @@ import { Cli } from 'modules/cli'
 import { checkUpdate } from 'utils/check-update'
 import { terminal } from 'utils/terminal-log'
 
-// Version
-const version = JSON.parse(fs.readFileSync('./package.json', 'utf8')).version
+// Get version
+const version = fs.readFileSync('version.txt', 'utf-8')
 
 // version command
 program
