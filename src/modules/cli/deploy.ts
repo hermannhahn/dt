@@ -6,7 +6,7 @@ import { terminal } from 'utils/terminal-log'
 
 export const Deploy = async (opts?: any) => {
 	// Save first
-	await Cli.save(opts)
+	await Cli.save()
 
 	terminal.log('package', 'Starting deployment...')
 
@@ -77,19 +77,22 @@ export const Deploy = async (opts?: any) => {
 	// }
 
 	// Save version
-	await Cli.save(opts)
+	await Cli.save()
 
-	// Load update notes from UPDATES.md
-	const updates = fs.readFileSync('UPDATES.md', 'utf8')
+	if (opts?.release) {
+		// Load update notes from UPDATES.md
+		const updates = fs.readFileSync('UPDATES.md', 'utf8')
 
-	// Publish release on github
-	terminal.logInline('github', 'Publishing release on github...')
-	const github: any = new Command(
-		`gh release create v${versionBranch} --target=latest --title "v${versionBranch}" --notes ${updates} --repo hermannhahn/main dist/*`
-	)
-	if (github.error) {
-		terminal.log('error', github.error)
-		process.exit(1)
+		// Publish release on github
+		terminal.logInline('github', 'Publishing release on github...')
+		const github: any = new Command(
+			`gh release create v${versionBranch} --target=latest --title "v${versionBranch}" --notes ${updates} --repo hermannhahn/main dist/**/*`
+		)
+		if (github.error) {
+			terminal.log('error', github.error)
+			process.exit(1)
+		}
+		terminal.label('green', 'DONE')
 	}
 
 	// Inform result
