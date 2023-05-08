@@ -1,5 +1,4 @@
 import { Git } from 'libs/git'
-import { Cli } from 'modules/cli'
 import { Project } from 'modules/project'
 import { terminal } from 'utils/terminal-log'
 
@@ -15,9 +14,6 @@ export const Install = async (opts?: any) => {
 
 	// Install dependencies
 	await Project.installDependencies()
-
-	// Save project
-	await Cli.save(opts)
 
 	// Finish
 	terminal.success('Requirements and dependencies installed!')
