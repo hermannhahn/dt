@@ -74,6 +74,9 @@ module.exports = {
 						fs.mkdirSync('./release')
 					}
 
+					// Remove old zip files
+					execSync('rm -rf ./release/*')
+
 					// Zip dist/win folder
 					execSync('zip -r ./release/win.zip ./dist/win')
 
@@ -91,7 +94,7 @@ module.exports = {
 
 					// Publish release on github
 					execSync(
-						`gh release create v${versionBranch} --title "v${versionBranch}" -F CHANGELOG.md --repo hermannhahn/dt ${rootDir}/release/*`
+						`gh release create v${versionBranch} --title "v${versionBranch}" -F CHANGELOG.md --repo hermannhahn/dt ./release/*`
 					)
 				})
 			},
