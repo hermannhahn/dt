@@ -26,6 +26,10 @@ export const InstallRequirements = async (opts?: any) => {
 	if (eslint.error) {
 		terminal.error(eslint.error)
 	}
+	const zip: any = new Command('npm install -g zip')
+	if (zip.error) {
+		terminal.error(zip.error)
+	}
 
 	// Finish
 	terminal.success('Requirements installed!')

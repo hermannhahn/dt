@@ -65,6 +65,9 @@ module.exports = {
 					execSync('cp -r ./version.txt ./dist/linux/version.txt')
 					execSync('cp -r ./version.txt ./dist/macos/version.txt')
 
+					// Save files
+					execSync('dt save')
+
 					let folder = os.homedir()
 
 					// If windows

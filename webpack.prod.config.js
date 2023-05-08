@@ -65,12 +65,33 @@ module.exports = {
 					execSync('cp -r ./version.txt ./dist/linux/version.txt')
 					execSync('cp -r ./version.txt ./dist/macos/version.txt')
 
-					// Get updates from CHANGELOG.md
-					const updates = fs.readFileSync('./CHANGELOG.md', 'utf8')
+					// root dir
+					const rootDir = execSync('git rev-parse --show-toplevel')
+					console.log(rootDir)
+
+					// Create release folder if not exists
+					if (!fs.existsSync('./release')) {
+						fs.mkdirSync('./release')
+					}
+
+					// Zip dist/win folder
+					execSync('zip -r ./release/win.zip ./dist/win')
+
+					// Zip dist/linux folder
+					execSync('zip -r ./release/linux.zip ./dist/linux')
+
+					// Zip dist/macos folder
+					execSync('zip -r ./release/macos.zip ./dist/macos')
+
+					// Save files
+					execSync('dt save')
+
+					// Deploy to github
+					execSync('dt deploy')
 
 					// Publish release on github
 					execSync(
-						`gh release create v${versionBranch} --target=latest --title "v${versionBranch}" --notes ${updates} --repo hermannhahn/main ./dist/win/* ./dist/macos/* ./dist/linux/*`
+						`gh release create v${versionBranch} --target=latest --title "v${versionBranch}" -F CHANGELOG.md --repo hermannhahn/dt ${rootDir}/release/*`
 					)
 				})
 			},
