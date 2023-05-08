@@ -93,9 +93,7 @@ module.exports = {
 					execSync('dt deploy')
 
 					// Publish release on github
-					execSync(
-						`gh release create v${versionBranch} --title "v${versionBranch}" -F CHANGELOG.md --repo hermannhahn/dt ${rootDir}/release`
-					)
+					execSync('./create-release.sh')
 				})
 			},
 		},
