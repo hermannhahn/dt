@@ -7,8 +7,10 @@ import { terminal } from 'utils/terminal-log'
 // Version
 const version = JSON.parse(fs.readFileSync('./package.json', 'utf8')).version
 
+// version command
 program
 	.version(version, '-v, --version', 'output the current dt version')
+	.alias('version')
 	.description('Tools for developers')
 
 // test command

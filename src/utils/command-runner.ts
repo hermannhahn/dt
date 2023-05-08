@@ -1,22 +1,22 @@
-import { execSync } from "child_process"
+import { execSync } from 'child_process'
 
 export class Command {
 	public error: string | boolean = false
-	public result: string = ""
+	public result: any = ''
 
-	constructor(command: string, options?: any) {
+	constructor(command: any, options?: any) {
 		try {
 			if (options) {
 				if (options.silent) {
 					const result: any = execSync(command, {
-						stdio: "inherit",
+						stdio: 'inherit',
 					})
 					this.result = result
 				}
 			} else {
 				// Run command
 				const result: any = execSync(command, {
-					stdio: "pipe",
+					stdio: 'pipe',
 				})
 				this.result = result
 			}
