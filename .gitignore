@@ -1,10 +1,10 @@
 # OpenAI GPTDev
 .env
-build/
 pre-build/
 node_modules/
 package-lock.json
 bin/
+dist/
 
 # Logs
 logs
