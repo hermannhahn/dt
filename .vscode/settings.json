@@ -42,13 +42,6 @@
 	"prettier.useTabs": true,
 	"prettier.singleQuote": true,
 	"prettier.resolveGlobalModules": true,
-	"github.copilot.enable": {
-		"*": true,
-		"plaintext": true,
-		"markdown": true,
-		"scminput": false,
-		"yaml": false
-	},
 	"workbench.startupEditor": "none",
 	"javascript.updateImportsOnFileMove.enabled": "always",
 	"explorer.confirmDragAndDrop": false,
@@ -57,7 +50,6 @@
 		"warn": 3000,
 		"error": 6000
 	},
-	"docker.commands.attach": "${containerCommand} exec -it ${containerId} ${shellCommand}",
 	"git.confirmSync": false,
 	"prettier.bracketSpacing": true,
 	"[python]": {

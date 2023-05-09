@@ -1,10 +1,10 @@
-import fs from 'fs'
 import https from 'https'
+import { Version } from 'modules/cli/version'
 import { terminal } from 'utils/terminal-log'
 
 // Check for updates
 export const checkUpdate = async () => {
-	const version = JSON.parse(fs.readFileSync('./package.json', 'utf8')).version
+	const version: any = Version()
 	const latestVersion = await getLatestVersion()
 
 	if (

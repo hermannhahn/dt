@@ -1,2 +1,11 @@
 dist/
 release/
+src/
+package-lock.json
+.prettierrc
+app.config.js
+create-release.sh
+jest.config.js
+webpack.config.js
+webpack.config.prod.js
+scripts/

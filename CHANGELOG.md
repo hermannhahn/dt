@@ -1,2 +1,2 @@
-- fix errors
-- add new features
+- updater removed
+
