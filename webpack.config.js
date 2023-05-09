@@ -88,13 +88,11 @@ module.exports = {
 						}
 
 						// Copy binaries to dt folder
-						execSync(
-							`cp -r ./dist/win/dt.exe ${path.join(folder, 'dt-local.exe')}`
-						)
+						execSync(`cp -r ./dist/win/dt.exe ${path.join(folder, 'dt.exe')}`)
 						execSync(
 							`cp -r ./dist/win/dt-update.exe ${path.join(
 								folder,
-								'dt-local-update.exe'
+								'dt-update.exe'
 							)}`
 						)
 					}
@@ -111,8 +109,8 @@ module.exports = {
 						}
 
 						// Copy binaries to dt folder
-						execSync(`cp -r ./dist/linux/dt ${folder}/dt-local`)
-						execSync(`cp -r ./dist/linux/dt-update ${folder}/dt-local-update`)
+						execSync(`cp -r ./dist/linux/dt ${folder}/dt`)
+						execSync(`cp -r ./dist/linux/dt-update ${folder}/dt-update`)
 					}
 
 					// If mac
@@ -127,8 +125,8 @@ module.exports = {
 						}
 
 						// Copy binaries to dt folder
-						execSync(`cp -r ./dist/macos/dt ${folder}/dt-local`)
-						execSync(`cp -r ./dist/macos/dt-update ${folder}/dt-local-update`)
+						execSync(`cp -r ./dist/macos/dt ${folder}/dt`)
+						execSync(`cp -r ./dist/macos/dt-update ${folder}/dt-update`)
 					}
 				})
 			},
