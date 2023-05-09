@@ -18,7 +18,7 @@
 		"publish": "npm run publish:git",
 		"publish:git": "dt save && dt deploy",
 		"publish:npm": "npm publish --access public",
-		"publish:release": "./scripts/create-release.sh",
+		"publish:release": "cd scripts && create-release.sh && cd ..",
 		"compile": "title Compiling... && npm run compile-win && npm run compile-macos && npm run compile-linux && title Compiled!",
 		"compile-win": "pkg build/dt.js --target node18-win-x64 --out-dir ./dist/win",
 		"compile-macos": "pkg build/dt.js --target node18-macos-x64 --out-dir ./dist/macos",
