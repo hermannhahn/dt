@@ -28,10 +28,38 @@ module.exports = {
 					{
 						loader: 'babel-loader',
 						options: {
-							presets: [['@babel/preset-env', { targets: 'defaults' }]],
+							presets: [
+								[
+									'@babel/preset-env',
+									{
+										targets: {
+											node: '16',
+										},
+									},
+								],
+							],
 						},
 					},
-					'ts-loader',
+					{
+						loader: 'ts-loader',
+						options: {
+							transpileOnly: true,
+							experimentalWatchApi: true,
+							configFile: 'tsconfig.json',
+							compilerOptions: {
+								target: 'es6',
+							},
+							getCustomTransformers: () => ({
+								before: [
+									tsImportPluginFactory({
+										libraryName: 'lodash',
+										libraryDirectory: '',
+										camel2DashComponentName: false,
+									}),
+								],
+							}),
+						},
+					},
 				],
 				exclude: [/node_modules/],
 			},
