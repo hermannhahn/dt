@@ -4,7 +4,6 @@ const { execSync } = require('child_process')
 const nodeExternals = require('webpack-node-externals')
 const fs = require('fs-extra')
 const { exec } = require('child_process')
-const tsImportPluginFactory = require('ts-import-plugin')
 
 module.exports = {
 	entry: {
@@ -15,7 +14,7 @@ module.exports = {
 	output: {
 		path: path.resolve(__dirname, 'build'),
 		filename: '[name].js',
-		libraryTarget: 'commonjs2',
+		libraryTarget: 'commonjs',
 	},
 	resolve: {
 		extensions: ['.ts', '.js'],
@@ -29,38 +28,10 @@ module.exports = {
 					{
 						loader: 'babel-loader',
 						options: {
-							presets: [
-								[
-									'@babel/preset-env',
-									{
-										targets: {
-											node: '16',
-										},
-									},
-								],
-							],
+							presets: [['@babel/preset-env', { targets: 'defaults' }]],
 						},
 					},
-					{
-						loader: 'ts-loader',
-						options: {
-							transpileOnly: true,
-							experimentalWatchApi: true,
-							configFile: 'tsconfig.json',
-							compilerOptions: {
-								target: 'es6',
-							},
-							getCustomTransformers: () => ({
-								before: [
-									tsImportPluginFactory({
-										libraryName: 'lodash',
-										libraryDirectory: '',
-										camel2DashComponentName: false,
-									}),
-								],
-							}),
-						},
-					},
+					'ts-loader',
 				],
 				exclude: [/node_modules/],
 			},

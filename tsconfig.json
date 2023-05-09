@@ -23,6 +23,8 @@
 		"**/*.spec.tsx",
 		"**/*.test.tsx",
 		"pre-build",
-		"build"
+		"build",
+		"dist",
+		"release"
 	]
 }

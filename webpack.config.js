@@ -3,8 +3,6 @@ const path = require('path')
 const { execSync } = require('child_process')
 const nodeExternals = require('webpack-node-externals')
 const fs = require('fs-extra')
-const { exec } = require('child_process')
-const tsImportPluginFactory = require('ts-import-plugin')
 
 module.exports = {
 	entry: {
@@ -15,7 +13,6 @@ module.exports = {
 	output: {
 		path: path.resolve(__dirname, 'build'),
 		filename: '[name].js',
-		libraryTarget: 'commonjs2',
 	},
 	resolve: {
 		extensions: ['.ts', '.js'],
@@ -90,11 +87,13 @@ module.exports = {
 						}
 
 						// Copy binaries to dt folder
-						execSync(`cp -r ./dist/win/dt.exe ${path.join(folder, 'dt.exe')}`)
+						execSync(
+							`cp -r ./dist/win/dt.exe ${path.join(folder, 'dt-local.exe')}`
+						)
 						execSync(
 							`cp -r ./dist/win/dt-update.exe ${path.join(
 								folder,
-								'dt-update.exe'
+								'dt-local-update.exe'
 							)}`
 						)
 					}
@@ -111,8 +110,8 @@ module.exports = {
 						}
 
 						// Copy binaries to dt folder
-						execSync(`cp -r ./dist/linux/dt ${folder}/dt`)
-						execSync(`cp -r ./dist/linux/dt-update ${folder}/dt-update`)
+						execSync(`cp -r ./dist/linux/dt ${folder}/dt-local`)
+						execSync(`cp -r ./dist/linux/dt-update ${folder}/dt-local-update`)
 					}
 
 					// If mac
@@ -127,8 +126,8 @@ module.exports = {
 						}
 
 						// Copy binaries to dt folder
-						execSync(`cp -r ./dist/macos/dt ${folder}/dt`)
-						execSync(`cp -r ./dist/macos/dt-update ${folder}/dt-update`)
+						execSync(`cp -r ./dist/macos/dt ${folder}/dt-local`)
+						execSync(`cp -r ./dist/macos/dt-update ${folder}/dt-local-update`)
 					}
 				})
 			},
