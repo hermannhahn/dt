@@ -1,5 +1,5 @@
 {
-	"name": "dt-cli",
+	"name": "dev-tools-cli",
 	"version": "0.0.8",
 	"description": "Tools for fast and powerful development.",
 	"main": "build/dt.js",
