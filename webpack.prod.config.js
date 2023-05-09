@@ -86,23 +86,6 @@ module.exports = {
 
 					// Zip dist/macos folder
 					execSync('zip -r ./release/macos.zip ./dist/macos')
-
-					// Save files
-					execSync('dt save')
-
-					// Deploy to github
-					execSync('dt deploy')
-
-					// Npm publish
-					execSync('npm publish -y')
-
-					// Publish release on github
-					exec('./create-release.sh', (error, stdout, stderr) => {
-						if (error) {
-							console.error(`exec error: ${error}`)
-							return
-						}
-					})
 				})
 			},
 		},

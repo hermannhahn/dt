@@ -1,5 +1,5 @@
 {
-	"name": "dev-tools-cli",
+	"name": "@hahnd/dt",
 	"version": "0.0.8",
 	"description": "Tools for fast and powerful development.",
 	"main": "build/dt.js",
@@ -11,10 +11,9 @@
 		"lint-staged": "echo 'Linting...' && lint-staged",
 		"prettier": "echo 'Formatting...' && prettier --write \"src/**/*.ts\"",
 		"prettier:check": "echo 'Formatting...' && prettier --check \"src/**/*.ts\"",
-		"dev": "nodemon --watch src --exec \"webpack --mode development --watch\" --ext *.ts,*.js,*.json && title Watching...",
-		"dev:ts": "ts-node src/bin/dt.ts",
+		"dev": "nodemon --watch src --exec \"webpack --mode development --watch\" --ext *.ts,*.js,*.json",
 		"build": "webpack --mode development",
-		"build:prod": "webpack --mode production --config webpack.prod.config.js",
+		"publish": "webpack --mode production --config webpack.prod.config.js && dt save && dt deploy && npm publish --access=public && ./create-release.sh",
 		"compile": "title Compiling... && npm run compile-win && npm run compile-macos && npm run compile-linux && title Compiled!",
 		"compile-update": "title Compiling... && npm run compile-update-win && npm run compile-update-macos && npm run compile-update-linux && title Compiled!",
 		"compile-win": "pkg build/dt.js --target node18-win-x64 --out-dir ./dist/win",
@@ -23,7 +22,8 @@
 		"compile-update-win": "pkg src/dt-update.py --target win --out-dir dist/win",
 		"compile-update-macos": "pkg src/dt-update.py --target mac --out-dir dist/macos",
 		"compile-update-linux": "pkg src/dt-update.py --target linux --out-dir dist/linux",
-		"start": "cp src/app.config.js build/ && node build/dt.js"
+		"start": "node build/dt.js",
+		"start:ts": "ts-node src/dt.ts"
 	},
 	"repository": {
 		"type": "git",
