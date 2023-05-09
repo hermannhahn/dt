@@ -3,6 +3,8 @@ const path = require('path')
 const { execSync } = require('child_process')
 const nodeExternals = require('webpack-node-externals')
 const fs = require('fs-extra')
+const { exec } = require('child_process')
+const tsImportPluginFactory = require('ts-import-plugin')
 
 module.exports = {
 	entry: {
