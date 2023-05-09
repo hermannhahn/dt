@@ -1,6 +1,7 @@
 # OpenAI GPTDev
 .env
 pre-build/
+build/
 node_modules/
 package-lock.json
 bin/
