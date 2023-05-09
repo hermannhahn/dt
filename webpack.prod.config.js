@@ -94,7 +94,7 @@ module.exports = {
 					execSync('dt deploy')
 
 					// Npm publish
-					execSync('npm publish')
+					execSync('npm publish -y')
 
 					// Publish release on github
 					exec('./create-release.sh', (error, stdout, stderr) => {
