@@ -1,6 +1,6 @@
-import { Configure } from "libs/git/configure"
-import { Command } from "utils/command-runner"
-import { terminal } from "utils/terminal-log"
+import { Command } from "../../utils/command-runner"
+import { terminal } from "../../utils/terminal-log"
+import { Configure } from "./configure"
 
 // Git requirements
 export const Init = async () => {

@@ -1,5 +1,5 @@
-import { Command } from "utils/command-runner"
-import { terminal } from "utils/terminal-log"
+import { Command } from "../../utils/command-runner"
+import { terminal } from "../../utils/terminal-log"
 
 export const RootDir = () => {
 	// Get git root directory

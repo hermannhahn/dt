@@ -1,6 +1,6 @@
-import { Patch } from 'modules/cli/new/patch'
-import { Update } from 'modules/cli/new/update'
-import { Upgrade } from 'modules/cli/new/upgrade'
+import { Patch } from "./new/patch"
+import { Update } from "./new/update"
+import { Upgrade } from "./new/upgrade"
 
 export class New {
 	public static patch = Patch

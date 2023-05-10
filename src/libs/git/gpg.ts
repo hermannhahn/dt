@@ -1,5 +1,5 @@
-import { Command } from "utils/command-runner"
-import { terminal } from "utils/terminal-log"
+import { Command } from "../../utils/command-runner"
+import { terminal } from "../../utils/terminal-log"
 
 export class Gpg {
 	private KEY_ID_REGEX = /\/([A-F0-9]{16,})/i

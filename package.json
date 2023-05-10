@@ -2,19 +2,19 @@
 	"name": "@hahnd/dt",
 	"version": "1.0.5",
 	"description": "Tools for fast and powerful development.",
-	"main": "build/dt.js",
+	"main": "npm/dt.js",
 	"bin": {
-		"dt": "build/dt.js"
+		"dt": "npm/dt.js"
 	},
 	"scripts": {
 		"eslint": "echo 'Linting...' && eslint src/**/*.ts",
 		"lint-staged": "echo 'Linting...' && lint-staged",
 		"prettier": "echo 'Formatting...' && prettier --write \"src/**/*.ts\"",
 		"prettier:check": "echo 'Formatting...' && prettier --check \"src/**/*.ts\"",
-		"dev": "nodemon --watch src --exec \"webpack --mode development --watch\" --ext *.ts,*.js,*.json",
-		"build": "npm run build:prod",
-		"build:dev": "npm run update-version && webpack --mode development",
-		"build:prod": "npm run update-version && webpack --mode production --config webpack.config.prod.js",
+		"dev": "nodemon --watch src --exec \"npm run build\" --ext *.ts,*.js,*.json",
+		"build": "npm run build:prod && npm run build:webpack",
+		"build:prod": "npx babel src --out-dir npm --extensions \".ts\" --presets=@babel/preset-typescript",
+		"build:webpack": "npm run update-version && webpack --mode production --config webpack.config.prod.js",
 		"publish": "npm run publish:git",
 		"publish:git": "dt save && dt deploy",
 		"publish:npm": "npm publish --access public",
@@ -51,6 +51,7 @@
 		"@babel/core": "^7.21.8",
 		"@babel/eslint-parser": "^7.21.3",
 		"@babel/parser": "^7.21.8",
+		"@babel/plugin-transform-arrow-functions": "^7.21.5",
 		"@babel/preset-env": "^7.21.5",
 		"@babel/preset-typescript": "^7.21.5",
 		"@types/fs-extra": "^11.0.1",

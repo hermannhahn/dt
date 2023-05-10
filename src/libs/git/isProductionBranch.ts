@@ -1,6 +1,6 @@
-import { protectedBranches } from "libs/git/protectedBranches"
-import { Command } from "utils/command-runner"
-import { terminal } from "utils/terminal-log"
+import { Command } from "../../utils/command-runner"
+import { terminal } from "../../utils/terminal-log"
+import { protectedBranches } from "./protectedBranches"
 
 // Git requirements
 export const isProductionBranch = () => {

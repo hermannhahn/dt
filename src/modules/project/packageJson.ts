@@ -1,5 +1,5 @@
-import * as fs from 'fs'
-import { Project } from 'modules/project'
+import * as fs from "fs"
+import { Project } from "../project"
 
 export const PackageJson = () => {
 	// Get git root directory

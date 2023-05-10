@@ -1,10 +1,10 @@
-import { DefaultFiles } from 'modules/project/defaultFiles'
-import { Init } from 'modules/project/init'
-import { InstallDependencies } from 'modules/project/install-dependencies'
-import { InstallRequirements } from 'modules/project/install-requirements'
-import { PackageJson, SavePackageJson } from 'modules/project/packageJson'
-import { Requirements } from 'modules/project/requirements'
-import { RootDir } from 'modules/project/rootDir'
+import { DefaultFiles } from "./project/defaultFiles"
+import { Init } from "./project/init"
+import { InstallDependencies } from "./project/install-dependencies"
+import { InstallRequirements } from "./project/install-requirements"
+import { PackageJson, SavePackageJson } from "./project/packageJson"
+import { Requirements } from "./project/requirements"
+import { RootDir } from "./project/rootDir"
 
 export class Project {
 	static requirements = Requirements

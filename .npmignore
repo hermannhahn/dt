@@ -9,3 +9,4 @@ jest.config.js
 webpack.config.js
 webpack.config.prod.js
 scripts/
+build/

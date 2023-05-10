@@ -1,6 +1,6 @@
-import { Cli } from "modules/cli"
-import { Project } from "modules/project"
-import { terminal } from "utils/terminal-log"
+import { terminal } from "../../utils/terminal-log"
+import { Cli } from "../cli"
+import { Project } from "../project"
 
 export const Init = async (opts?: any) => {
 	// Start

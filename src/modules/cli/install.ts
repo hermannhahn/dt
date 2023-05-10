@@ -1,10 +1,10 @@
-import { Git } from 'libs/git'
-import { Project } from 'modules/project'
-import { terminal } from 'utils/terminal-log'
+import { Git } from "../../libs/git"
+import { terminal } from "../../utils/terminal-log"
+import { Project } from "../project"
 
 export const Install = async (opts?: any) => {
 	// Start
-	terminal.log('package', 'Installing requirements and dependencies...')
+	terminal.log("package", "Installing requirements and dependencies...")
 
 	// Git requirements
 	await Git.requirements()
@@ -16,5 +16,5 @@ export const Install = async (opts?: any) => {
 	await Project.installDependencies()
 
 	// Finish
-	terminal.success('Requirements and dependencies installed!')
+	terminal.success("Requirements and dependencies installed!")
 }

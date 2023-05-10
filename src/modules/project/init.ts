@@ -1,8 +1,8 @@
 import * as fs from "fs"
-import { Git } from "libs/git"
-import { Project } from "modules/project"
-import { Command } from "utils/command-runner"
-import { terminal } from "utils/terminal-log"
+import { Git } from "../../libs/git"
+import { Command } from "../../utils/command-runner"
+import { terminal } from "../../utils/terminal-log"
+import { Project } from "../project"
 
 const prompts = require("prompts")
 

@@ -1,7 +1,7 @@
-import { branchGuard } from "libs/git/branchGuard"
-import { Configure } from "libs/git/configure"
-import { Init } from "libs/git/init"
-import { Requirements } from "libs/git/requirements"
+import { branchGuard } from "./git/branchGuard"
+import { Configure } from "./git/configure"
+import { Init } from "./git/init"
+import { Requirements } from "./git/requirements"
 
 // Import prompts
 const prompts = require("prompts")

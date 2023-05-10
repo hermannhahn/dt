@@ -1,6 +1,6 @@
 import * as fs from "fs"
-import { Project } from "modules/project"
-import { terminal } from "utils/terminal-log"
+import { terminal } from "../../utils/terminal-log"
+import { Project } from "../project"
 
 export const DefaultFiles = async () => {
 	const packageJson = Project.packageJson()
